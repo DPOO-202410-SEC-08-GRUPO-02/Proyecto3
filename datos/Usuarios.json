@@ -23,7 +23,8 @@
 			"numero":778,
 			"verificado":false,
 			"estadoPiezas":[],
-			"historialPiezas":{}
+			"historialPiezas":{},
+			"piezasActuales":[]
 		},
 		{
 			"tipo": "Cajero",
