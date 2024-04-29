@@ -19,7 +19,7 @@ public class Cajero extends Empleado{
 		this.accesoGaleria=AccesoGaleria;
 	}
 	
-	public static void realizarPago(double valorCompra, Comprador comprador, Map<String, Double> map,double dineroActual,Pieza pieza) {
+	public void realizarPago(double valorCompra, Comprador comprador, Map<String, Double> map,double dineroActual,Pieza pieza) {
 		/* Descuenta el dinero de el dinero actual del comprador pero esto va de metodo de pago en metodo de pago*/
 			
 		double tarjetaCredito=map.get("Tarjeta de Credito");
@@ -61,7 +61,7 @@ public class Cajero extends Empleado{
 		
 	}
 	
-	public static boolean verificarSaldo(double valorCompra, Comprador comprador, Map<String, Double> map, double dineroActual) {
+	public boolean verificarSaldo(double valorCompra, Comprador comprador, Map<String, Double> map, double dineroActual) {
 		/*Verifica si el saldo del comprador es suficiente para comprar la obra y que sus metodos de pago si sean igual al dinero actual*/
 		
 		double Total=  map.get("Tarjeta de Credito")+ map.get("Transferencia Electronica") + map.get("Efectivo");
@@ -74,7 +74,7 @@ public class Cajero extends Empleado{
 		return false;
 	}
 	
-	public static boolean verificarLimite(double valorCompra, Comprador comprador) {
+	public boolean verificarLimite(double valorCompra, Comprador comprador) {
 		/*Verifica si el limite del comprador es suficiente para comprar la obra*/
 		double limiteCompras = comprador.getLimiteCompras();
 		double dineroActual = comprador.getDineroActual();

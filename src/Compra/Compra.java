@@ -36,13 +36,13 @@ public class Compra {
 		return comprador;
 	}
 
-	public static void pasarCaja(Comprador comprador, Pieza pieza, String tipoCompra) {
+	public static void pasarCaja(Comprador comprador, Pieza pieza, String tipoCompra, Administrador admin, Cajero cajero) {
 		/*Se llama pasar a Caja para diferenciar que es proceso inicial de la compra, osea consultar todos 
 		 * los datos necesarios y mandar a verificarlos al cajero o al administarador y dependiendo del caso pasara a compra rechazada o confirmar compra
 		 */
 		
 		String llave = "disponibilidad";
-		Administrador.cambiarEstadoObra(pieza, llave, "false");
+		admin.cambiarEstadoObra(pieza, llave, "false");
 		
 		double valor = 0.0;
 		
@@ -56,29 +56,29 @@ public class Compra {
 			valor = pieza.getValor();
 		}
 		
-		boolean compraVerificada = Administrador.verificarCompra(comprador, pieza, valor);
+		boolean compraVerificada = admin.verificarCompra(comprador, pieza, valor, cajero);
 		
 		
 		if(compraVerificada ==true) {
-			Compra.confirmarCompra(comprador, pieza, valor);
+			Compra.confirmarCompra(comprador, pieza, valor, admin, cajero);
 		}else{
-			Compra.compraRechazada(comprador, pieza);
+			Compra.compraRechazada(comprador, pieza, admin );
 		}
 	}
 	
-	public static void confirmarCompra(Comprador comprador,Pieza pieza, double valorCompra) {
+	public static void confirmarCompra(Comprador comprador,Pieza pieza, double valorCompra, Administrador admin, Cajero cajero) {
 		/* Hace todo el proceso necesario para realizar la compra, entregar la pieza al usuario, entre otros procesos*/
 		HashMap<String, Double> metodoPago= (HashMap<String, Double>) comprador.getMetodoPago();
 		double dineroActual= comprador.getDineroActual();
-		Cajero.realizarPago(valorCompra,comprador,metodoPago,dineroActual,pieza);
+		cajero.realizarPago(valorCompra,comprador,metodoPago,dineroActual,pieza);
 		
-		Administrador.agregarPieza (comprador, pieza);
+		admin.agregarPieza (comprador, pieza);
 	}
 	
-	public static void compraRechazada (Comprador comprador, Pieza pieza) {
+	public static void compraRechazada (Comprador comprador, Pieza pieza, Administrador admin) {
 		/*Cuando algo en la verificacion de pasar a caja sale mal entonces devolvera todo a como estaba antes 
 		 * de que el usuario eligiera una pieza para la compra y intenta resolvr el problema por el cual el comprador no es apto para comprar la pieza
 		 */
-		Administrador.cambiarEstadoObra(pieza,"disponibilidad","true");
+		admin.cambiarEstadoObra(pieza,"disponibilidad","true");
 	}
 }

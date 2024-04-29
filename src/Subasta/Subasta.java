@@ -11,27 +11,27 @@ import Usuario.Operador;
 
 public class Subasta {
 	
-	private static Compra compra; 
+	private Compra compra; 
 	private static Oferta ganador;
 	
-	public static String generarOferta(Comprador comprador, Pieza pieza, double valor) 
+	public static String generarOferta(Comprador comprador, Pieza pieza, double valor, Operador operador, Administrador admin) 
 	{
 		
-		boolean verificado = Subasta.verificarUsuario(comprador);
+		boolean verificado = Subasta.verificarUsuario(comprador, admin);
 		
 		if (verificado == true)
 		{
-			int turnoAnterior = Operador.getTurnoAnterior();
-			String turno = Operador.generarTurno(turnoAnterior);
+			int turnoAnterior = operador.getTurnoAnterior();
+			String turno = operador.generarTurno(turnoAnterior);
 			
 			Oferta oferta = new Oferta(turno, valor, comprador, pieza);
-			Operador.agregarOferta(oferta);
+			operador.agregarOferta(oferta);
 			
 			double valorM = pieza.getValorMinimoS();
 			
 			if (valor>= valorM)
 			{
-				ganador = Operador.elegirGanador(turno);
+				ganador = operador.elegirGanador(turno);
 				return "Ha ganado la subasta";
 			}
 			return "Oferta realizada con exito";
@@ -40,10 +40,10 @@ public class Subasta {
 			return "Comprador no verificado";
 	}
 	
-	public static boolean verificarUsuario(Comprador comprador) 
+	public static boolean verificarUsuario(Comprador comprador, Administrador admin) 
 	{
 		/* En caso de que el usuario no este verificado al realizar una subasta hace el proceso para verificarlo y dejarlo participar en la subasta*/
-		boolean verificado = Administrador.verificarUsuario(comprador);
+		boolean verificado = admin.verificarUsuario(comprador);
 		return verificado;
 	}
 
@@ -63,7 +63,7 @@ public class Subasta {
 		return ganador;
 	}
 
-	public static Compra getCompra() 
+	public Compra getCompra() 
 	{
 		return compra;
 	}

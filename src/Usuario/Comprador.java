@@ -45,21 +45,21 @@ public class Comprador extends Cliente{
 		return metodoPago;
 	}
 
-	public String generarOfertasSubasta(Pieza pieza, double valor) {
+	public String generarOfertasSubasta(Pieza pieza, double valor, Operador operador, Administrador admin) {
 		/* En estado de oferta el usuario sera capaz de hacer una oferta.
 		 * Posiles formas (pueden ser ambas):
 		 * 1. El usuario generara una oferta y si es menor que el valor minimo entonces el programa generara un numero aleatorio entre la oferta de usuario y el valor minimo (pero nunca igual a el valor minimo).
 		 * 2. Para dar mas sensacion de estar en una subasta, el usuario debe realizar minimo 3 ofertas antes de que se cierre la subasta.
 		 */
 		
-		String mensajeOferta = Subasta.generarOferta(this, pieza, valor);
+		String mensajeOferta = Subasta.generarOferta(this, pieza, valor, operador, admin);
 		return mensajeOferta;
 		
 	}
 	
-	public void comprarPieza(Pieza pieza,Comprador comprador) {
+	public void comprarPieza(Pieza pieza,Comprador comprador, Administrador admin, Cajero cajero) {
 		/* El usuario podra elegir una pieza en el Catalogo para comprar*/
-		Compra.pasarCaja(comprador, pieza, "Compra normal");
+		Compra.pasarCaja(comprador, pieza, "Compra normal", admin, cajero);
 	}
 	
 	public void editarLimite(double nuevoLimite) {

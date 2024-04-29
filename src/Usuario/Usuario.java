@@ -22,7 +22,7 @@ public class Usuario {
 				this.numero=Numero;
 				this.tipo=Tipo;
 			}
-	public static Map<String,Usuario> getUsuarios()
+	public Map<String,Usuario> getUsuarios()
 	{
 		Map<String,Usuario> usuarios = Galeria.getUsuariosMap();
 		return usuarios;
