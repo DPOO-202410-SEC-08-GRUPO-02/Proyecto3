@@ -1,6 +1,8 @@
 package Usuario;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import CargadorGaleria.Galeria;
 import Inventario.Inventario;
@@ -99,5 +101,35 @@ public class Administrador extends Empleado{
 		/* Ingresa una pieza totalmente nueva al inventario de la galeria en estado de consignacion*/
 		Inventario.modificarConsignacion(fechaLim, pieza);
 		Inventario.agregarPiezaInventario(pieza);
+	}
+	
+	public Map<String, String> piezasCompradasProp(Propietario propietario)
+	{
+		Map<String, String> piezas = propietario.getHistorialPiezas();
+		
+		return piezas;
+	}
+	
+	public List<Pieza> piezasDuenioProp(Propietario propietario)
+	{
+		List<Pieza> piezas = propietario.getPiezasActuales();
+		return piezas;
+	}
+	
+	public double valorColleccion(Propietario propietario)
+	{
+		List<Pieza> listaPiezas = propietario.getPiezasActuales();
+		
+		double valor = 0;
+		
+		for (int i=0; i < listaPiezas.size(); i++)
+    	{
+    		Pieza pieza = listaPiezas.get(i);
+    		double valorPieza= pieza.getValor();
+    		
+    		valor += valorPieza;
+    	}
+		
+		return valor;
 	}
 }
