@@ -1,0 +1,60 @@
+{
+	"Usuarios": 
+	[
+		{
+			"tipo": "Comprador",
+			"login": "German23",
+			"contraseña": "1234",
+			"id":"a",
+			"nombre":"German",
+			"correo":"german23@gmail.com",
+			"numero":777,
+			"verificado":false,
+			"dineroActual":10.0,
+			"limiteCompras":20.0
+		},
+		{
+			"tipo": "Propietario",
+			"login": "Pedrope",
+			"contraseña": "1234",
+			"id":"b",
+			"nombre":"Pedro",
+			"correo":"pedrope@gmail.com",
+			"numero":778,
+			"verificado":false,
+			"estadoPiezas":[],
+			"historialPiezas":{}
+		},
+		{
+			"tipo": "Cajero",
+			"login": "Kevinsitp",
+			"contraseña": "1234",
+			"id":"c",
+			"nombre":"Kevin",
+			"correo":"kevinsitp@gmail.com",
+			"numero":779,
+			"accesoGaleria":false
+		},
+		{
+			"tipo": "Operador",
+			"login": "Scru",
+			"contraseña": "2324",
+			"id":"bb",
+			"nombre":"Santi",
+			"correo":"scru@gmail.com",
+			"numero":112,
+			"accesoGaleria":false,
+			"turnoAnterior":0,
+			"ofertas":{}
+		},
+		{	"tipo": "Administrador",
+			"login": "Majo",
+			"contraseña": "1234",
+			"id":"d",
+			"nombre":"Maria",
+			"correo":"majo@gmail.com",
+			"numero":780,
+			"accesoGaleria":true
+		}
+	]
+}
