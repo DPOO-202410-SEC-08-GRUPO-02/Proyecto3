@@ -359,15 +359,21 @@ public class CargadorGaleria {
 	            }
 	            
 	            JSONObject historialJson = (JSONObject) usuario.get("historialPiezas");
-	            Map<String, Pieza> historial = new HashMap<>();
+	            Map<String, String> historial = new HashMap<>();
 	            for (Object key : historialJson.keySet()) {
 	                String clave = (String) key;
-	                Pieza pieza = (Pieza) historialJson.get(clave);
+	                String pieza = (String) historialJson.get(clave);
 	                historial.put(clave, pieza);
 	            }
 	            
+	            JSONArray piezasActualesArray = (JSONArray) usuario.getJSONArray("piezasActuales");
+				List<Pieza> piezasActuales = new ArrayList<>();
+	            for (Object piezasActualesObj : piezasActualesArray) {
+	            	piezasActuales.add((Pieza) piezasActualesObj);
+	            }
+	            
 				nuevoUsuario = new Propietario(login, contraseña, id, nombre, correo, numero, tipo,
-						verificado, estadoPieza, historial);
+						verificado, estadoPieza, historial, piezasActuales);
 			}
 			else if (tipo.equals("Cajero"))
 			{
