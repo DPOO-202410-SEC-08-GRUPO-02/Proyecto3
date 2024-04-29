@@ -11,7 +11,10 @@
 			"numero":777,
 			"verificado":false,
 			"dineroActual":10.0,
-			"limiteCompras":20.0
+			"limiteCompras":20.0,
+			"metodoPago": {"Tarjeta de Credito": 5.5,
+					"Transferencia Electronica":1.5,
+					"Efectivo": 3.0}
 		},
 		{
 			"tipo": "Propietario",
