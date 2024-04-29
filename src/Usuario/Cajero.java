@@ -1,6 +1,5 @@
 package Usuario;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import Inventario.Pieza;

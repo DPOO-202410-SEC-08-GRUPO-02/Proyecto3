@@ -1,7 +1,6 @@
 package Usuario;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import Compra.Compra;
@@ -12,10 +11,10 @@ public class Comprador extends Cliente{
 	private double dineroActual;
 	private double limiteCompras;
 	private HashMap<String,Pieza> infoCompras= new HashMap<String,Pieza>();
-	private HashMap<String,Double> metodoPago= new HashMap<String,Double>();
+	private Map<String,Double> metodoPago= new HashMap<String,Double>();
 	private Propietario Propietario;
 	
-	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, boolean Verificado,double dineroActual, double LimiteCompras ) {
+	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> metodoPago ) {
 		super(Login,Contraseña,ID,Nombre,Correo, Numero,Tipo,Verificado);
 		this.login=Login;
 		this.contraseña=Contraseña;

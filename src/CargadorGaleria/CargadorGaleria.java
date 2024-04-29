@@ -256,6 +256,7 @@ public class CargadorGaleria {
 				jUsuario.put("verificado", comprador.getVerificado());
 				jUsuario.put("dineroActual", comprador.getDineroActual());
 				jUsuario.put("limiteCompras", comprador.getLimiteCompras());
+				jUsuario.put("metodoPago", comprador.getMetodoPago());
 			}
 			
 			else if (tipo == "Propietario")
@@ -334,8 +335,17 @@ public class CargadorGaleria {
 				double dineroActual = usuario.getDouble("dineroActual");
 				double limiteCompras = usuario.getDouble("limiteCompras");
 				
+				JSONObject metodoPagoJson = (JSONObject) usuario.get("metodoPago");
+		           Map<String, Double> metodoPago = new HashMap<>();
+		           for (Object key : metodoPagoJson.keySet()) {
+		                String clave = (String) key;
+		                double valor  = (double) metodoPagoJson.get(clave);
+		                metodoPago.put(clave, valor);
+		            }
+				
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
-						dineroActual,limiteCompras);
+						dineroActual,limiteCompras,metodoPago);
+				
 			}
 			
 			else if (tipo.equals("Propietario"))
@@ -388,9 +398,7 @@ public class CargadorGaleria {
 				
 				nuevoUsuario = new Administrador(login, contraseña, id, nombre, correo, numero, tipo, accesoGaleria);
 			}
-			
 			Galeria.agregarUsuario(nuevoUsuario);
-
         }
 	}
 }
