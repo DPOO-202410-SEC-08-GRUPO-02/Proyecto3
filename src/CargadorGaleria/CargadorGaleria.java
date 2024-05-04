@@ -12,6 +12,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import Artista.Artista;
 import Inventario.Escultura;
 import Inventario.Fotografia;
 import Inventario.Impresion;
@@ -38,9 +39,60 @@ public class CargadorGaleria {
 		
 		for( int i = 0; i < numArtistas; i++ )
         {
+			JSONObject artista = jArtistas.getJSONObject(i);
 			
-        }
+			String nombre = artista.getString("nombre");
+			
+			Artista nuevoArtista = new Artista(nombre);
+			
+			JSONObject nombrePieza = null;
+			String fechaCreacion = "";
+			String fechaVenta = "";
+			String precioVenta = "";
+			
+			JSONObject piezasHechasJson = (JSONObject) artista.get("piezasHechas");
+	           for (Object key : piezasHechasJson.keySet()) {
+	        	    String clave = (String) key;
+	                JSONObject mapPieza = (JSONObject) piezasHechasJson.getJSONObject(clave);
+	        	    
+	                System.out.println(clave);
+	                System.out.println(mapPieza);
+	                fechaCreacion = mapPieza.getString("fechaCreacion");
+	                System.out.println(fechaCreacion);
+	                fechaVenta = mapPieza.getString("fechaVenta");
+	                System.out.println(fechaVenta);
+	                precioVenta = mapPieza.getString("precioVenta");
+	                System.out.println(precioVenta);
 
+	                nuevoArtista.addPiezaHecha(clave, fechaCreacion, fechaVenta, precioVenta);
+	            }
+	          Galeria.agregarArtista(nuevoArtista);
+	      System.out.println(nuevoArtista);
+        }
+	}
+	
+	public static void salvarArtistas(String archivo) throws IOException
+	{
+		/*Con la tabla de hash de Inventario modifica lo que este diferente en el archivo de inventario*/
+		
+		JSONObject jobject = new JSONObject( );
+		JSONArray jArtistas = new JSONArray( );
+		
+		for( Artista artista : Galeria.getArtistaValores() )
+        {
+			JSONObject jArtista = new JSONObject( );
+			jArtista.put("nombre", artista.getNombre());
+			jArtista.put("piezasHechas", artista.getPiezasHechas());
+			
+			jArtistas.put(jArtista);
+        }
+		
+		jobject.put( "Artistas", jArtistas );
+		
+		PrintWriter pw = new PrintWriter( archivo );
+        jobject.write( pw, 2, 0 );
+        pw.close( );
+		
 	}
 	
 	public static void cargarInventario(String archivo) throws IOException
