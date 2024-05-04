@@ -3,6 +3,7 @@ package CargadorGaleria;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,29 +46,23 @@ public class CargadorGaleria {
 			
 			Artista nuevoArtista = new Artista(nombre);
 			
-			JSONObject nombrePieza = null;
 			String fechaCreacion = "";
 			String fechaVenta = "";
 			String precioVenta = "";
+			boolean vendida = false;
 			
 			JSONObject piezasHechasJson = (JSONObject) artista.get("piezasHechas");
 	           for (Object key : piezasHechasJson.keySet()) {
 	        	    String clave = (String) key;
 	                JSONObject mapPieza = (JSONObject) piezasHechasJson.getJSONObject(clave);
-	        	    
-	                System.out.println(clave);
-	                System.out.println(mapPieza);
 	                fechaCreacion = mapPieza.getString("fechaCreacion");
-	                System.out.println(fechaCreacion);
 	                fechaVenta = mapPieza.getString("fechaVenta");
-	                System.out.println(fechaVenta);
 	                precioVenta = mapPieza.getString("precioVenta");
-	                System.out.println(precioVenta);
+	                vendida = mapPieza.getBoolean("vendida");
 
-	                nuevoArtista.addPiezaHecha(clave, fechaCreacion, fechaVenta, precioVenta);
+	                nuevoArtista.addPiezaHecha(clave, fechaCreacion, fechaVenta, precioVenta, vendida);
 	            }
 	          Galeria.agregarArtista(nuevoArtista);
-	      System.out.println(nuevoArtista);
         }
 	}
 	
@@ -384,8 +379,6 @@ public class CargadorGaleria {
         {
 			JSONObject usuario = jUsuarios.getJSONObject(i);
 			
-			System.out.println(usuario);
-			
 			String tipo = usuario.getString("tipo");
 			String login = usuario.getString("login");
 			String contraseña = usuario.getString("contraseña");
@@ -402,15 +395,24 @@ public class CargadorGaleria {
 				double dineroActual = usuario.getDouble("dineroActual");
 				double limiteCompras = usuario.getDouble("limiteCompras");
 				JSONObject metodoPagoJson = (JSONObject) usuario.get("metodoPago");
-		           Map<String, Double> metodoPago = new HashMap<>();
-		           for (Object key : metodoPagoJson.keySet()) {
-		                String clave = (String) key;
-		                double valor  = (double) metodoPagoJson.get(clave);
-		                metodoPago.put(clave, valor);
-		            }
+		        Map<String, Double> metodoPago = new HashMap<>();
+		        
+		        BigDecimal targetaBigDecimal = (BigDecimal) metodoPagoJson.get("tarjetaCredito");
+		        double targeta = targetaBigDecimal.doubleValue();
+		        metodoPago.put("tarjetaCredito", targeta);
+		        
+		        BigDecimal transferenciaBigDecimal = (BigDecimal) metodoPagoJson.get("transferenciaElectronica");
+		        double transferencia = transferenciaBigDecimal.doubleValue();
+		        metodoPago.put("transferenciaElectronica", transferencia);
+		        
+		        BigDecimal efectivoBigDecimal = (BigDecimal) metodoPagoJson.get("efectivo");
+		        double efectivo = efectivoBigDecimal.doubleValue();
+		        metodoPago.put("efectivo", efectivo);
+		        
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
 						dineroActual,limiteCompras, metodoPago);
 				
+				System.out.println(nuevoUsuario);
 			}
 			
 			else if (tipo.equals("Propietario"))

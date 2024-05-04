@@ -7,7 +7,7 @@ import java.util.Map;
 public class Artista 
 {
     private String nombre;
-    private Map<String, Map<String, String>> piezasHechas;
+    private Map<String, Map<String, Object>> piezasHechas;
 
     public Artista(String nombre) 
     {
@@ -20,27 +20,28 @@ public class Artista
         return nombre;
     }
 
-    public Map<String, Map<String, String>> getPiezasHechas() 
+    public Map<String, Map<String, Object>> getPiezasHechas() 
     {
         return piezasHechas;
     }
 
-    public void addPiezaHecha(String nombrePieza, String fechaCreacion, String fechaVenta, String precioVenta) 
+    public void addPiezaHecha(String nombrePieza, String fechaCreacion, String fechaVenta, String precioVenta, boolean vendida) 
     {
-        Map<String, String> infoPieza = new HashMap<>();
-        infoPieza.put("FechaDeCreacion", fechaCreacion);
-        infoPieza.put("FechaDeVenta", fechaVenta);
-        infoPieza.put("PrecioDeVenta", String.valueOf(precioVenta));
+        Map<String, Object> infoPieza = new HashMap<>();
+        infoPieza.put("fechaCreacion", fechaCreacion);
+        infoPieza.put("fechaVenta", fechaVenta);
+        infoPieza.put("precioVenta", String.valueOf(precioVenta));
+        infoPieza.put("vendida", vendida);
         piezasHechas.put(nombrePieza, infoPieza);
     }
 
     public void mostrarHistorial() 
     {
         List<String> mostrar = new ArrayList<>();
-        for (Map.Entry<String, Map<String, String>> infoArtista : piezasHechas.entrySet()) 
+        for (Map.Entry<String, Map<String, Object>> infoArtista : piezasHechas.entrySet()) 
         {
             String piezaInfo = "Pieza: "+infoArtista.getKey();
-            Map<String, String> infoPieza=infoArtista.getValue();
+            Map<String, Object> infoPieza=infoArtista.getValue();
 
             piezaInfo += "Fecha de creacion: "+infoPieza.get("FechaDeCreacion");
 

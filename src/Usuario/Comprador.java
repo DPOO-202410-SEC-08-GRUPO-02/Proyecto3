@@ -14,7 +14,7 @@ public class Comprador extends Cliente{
 	private Map<String,Double> metodoPago= new HashMap<String,Double>();
 	private Propietario Propietario;
 	
-	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> metodoPago ) {
+	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> MetodoPago ) {
 		super(Login,Contraseña,ID,Nombre,Correo, Numero,Tipo,Verificado);
 		this.login=Login;
 		this.contraseña=Contraseña;
@@ -26,6 +26,7 @@ public class Comprador extends Cliente{
 		this.verificado=Verificado;
 		this.dineroActual=dineroActual;
 		this.limiteCompras=LimiteCompras;
+		this.metodoPago=MetodoPago;
 	}
 
 	public double getDineroActual() {
@@ -77,12 +78,12 @@ public class Comprador extends Cliente{
 		this.infoCompras.put(pieza.getID(),pieza);
 	}
 	
-	public  void editarDineroActual(double dineroActual, double tarjetaCredito, double transferenciaElectronica, double Efectivo, Map<String, Double> map) {
+	public  void editarDineroActual(double dineroActual, double tarjetaCredito, double transferenciaElectronica, double efectivo, Map<String, Double> map) {
 		/* No se le presentara al comprador para que la use. el cajero es el que debe usarla (para descontar el dinero en una compra por ejemplo).*/
 		setDineroActual(dineroActual);
-		map.put("Tarjeta de credito",tarjetaCredito);
-		map.put("Transferencia Electronica",transferenciaElectronica);
-		map.put("Efectivo",Efectivo);
+		map.put("tarjetaCredito",tarjetaCredito);
+		map.put("transferenciaElectronica",transferenciaElectronica);
+		map.put("efectivo", efectivo);
 		setMetodoPago(map);
 	}
 
