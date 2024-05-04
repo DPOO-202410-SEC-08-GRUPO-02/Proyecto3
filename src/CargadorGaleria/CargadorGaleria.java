@@ -28,6 +28,21 @@ import Usuario.Usuario;
 
 public class CargadorGaleria {
 	
+	public static void cargarArtista(String archivo) throws IOException
+	{
+		String jsonCompleto = new String( Files.readAllBytes( new File( archivo ).toPath( ) ) );
+		JSONObject raiz = new JSONObject( jsonCompleto );
+		JSONArray jArtistas = raiz.getJSONArray( "Artistas" );
+		
+		int numArtistas = jArtistas.length( );
+		
+		for( int i = 0; i < numArtistas; i++ )
+        {
+			
+        }
+
+	}
+	
 	public static void cargarInventario(String archivo) throws IOException
 	{
 		/*Lee el archivo del inventario y genera el mapa de hash de inventario y subasta*/
@@ -334,7 +349,6 @@ public class CargadorGaleria {
 				boolean verificado = usuario.getBoolean("verificado");
 				double dineroActual = usuario.getDouble("dineroActual");
 				double limiteCompras = usuario.getDouble("limiteCompras");
-				
 				JSONObject metodoPagoJson = (JSONObject) usuario.get("metodoPago");
 		           Map<String, Double> metodoPago = new HashMap<>();
 		           for (Object key : metodoPagoJson.keySet()) {
@@ -342,9 +356,8 @@ public class CargadorGaleria {
 		                double valor  = (double) metodoPagoJson.get(clave);
 		                metodoPago.put(clave, valor);
 		            }
-				
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
-						dineroActual,limiteCompras,metodoPago);
+						dineroActual,limiteCompras, metodoPago);
 				
 			}
 			
@@ -404,7 +417,9 @@ public class CargadorGaleria {
 				
 				nuevoUsuario = new Administrador(login, contraseña, id, nombre, correo, numero, tipo, accesoGaleria);
 			}
+			
 			Galeria.agregarUsuario(nuevoUsuario);
+
         }
 	}
 }
