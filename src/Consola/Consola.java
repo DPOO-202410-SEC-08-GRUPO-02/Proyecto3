@@ -68,7 +68,6 @@ public class Consola
 	       	{
 	       		tipo = usuario.getTipo();
 	       		contraseñaaCorrecta = true;
-	       		System.out.println("Bienvenido a la galeria");
 	       		mostrarMenuPrincipal();
 	       	}
 	        	

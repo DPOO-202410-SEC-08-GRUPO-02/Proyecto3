@@ -53,11 +53,11 @@
 		},
 		{	"tipo": "Administrador",
 			"login": "Majo",
-			"contraseña": "1234",
+			"contraseña": "118",
 			"id":"d",
 			"nombre":"Maria",
 			"correo":"majo@gmail.com",
-			"numero":780,
+			"numero":118,
 			"accesoGaleria":true
 		}
 	]
