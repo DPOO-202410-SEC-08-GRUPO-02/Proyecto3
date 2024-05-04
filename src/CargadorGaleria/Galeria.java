@@ -30,9 +30,9 @@ public class Galeria {
 		return pieza;
 	}
 	
-	public static Object getUsuario(String idUsuario) {
+	public static Object getUsuario(String login) {
 		/*Obtiene la informacion de la informacion del Usuario*/
-		Object usuario = usuariosMap.get(idUsuario);
+		Object usuario = usuariosMap.get(login);
 		return usuario;
 	}
 	
@@ -40,6 +40,11 @@ public class Galeria {
 		/*Obtiene la informacion de una pieza en el inventario*/
 		Artista artista= artistasMap.get(nombre);
 		return artista;
+	}
+	
+	public static boolean existeUsuario(String login) {
+		boolean esta = usuariosMap.containsKey(login);
+		return esta;
 	}
 	
 	public static Collection<Pieza> getInventarioValores() {
@@ -88,8 +93,8 @@ public class Galeria {
 	
 	public static void agregarUsuario(Usuario usuario) {
 		/*Agrega un usuario al hash map de Usuario*/
-		String id = usuario.getID();
-		usuariosMap.put(id, usuario);
+		String login = usuario.getLogin();
+		usuariosMap.put(login, usuario);
 	}
 	
 	public static void agregarArtista(Artista artista) {

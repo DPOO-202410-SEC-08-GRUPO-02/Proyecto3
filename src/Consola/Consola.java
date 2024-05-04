@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import CargadorGaleria.CargadorGaleria;
+import CargadorGaleria.Galeria;
 import Compra.Compra;
 import Inventario.Inventario;
 import Inventario.Pieza;
@@ -15,6 +16,7 @@ import Subasta.Subasta;
 import Usuario.Administrador;
 import Usuario.Cajero;
 import Usuario.Comprador;
+import Usuario.Usuario;
 
 import java.io.IOException;
 
@@ -28,8 +30,54 @@ public class Consola
     	CargadorGaleria.cargarInventario("./datos/Inventario.json");
     	CargadorGaleria.cargarArtista("./datos/Artistas.json");
     	CargadorGaleria.cargarUsuario("./datos/Usuarios.json");
-        mostrarMenuPrincipal();
+    	
+    	inicioSecion();
     }
+
+    private static void inicioSecion() throws IOException
+    {
+    	System.out.println("*** Inicio de secion ***\n");
+    	
+    	boolean esta = false;
+    	String tipo = "";
+    	String loginA = "";
+    	
+    	while (esta == false) 
+    	{
+	    	System.out.print("Login: ");
+	    	String login = scanner.nextLine();
+	    	loginA = login;
+	    	esta = Galeria.existeUsuario(login);
+	    	if (esta == false)
+	    		System.out.println("El usuario no existe, vuelva a intentarlo");
+	    	else
+	    		esta =true;
+    	}
+    	
+    	Usuario usuario = (Usuario) Galeria.getUsuario(loginA);
+        String password = usuario.getContraseña();
+       	
+        boolean contraseñaaCorrecta = false;
+        
+        while (contraseñaaCorrecta == false)
+        {
+        	System.out.print("Contraseña: ");
+            String contraseña = scanner.nextLine();
+            
+	        if (contraseña.equals(password))
+	       	{
+	       		tipo = usuario.getTipo();
+	       		contraseñaaCorrecta = true;
+	       		System.out.println("Bienvenido a la galeria");
+	       		mostrarMenuPrincipal();
+	       	}
+	        	
+	       	else 
+	       	{
+	       		System.out.println("Contraseña incorrecta");
+	       	}
+        }
+   	}
 
     private static void mostrarMenuPrincipal() throws IOException 
     {
