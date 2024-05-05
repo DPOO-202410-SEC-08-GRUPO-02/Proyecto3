@@ -411,8 +411,6 @@ public class CargadorGaleria {
 		        
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
 						dineroActual,limiteCompras, metodoPago);
-				
-				System.out.println(nuevoUsuario);
 			}
 			
 			else if (tipo.equals("Propietario"))

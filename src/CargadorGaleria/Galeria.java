@@ -47,6 +47,11 @@ public class Galeria {
 		return esta;
 	}
 	
+	public static boolean existePieza(String id) {
+		boolean esta = inventarioMap.containsKey(id);
+		return esta;
+	}
+	
 	public static Collection<Pieza> getInventarioValores() {
 		return inventarioMap.values();
 	}

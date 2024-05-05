@@ -8,8 +8,15 @@ public class Inventario {
 
 	public static Pieza getPiezaInventario(String idPieza) {
 		/*Obtiene la informacion de una pieza*/
+		boolean esta = Galeria.existePieza(idPieza);
+		
+		if (esta == false)
+			return null;
+		else
+		{
 		Pieza pieza = Galeria.getPiezaInventario(idPieza);
 		return pieza;
+		}
 	}
 	public static void agregarPiezaInventario(Pieza pieza) {
 		/*Obtiene la informacion de una pieza*/

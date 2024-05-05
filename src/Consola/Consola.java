@@ -24,6 +24,7 @@ public class Consola
 {
 
     private static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner2 = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException 
     {
@@ -34,7 +35,7 @@ public class Consola
     	inicioSecion();
     }
 
-    private static void inicioSecion() throws IOException
+    private static void inicioSecion()
     {
     	System.out.println("*** Inicio de secion ***\n");
     	
@@ -68,7 +69,7 @@ public class Consola
 	       	{
 	       		tipo = usuario.getTipo();
 	       		contraseñaaCorrecta = true;
-	       		mostrarMenuPrincipal();
+
 	       	}
 	        	
 	       	else 
@@ -76,30 +77,88 @@ public class Consola
 	       		System.out.println("Contraseña incorrecta");
 	       	}
         }
+        if (tipo.equals("Administrador"))
+        {
+        	menuAdministrador();
+        }
+        else if (tipo.equals("Operador"))
+        {
+        	menuOperador();
+        }
+        else if (tipo.equals("Cajero"))
+        {
+        	menuCajero();
+        }
+        else if (tipo.equals("Comprador"))
+        {
+        	menuComprador();
+        }
+        
+        else if (tipo.equals("Propietario"))
+        {
+        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no cuenta con consola");
+        	System.out.println("Ingrese otro usuario\n");
+        	inicioSecion();
+
+        }
+
    	}
 
-    private static void mostrarMenuPrincipal() throws IOException 
+    private static void menuAdministrador() 
     {
     	boolean continuar = true;
         while (continuar) 
         {
         	
-            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
-            System.out.println("1. Ver catálogo e iniciar proceso de compra");
-            System.out.println("2. Participar en una subasta");
-            System.out.println("3. Salir");
-            System.out.print("Por favor, elige una opción: ");
+            System.out.println("*** Bienvenida Administradora ***\n");
+
+            System.out.println("1. Cambiar el estado de una compra");
+            System.out.println("2. Agregar una pieza al inventario");
+            System.out.println("3. Obtener el historial de piezas de un propietario");
+            System.out.println("4. Obtener el las piezas actuales de un propietario");
+            System.out.println("5. Obtener el valor de las piezas actuales de un propietario");
+            System.out.println("6. Salir");
+            
+            System.out.print("Por favor, selecciona una opción: ");
+            
+            
             int opcion = scanner.nextInt();
+            scanner.nextLine();
 
             if (opcion == 1) 
             {
-                iniciarProcesoCompra();
+                System.out.print("Ingresa el ID de la pieza que queres modificar: ");
+                
+                String id = scanner.nextLine();
+                
+    	    	Pieza pieza = Inventario.getPiezaInventario(id);
+    	    	
+    	    	if (pieza == null)
+    	    	{
+    	    		System.out.println("La pieza no existe");
+    	    	}
+    	    	else
+    	    	{
+    	    		System.out.println(pieza);
+    	    	}
             } 
             else if (opcion == 2) 
             {
                 iniciarProcesoSubasta();
             } 
             else if (opcion == 3) 
+            {
+                iniciarProcesoSubasta();
+            } 
+            else if (opcion == 4) 
+            {
+                iniciarProcesoSubasta();
+            } 
+            else if (opcion == 5) 
+            {
+                iniciarProcesoSubasta();
+            } 
+            else if (opcion == 6) 
             {
                 System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
                 continuar = false;
@@ -115,6 +174,136 @@ public class Consola
             }
         }
     }
+    
+    private static void menuOperador() 
+    {
+//    	boolean continuar = true;
+//        while (continuar) 
+//        {
+//        	
+//            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
+//            System.out.println("1. Ver catálogo e iniciar proceso de compra");
+//            System.out.println("2. Participar en una subasta");
+//            System.out.println("3. Salir");
+//            System.out.print("Por favor, elige una opción: ");
+//            int opcion = scanner.nextInt();
+//
+//            if (opcion == 1) 
+//            {
+//                iniciarProcesoCompra();
+//            } 
+//            else if (opcion == 2) 
+//            {
+//                iniciarProcesoSubasta();
+//            } 
+//            else if (opcion == 3) 
+//            {
+//                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
+//                continuar = false;
+//            } 
+//            else 
+//            {
+//                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+//            }
+//
+//            if (continuar==true) 
+//            {
+//                continuar = preguntarContinuar();
+//            }
+//        }
+    }
+    
+    private static void menuCajero() 
+    {
+//    	boolean continuar = true;
+//        while (continuar) 
+//        {
+//        	
+//            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
+//            System.out.println("1. Ver catálogo e iniciar proceso de compra");
+//            System.out.println("2. Participar en una subasta");
+//            System.out.println("3. Salir");
+//            System.out.print("Por favor, elige una opción: ");
+//            int opcion = scanner.nextInt();
+//
+//            if (opcion == 1) 
+//            {
+//                iniciarProcesoCompra();
+//            } 
+//            else if (opcion == 2) 
+//            {
+//                iniciarProcesoSubasta();
+//            } 
+//            else if (opcion == 3) 
+//            {
+//                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
+//                continuar = false;
+//            } 
+//            else 
+//            {
+//                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+//            }
+//
+//            if (continuar==true) 
+//            {
+//                continuar = preguntarContinuar();
+//            }
+//        }
+    }
+    
+    private static void menuComprador() 
+    {
+//    	boolean continuar = true;
+//        while (continuar) 
+//        {
+//        	
+//            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
+//            System.out.println("1. Ver catálogo e iniciar proceso de compra");
+//            System.out.println("2. Participar en una subasta");
+//            System.out.println("3. Salir");
+//            System.out.print("Por favor, elige una opción: ");
+//            int opcion = scanner.nextInt();
+//
+//            if (opcion == 1) 
+//            {
+//                iniciarProcesoCompra();
+//            } 
+//            else if (opcion == 2) 
+//            {
+//                iniciarProcesoSubasta();
+//            } 
+//            else if (opcion == 3) 
+//            {
+//                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
+//                continuar = false;
+//            } 
+//            else 
+//            {
+//                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+//            }
+//
+//            if (continuar==true) 
+//            {
+//                continuar = preguntarContinuar();
+//            }
+//        }
+    }
+    
+    private static void menuPropietario() 
+    {
+    	boolean continuar = true;
+        while (continuar) 
+        {
+        	
+            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
+
+            if (continuar==true) 
+            {
+                continuar = preguntarContinuar();
+            }
+        }
+    }
+    
     private static boolean preguntarContinuar() 
     {
     	System.out.println("\n1. Ver otro caso");
