@@ -103,9 +103,9 @@ public class Administrador extends Empleado{
 		Inventario.agregarPiezaInventario(pieza);
 	}
 	
-	public Map<String, String> piezasCompradasProp(Propietario propietario)
+	public Map<String, Pieza> piezasCompradasProp(Propietario propietario)
 	{
-		Map<String, String> piezas = propietario.getHistorialPiezas();
+		Map<String, Pieza> piezas = propietario.getHistorialPiezas();
 		
 		return piezas;
 	}

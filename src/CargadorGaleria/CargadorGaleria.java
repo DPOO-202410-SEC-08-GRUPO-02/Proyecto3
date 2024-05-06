@@ -103,89 +103,8 @@ public class CargadorGaleria {
         {
 			JSONObject pieza = jInventario.getJSONObject(i);
 			
-			String tipo = pieza.getString("tipo");
-			String id = pieza.getString("id");
-			String tecnica = pieza.getString("tecnica");
-			String autor = pieza.getString("autor");
-			String titulo = pieza.getString("titulo");
-			int anio = pieza.getInt("anio");
-			String lugar = pieza.getString("lugar");
-			String estado = pieza.getString("estado");
-			boolean disponibilidad = pieza.getBoolean("disponibilidad");
-			String fechaLimite = pieza.getString("fechaLimite");
-			double valor = pieza.getDouble("valor");
-			boolean consignacion = pieza.getBoolean("consignacion");
-			boolean devolucion = pieza.getBoolean("devolucion");
-			boolean subasta = pieza.getBoolean("subasta");
-			double valorMinimoS = pieza.getDouble("valorMinimoS");
-			double valorInicialS = pieza.getDouble("valorInicialS");
-			
-			
-			Pieza nuevaPieza = null;
-			
-			if(tipo.equals("Pintura"))
-			{
-				double alto = pieza.getDouble("alto");
-				double ancho = pieza.getDouble("ancho");
-				String movimientoArtistico = pieza.getString("movimientoArtistico");
-				boolean instalacion = pieza.getBoolean("instalacion");
-				nuevaPieza = new Pintura(id, tecnica, autor, titulo, anio, lugar, estado, 
-						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS,tipo,
-						alto, ancho, movimientoArtistico, instalacion);
-			
-			}
-			else if (tipo.equals("Escultura"))
-			{
-				double alto = pieza.getDouble("alto");
-				double ancho = pieza.getDouble("ancho");
-				double profundidad = pieza.getDouble("profundidad");
-				JSONArray materialesArray = (JSONArray) pieza.getJSONArray("materiales");
-				List<String> materiales = new ArrayList<>();
-	            for (Object material : materialesArray) {
-	                materiales.add((String) material);
-	            }
-				double peso = pieza.getDouble("peso");
-				boolean instalacion = pieza.getBoolean("instalacion");
-				boolean electricidad = pieza.getBoolean("electricidad");
-				
-				nuevaPieza = new Escultura (id, tecnica, autor, titulo, anio, lugar, estado, 
-						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-						alto, ancho, profundidad, materiales, peso, instalacion, electricidad);
-			}
-			
-			else if (tipo.equals("Impresion"))
-			{
-				double alto = pieza.getDouble("alto");
-				double ancho = pieza.getDouble("ancho");
-				String soporte = pieza.getString("soporte");
-				boolean instalacion = pieza.getBoolean("instalacion");
-				
-				nuevaPieza = new Impresion (id, tecnica, autor, titulo, anio, lugar, estado, 
-						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-						alto, ancho, soporte, instalacion);
-			}
-			
-			else if (tipo.equals("Fotografia"))
-			{
-				double alto = pieza.getDouble("alto");
-				double ancho = pieza.getDouble("ancho");
-				boolean aColor = pieza.getBoolean("aColor");
-				boolean instalacion = pieza.getBoolean("instalacion");
-				
-				nuevaPieza = new Fotografia (id, tecnica, autor, titulo, anio, lugar, estado, 
-						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-						alto, ancho, aColor, instalacion);
-			}
-			
-			else if (tipo.equals("Video"))
-			{
-				String duracion = pieza.getString("duracion");
-				boolean electricidad = pieza.getBoolean("electricidad");
-				
-				nuevaPieza = new Video (id, tecnica, autor, titulo, anio, lugar, estado, 
-						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-						duracion, electricidad);
-			}
+			Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
+			boolean subasta = nuevaPieza.getSubasta();
 			
 			Galeria.agregarPiezaInventario(nuevaPieza);
 			
@@ -207,76 +126,8 @@ public class CargadorGaleria {
 		for( Pieza pieza : Galeria.getInventarioValores() )
         {
 			JSONObject jPieza = new JSONObject( );
-			jPieza.put("id", pieza.getID());
-			jPieza.put("tecnica", pieza.getTecnica());
-			jPieza.put("autor", pieza.getAutor());
-			jPieza.put("titulo", pieza.getTitulo());
-			jPieza.put("anio", pieza.getAnio());
-			jPieza.put("lugar", pieza.getLugar());
-			jPieza.put("estado", pieza.getEstado());
-			jPieza.put("disponibilidad", pieza.getDisponibilidad());
-			jPieza.put("fechaLimite", pieza.getFechaLimite());
-			jPieza.put("valor", pieza.getValor());
-			jPieza.put("consignacion", pieza.getConsignacion());
-			jPieza.put("devolucion", pieza.getDevolucion());
-			jPieza.put("subasta", pieza.getSubasta());
-			jPieza.put("valorMinimoS", pieza.getValorMinimoS());
-			jPieza.put("valorInicialS", pieza.getValorInicialS());
-			jPieza.put("tipo", pieza.getTipo());
 			
-			String tipo = pieza.getTipo();
-			
-			if(tipo.equals("Pintura"))
-			{
-				Pintura pintura = (Pintura) pieza;
-				
-				jPieza.put("alto", pintura.getAlto());
-				jPieza.put("ancho", pintura.getAncho());
-				jPieza.put("movimientoArtistico", pintura.getMovimientoArtistico());
-				jPieza.put("instalacion", pintura.getInstalacion());
-
-			}
-			else if (tipo.equals("Escultura"))
-			{
-				Escultura escultura = (Escultura) pieza;
-				
-				jPieza.put("alto", escultura.getAlto());
-				jPieza.put("ancho", escultura.getAncho());
-				jPieza.put("profundidad", escultura.getProfundidad());
-				jPieza.put("materiales", escultura.getMateriales());
-				jPieza.put("peso", escultura.getPeso());
-				jPieza.put("instalacion", escultura.getInstalacion());
-				jPieza.put("electricidad", escultura.getElectricidad());
-
-			}
-			
-			else if (tipo.equals("Impresion"))
-			{
-				Impresion impresion = (Impresion) pieza;
-				
-				jPieza.put("alto", impresion.getAlto());
-				jPieza.put("ancho", impresion.getAncho());
-				jPieza.put("soporte", impresion.getSoporte());
-				jPieza.put("instalacion", impresion.getInstalacion());
-			}
-			
-			else if (tipo.equals("Fotografia"))
-			{
-				Fotografia fotografia = (Fotografia) pieza;
-				
-				jPieza.put("alto", fotografia.getAlto());
-				jPieza.put("ancho", fotografia.getAncho());
-				jPieza.put("aColor", fotografia.getaColor());
-				jPieza.put("instalacion", fotografia.getInstalacion());
-			}
-			
-			else if (tipo.equals("Video"))
-			{
-				Video video = (Video) pieza;
-				
-				jPieza.put("duracion", video.getDuracion());
-				jPieza.put("electricidad", video.getElectricidad());
-			}
+			jPieza = CargadorGaleria.salvarPieza(jPieza, pieza);
 			
 			jInventario.put(jPieza);
         }
@@ -327,8 +178,36 @@ public class CargadorGaleria {
 				
 				jUsuario.put("verificado", propietario.getVerificado());
 				jUsuario.put("estadoPiezas", propietario.getEstadoPiezas());
-				jUsuario.put("historialPiezas", propietario.getHistorialPiezas());
-				jUsuario.put("piezasActuales", propietario.getPiezasActuales());
+				
+				Map<String, Pieza> mapPiezas = propietario.getHistorialPiezas();
+				
+				Map<String, Object> jsonMap = new HashMap<>();
+		        for (Map.Entry<String, Pieza> entry : mapPiezas.entrySet()) {
+		        	
+		        	JSONObject jPieza = new JSONObject( );
+		            String key = entry.getKey();
+		            Pieza pieza = entry.getValue();
+
+		            jPieza = CargadorGaleria.salvarPieza(jPieza, pieza);
+
+		            jsonMap.put(key, jPieza);
+		        }
+
+				jUsuario.put("historialPiezas", jsonMap);
+				
+				List<Pieza> listaPiezas = propietario.getPiezasActuales();
+				
+				List<Object> jsonList = new ArrayList<>();
+		        for (Pieza pieza: listaPiezas) {
+		        	
+		        	JSONObject jPieza = new JSONObject( );
+		            
+		            jPieza = CargadorGaleria.salvarPieza(jPieza, pieza);
+
+		            jsonList.add(jPieza);
+		        }
+				
+				jUsuario.put("piezasActuales", jsonList);
 
 			}
 			else if (tipo.equals("Cajero"))
@@ -425,17 +304,20 @@ public class CargadorGaleria {
 	            }
 	            
 	            JSONObject historialJson = (JSONObject) usuario.get("historialPiezas");
-	            Map<String, String> historial = new HashMap<>();
+	            Map<String, Pieza> historial = new HashMap<>();
 	            for (Object key : historialJson.keySet()) {
 	                String clave = (String) key;
-	                String pieza = (String) historialJson.get(clave);
-	                historial.put(clave, pieza);
+	                JSONObject pieza = (JSONObject) historialJson.get(clave);
+	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
+	                historial.put(clave, nuevaPieza);
 	            }
 	            
 	            JSONArray piezasActualesArray = (JSONArray) usuario.getJSONArray("piezasActuales");
 				List<Pieza> piezasActuales = new ArrayList<>();
 	            for (Object piezasActualesObj : piezasActualesArray) {
-	            	piezasActuales.add((Pieza) piezasActualesObj);
+	            	JSONObject pieza = (JSONObject) piezasActualesObj;
+	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
+	            	piezasActuales.add(nuevaPieza);
 	            }
 	            
 				nuevoUsuario = new Propietario(login, contraseña, id, nombre, correo, numero, tipo,
@@ -474,5 +356,169 @@ public class CargadorGaleria {
 			Galeria.agregarUsuario(nuevoUsuario);
 
         }
+	}
+	
+	public static Pieza agregarPieza(JSONObject pieza)
+	{
+		String tipo = pieza.getString("tipo");
+		String id = pieza.getString("id");
+		String tecnica = pieza.getString("tecnica");
+		String autor = pieza.getString("autor");
+		String titulo = pieza.getString("titulo");
+		int anio = pieza.getInt("anio");
+		String lugar = pieza.getString("lugar");
+		String estado = pieza.getString("estado");
+		boolean disponibilidad = pieza.getBoolean("disponibilidad");
+		String fechaLimite = pieza.getString("fechaLimite");
+		double valor = pieza.getDouble("valor");
+		boolean consignacion = pieza.getBoolean("consignacion");
+		boolean devolucion = pieza.getBoolean("devolucion");
+		boolean subasta = pieza.getBoolean("subasta");
+		double valorMinimoS = pieza.getDouble("valorMinimoS");
+		double valorInicialS = pieza.getDouble("valorInicialS");
+		
+		
+		Pieza nuevaPieza = null;
+		
+		if(tipo.equals("Pintura"))
+		{
+			double alto = pieza.getDouble("alto");
+			double ancho = pieza.getDouble("ancho");
+			String movimientoArtistico = pieza.getString("movimientoArtistico");
+			boolean instalacion = pieza.getBoolean("instalacion");
+			nuevaPieza = new Pintura(id, tecnica, autor, titulo, anio, lugar, estado, 
+					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS,tipo,
+					alto, ancho, movimientoArtistico, instalacion);
+		
+		}
+		else if (tipo.equals("Escultura"))
+		{
+			double alto = pieza.getDouble("alto");
+			double ancho = pieza.getDouble("ancho");
+			double profundidad = pieza.getDouble("profundidad");
+			JSONArray materialesArray = (JSONArray) pieza.getJSONArray("materiales");
+			List<String> materiales = new ArrayList<>();
+            for (Object material : materialesArray) {
+                materiales.add((String) material);
+            }
+			double peso = pieza.getDouble("peso");
+			boolean instalacion = pieza.getBoolean("instalacion");
+			boolean electricidad = pieza.getBoolean("electricidad");
+			
+			nuevaPieza = new Escultura (id, tecnica, autor, titulo, anio, lugar, estado, 
+					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+					alto, ancho, profundidad, materiales, peso, instalacion, electricidad);
+		}
+		
+		else if (tipo.equals("Impresion"))
+		{
+			double alto = pieza.getDouble("alto");
+			double ancho = pieza.getDouble("ancho");
+			String soporte = pieza.getString("soporte");
+			boolean instalacion = pieza.getBoolean("instalacion");
+			
+			nuevaPieza = new Impresion (id, tecnica, autor, titulo, anio, lugar, estado, 
+					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+					alto, ancho, soporte, instalacion);
+		}
+		
+		else if (tipo.equals("Fotografia"))
+		{
+			double alto = pieza.getDouble("alto");
+			double ancho = pieza.getDouble("ancho");
+			boolean aColor = pieza.getBoolean("aColor");
+			boolean instalacion = pieza.getBoolean("instalacion");
+			
+			nuevaPieza = new Fotografia (id, tecnica, autor, titulo, anio, lugar, estado, 
+					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+					alto, ancho, aColor, instalacion);
+		}
+		
+		else if (tipo.equals("Video"))
+		{
+			String duracion = pieza.getString("duracion");
+			boolean electricidad = pieza.getBoolean("electricidad");
+			
+			nuevaPieza = new Video (id, tecnica, autor, titulo, anio, lugar, estado, 
+					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+					duracion, electricidad);
+		}
+		
+		return nuevaPieza;
+	}
+	public static JSONObject salvarPieza(JSONObject jPieza, Pieza pieza)
+	{
+		jPieza.put("id", pieza.getID());
+		jPieza.put("tecnica", pieza.getTecnica());
+		jPieza.put("autor", pieza.getAutor());
+		jPieza.put("titulo", pieza.getTitulo());
+		jPieza.put("anio", pieza.getAnio());
+		jPieza.put("lugar", pieza.getLugar());
+		jPieza.put("estado", pieza.getEstado());
+		jPieza.put("disponibilidad", pieza.getDisponibilidad());
+		jPieza.put("fechaLimite", pieza.getFechaLimite());
+		jPieza.put("valor", pieza.getValor());
+		jPieza.put("consignacion", pieza.getConsignacion());
+		jPieza.put("devolucion", pieza.getDevolucion());
+		jPieza.put("subasta", pieza.getSubasta());
+		jPieza.put("valorMinimoS", pieza.getValorMinimoS());
+		jPieza.put("valorInicialS", pieza.getValorInicialS());
+		jPieza.put("tipo", pieza.getTipo());
+		
+		String tipo = pieza.getTipo();
+		
+		if(tipo.equals("Pintura"))
+		{
+			Pintura pintura = (Pintura) pieza;
+			
+			jPieza.put("alto", pintura.getAlto());
+			jPieza.put("ancho", pintura.getAncho());
+			jPieza.put("movimientoArtistico", pintura.getMovimientoArtistico());
+			jPieza.put("instalacion", pintura.getInstalacion());
+
+		}
+		else if (tipo.equals("Escultura"))
+		{
+			Escultura escultura = (Escultura) pieza;
+			
+			jPieza.put("alto", escultura.getAlto());
+			jPieza.put("ancho", escultura.getAncho());
+			jPieza.put("profundidad", escultura.getProfundidad());
+			jPieza.put("materiales", escultura.getMateriales());
+			jPieza.put("peso", escultura.getPeso());
+			jPieza.put("instalacion", escultura.getInstalacion());
+			jPieza.put("electricidad", escultura.getElectricidad());
+
+		}
+		
+		else if (tipo.equals("Impresion"))
+		{
+			Impresion impresion = (Impresion) pieza;
+			
+			jPieza.put("alto", impresion.getAlto());
+			jPieza.put("ancho", impresion.getAncho());
+			jPieza.put("soporte", impresion.getSoporte());
+			jPieza.put("instalacion", impresion.getInstalacion());
+		}
+		
+		else if (tipo.equals("Fotografia"))
+		{
+			Fotografia fotografia = (Fotografia) pieza;
+			
+			jPieza.put("alto", fotografia.getAlto());
+			jPieza.put("ancho", fotografia.getAncho());
+			jPieza.put("aColor", fotografia.getaColor());
+			jPieza.put("instalacion", fotografia.getInstalacion());
+		}
+		
+		else if (tipo.equals("Video"))
+		{
+			Video video = (Video) pieza;
+			
+			jPieza.put("duracion", video.getDuracion());
+			jPieza.put("electricidad", video.getElectricidad());
+		}
+		
+		return jPieza;
 	}
 }

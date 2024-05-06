@@ -93,7 +93,7 @@
   {
     "estado": "Vendida",
     "tipo": "Video",
-    "lugar": "Los angeles",
+    "lugar": "Los Angeles",
     "consignacion": false,
     "valor": 20,
     "titulo": "Toy Story",
@@ -109,5 +109,25 @@
     "electricidad": true,
     "id": "e",
     "anio": 1995
+  },
+  {
+    "estado": "Exhibida",
+    "tipo": "Video",
+    "lugar": "Los Angeles",
+    "consignacion": false,
+    "valor": 23.5,
+    "titulo": "Brave",
+    "autor": "Pixar Animation Studios",
+    "devolucion": false,
+    "disponibilidad": true,
+    "valorMinimoS": 22,
+    "fechaLimite": "0",
+    "valorInicialS": 24,
+    "tecnica": "Animacion digital",
+    "subasta": true,
+    "duracion": "94 min",
+    "electricidad": true,
+    "id": "f",
+    "anio": 2012
   }
 ]}

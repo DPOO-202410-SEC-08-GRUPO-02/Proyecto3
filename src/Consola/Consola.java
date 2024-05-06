@@ -6,16 +6,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.json.JSONArray;
+
 import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
 import Compra.Compra;
+import Inventario.Escultura;
+import Inventario.Fotografia;
+import Inventario.Impresion;
 import Inventario.Inventario;
 import Inventario.Pieza;
+import Inventario.Pintura;
+import Inventario.Video;
 import Subasta.Oferta;
 import Subasta.Subasta;
 import Usuario.Administrador;
 import Usuario.Cajero;
 import Usuario.Comprador;
+import Usuario.Propietario;
 import Usuario.Usuario;
 
 import java.io.IOException;
@@ -24,7 +32,6 @@ public class Consola
 {
 
     private static Scanner scanner = new Scanner(System.in);
-    private static Scanner scanner2 = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException 
     {
@@ -231,19 +238,412 @@ public class Consola
             } 
             else if (opcion == 3) 
             {
-                iniciarProcesoSubasta();
+            	Pieza nuevaPieza = null;
+            	
+            	System.out.print("1. Pintura\n");
+            	System.out.print("2. Escultura\n");
+            	System.out.print("3. Impresion\n");
+            	System.out.print("4. Fotografia\n");
+            	System.out.print("5. Video\n");
+            	
+            	System.out.print("Ingresa que tipo de pieza vas a agregar: ");
+                
+                int tipoPieza = scanner.nextInt();
+                scanner.nextLine();
+                
+                System.out.print("Ingresa el ID de la nueva pieza: ");
+                String id = scanner.nextLine();
+                
+                System.out.print("Ingresa la tecnica de la nueva pieza: ");
+                String tecnica = scanner.nextLine();
+                
+                System.out.print("Ingresa el autor de la nueva pieza: ");
+                String autor = scanner.nextLine();
+                
+                System.out.print("Ingresa el titulo de la nueva pieza: ");
+                String titulo = scanner.nextLine();
+                
+                System.out.print("Ingresa el año de la nueva pieza: ");
+                int anio = scanner.nextInt();
+                scanner.nextLine();
+                
+                System.out.print("Ingresa el lugar de la nueva pieza: ");
+                String lugar = scanner.nextLine();
+                
+                System.out.print("Ingresa el estado de la nueva pieza: ");
+                String estado = scanner.nextLine();
+                
+                System.out.print("Ingresa la disponibilidad de la nueva pieza (false/true): ");
+                String disponibilidadStr = scanner.nextLine();
+                boolean disponibilidad;
+                if(disponibilidadStr.equalsIgnoreCase("true")) {
+                    disponibilidad = true;
+                } else if(disponibilidadStr.equalsIgnoreCase("false")) {
+                    disponibilidad = false;
+                } else {
+                    disponibilidad = false;
+                }
+                
+                System.out.print("Ingresa la fecha limite de la nueva pieza: ");
+                String fechaLimite = scanner.nextLine();
+                
+                System.out.print("Ingresa valor de la nueva pieza: ");
+                double valor = scanner.nextDouble();
+                scanner.nextLine();
+                
+                System.out.print("Ingresa si la nueva pieza es consignacion (false/true): ");
+                String consignacionStr = scanner.nextLine();
+                
+                boolean consignacion;
+                if(consignacionStr.equalsIgnoreCase("true")) {
+                	consignacion = true;
+                } else if(consignacionStr.equalsIgnoreCase("false")) {
+                	consignacion = false;
+                } else {
+                	consignacion = false;
+                }
+                
+                System.out.print("Ingresa si la nueva pieza es una devolucion (false/true): ");
+                String devolucionStr = scanner.nextLine();
+                
+                boolean devolucion;
+                if(devolucionStr.equalsIgnoreCase("true")) {
+                	devolucion = true;
+                } else if(devolucionStr.equalsIgnoreCase("false")) {
+                	devolucion = false;
+                } else {
+                	devolucion = false;
+                }
+                
+                System.out.print("Ingresa si la nueva pieza pertenece a una subasta (false/true): ");
+                String subastaStr = scanner.nextLine();
+                
+                boolean subasta;
+                if(subastaStr.equalsIgnoreCase("true")) {
+                	subasta = true;
+                } else if(subastaStr.equalsIgnoreCase("false")) {
+                	subasta = false;
+                } else {
+                	subasta = false;
+                }
+                
+                System.out.print("Ingresa el valor minimo de la nueva pieza para una subasta: ");
+                double valorMinimoS = scanner.nextDouble();
+                scanner.nextLine();
+                
+                System.out.print("Ingresa el valor inicial de la nueva pieza para una subasta: ");
+                double valorInicialS = scanner.nextDouble();
+                scanner.nextLine();
+                
+                if (tipoPieza == 1)
+                {
+                	String tipo = "Pintura";
+                	
+                	System.out.print("Ingresa la altura de la nueva pieza: ");
+                    double alto = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el ancho de la nueva pieza: ");
+                    double ancho = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el movimiento al que pertenece la nueva pieza: ");
+                    String movimientoArtistico = scanner.nextLine();
+                    
+                    System.out.print("Ingresa si la nueva pieza necesita algun tipo de instalacion (false/true): ");
+                    String instalacionStr = scanner.nextLine();
+                    boolean instalacion;
+                    if(instalacionStr.equalsIgnoreCase("true")) {
+                    	instalacion = true;
+                    } else if(instalacionStr.equalsIgnoreCase("false")) {
+                    	instalacion = false;
+                    } else {
+                    	instalacion = false;
+                    }
+                    
+                    nuevaPieza = new Pintura(id, tecnica, autor, titulo, anio, lugar, estado, 
+    						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS,tipo,
+    						alto, ancho, movimientoArtistico, instalacion);
+                }
+                else if (tipoPieza == 2)
+                {
+                	String tipo = "Escultura";
+                	
+                	System.out.print("Ingresa la altura de la nueva pieza: ");
+                    double alto = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el ancho de la nueva pieza: ");
+                    double ancho = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa la profundidad de la nueva pieza: ");
+                    double profundidad = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el numero de materiales que tiene la nueva pieza: ");
+                    int numMateriales = scanner.nextInt();
+                    scanner.nextLine();
+
+    				List<String> materiales = new ArrayList<>();
+    	            for (int i = 0; i < numMateriales; i++) {
+    	            	System.out.print("Ingresa el material: ");
+                        String material = scanner.nextLine();
+                        materiales.add(material);
+					}
+    	            
+    	            System.out.print("Ingresa el peso de la nueva pieza: ");
+                    double peso = scanner.nextDouble();
+                    scanner.nextLine();
+    	            
+    	            System.out.print("Ingresa si la nueva pieza necesita algun tipo de instalacion (false/true): ");
+                    String instalacionStr = scanner.nextLine();
+                    boolean instalacion;
+                    if(instalacionStr.equalsIgnoreCase("true")) {
+                    	instalacion = true;
+                    } else if(instalacionStr.equalsIgnoreCase("false")) {
+                    	instalacion = false;
+                    } else {
+                    	instalacion = false;
+                    }
+                    
+                    System.out.print("Ingresa si la nueva pieza necesita electricidad (false/true): ");
+                    String electricidadStr = scanner.nextLine();
+                    boolean electricidad;
+                    if(electricidadStr.equalsIgnoreCase("true")) {
+                    	electricidad = true;
+                    } else if(electricidadStr.equalsIgnoreCase("false")) {
+                    	electricidad = false;
+                    } else {
+                    	electricidad = false;
+                    }
+                    
+                    nuevaPieza = new Escultura (id, tecnica, autor, titulo, anio, lugar, estado, 
+    						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+    						alto, ancho, profundidad, materiales, peso, instalacion, electricidad);
+    	            
+                }
+                
+                else if (tipoPieza == 3)
+                {
+                	String tipo = "Impresion";
+                	
+                	System.out.print("Ingresa la altura de la nueva pieza: ");
+                    double alto = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el ancho de la nueva pieza: ");
+                    double ancho = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el soporte de la nueva pieza: ");
+                    String soporte = scanner.nextLine();
+                    
+                    System.out.print("Ingresa si la nueva pieza necesita algun tipo de instalacion (false/true): ");
+                    String instalacionStr = scanner.nextLine();
+                    boolean instalacion;
+                    if(instalacionStr.equalsIgnoreCase("true")) {
+                    	instalacion = true;
+                    } else if(instalacionStr.equalsIgnoreCase("false")) {
+                    	instalacion = false;
+                    } else {
+                    	instalacion = false;
+                    }
+                    
+                    nuevaPieza = new Impresion (id, tecnica, autor, titulo, anio, lugar, estado, 
+    						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+    						alto, ancho, soporte, instalacion);
+                }
+                
+                else if (tipoPieza == 4)
+                {
+                	String tipo = "Fotografia";
+                	
+                	System.out.print("Ingresa la altura de la nueva pieza: ");
+                    double alto = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa el ancho de la nueva pieza: ");
+                    double ancho = scanner.nextDouble();
+                    scanner.nextLine();
+                    
+                    System.out.print("Ingresa si la nueva pieza es a color (false/true): ");
+                    String aColorStr = scanner.nextLine();
+                    boolean aColor;
+                    if(aColorStr.equalsIgnoreCase("true")) {
+                    	aColor = true;
+                    } else if(aColorStr.equalsIgnoreCase("false")) {
+                    	aColor = false;
+                    } else {
+                    	aColor = false;
+                    }
+                    
+                    System.out.print("Ingresa si la nueva pieza necesita algun tipo de instalacion (false/true): ");
+                    String instalacionStr = scanner.nextLine();
+                    boolean instalacion;
+                    if(instalacionStr.equalsIgnoreCase("true")) {
+                    	instalacion = true;
+                    } else if(instalacionStr.equalsIgnoreCase("false")) {
+                    	instalacion = false;
+                    } else {
+                    	instalacion = false;
+                    }
+                    
+                    nuevaPieza = new Fotografia (id, tecnica, autor, titulo, anio, lugar, estado, 
+    						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+    						alto, ancho, aColor, instalacion);
+                }
+                
+                else if (tipoPieza == 5)
+                {
+                	String tipo = "Video";
+                	
+                	System.out.print("Ingresa la duracion de la nueva pieza: ");
+                    String duracion = scanner.nextLine();
+                	
+                	System.out.print("Ingresa si la nueva pieza necesita electricidad (false/true): ");
+                    String electricidadStr = scanner.nextLine();
+                    boolean electricidad;
+                    if(electricidadStr.equalsIgnoreCase("true")) {
+                    	electricidad = true;
+                    } else if(electricidadStr.equalsIgnoreCase("false")) {
+                    	electricidad = false;
+                    } else {
+                    	electricidad = false;
+                    }
+                    
+                    nuevaPieza = new Video (id, tecnica, autor, titulo, anio, lugar, estado, 
+    						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
+    						duracion, electricidad);
+                }
+                
+                Galeria.agregarPiezaInventario(nuevaPieza);
+    			
+    			if (subasta == true)
+    			{
+    				Galeria.agregarPiezaSubasta(nuevaPieza);
+    			}
+    			
+    			Pieza pieza =  Inventario.getPiezaInventario(id);
+    	    	
+    	    	if (pieza == null)
+    	    	{
+    	    		System.out.println("La no fue agregada");
+    	    	}
+    	    	else
+    	    	{
+    	    		System.out.println("\nLa pieza fue agregada con éxito: \n");
+    	    		System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
+    	                    " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+    	                    " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor() + " - Tipo: " + pieza.getTipo());
+    	    	}
+                
             } 
             else if (opcion == 4) 
             {
-                iniciarProcesoSubasta();
+
+            	boolean esta = false;
+		    	String login = "";
+		    	
+		    	while (esta == false) 
+		    	{
+		    		System.out.print("Ingrese el login del propietario: ");
+			    	String loginA = scanner.nextLine();
+			    	login = loginA;
+			    	esta = Galeria.existeUsuario(loginA);
+			    	if (esta == false)
+			    		System.out.println("El propietario no existe, vuelva a intentarlo");
+			    	else
+			    		esta =true;
+		    	}
+		    	
+		    	Propietario propietario = (Propietario) Galeria.getUsuario(login);
+		    	Map<String,Pieza> piezas = admin.piezasCompradasProp(propietario);
+		    	
+		    	if (piezas == null)
+		    	{
+		    		System.out.println("El propietario no tiene historial");
+		    	}
+		    	
+		    	else
+		    	{
+			    	System.out.println("\nEste es el historial del propietario: \n");
+			    	
+			    	for (Map.Entry<String, Pieza> entry : piezas.entrySet()) 
+			    	{
+			    		String key = entry.getKey();
+			            Pieza pieza = entry.getValue();		
+			            
+			            System.out.println("Pieza obtenida el: " + key);
+			    		System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
+		                " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+		                " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor() + "\n");
+		            }
+		    	}
             } 
             else if (opcion == 5) 
             {
-                iniciarProcesoSubasta();
+            	
+            	boolean esta = false;
+		    	String login = "";
+		    	
+		    	while (esta == false) 
+		    	{
+		    		System.out.print("Ingrese el login del propietario: ");
+			    	String loginA = scanner.nextLine();
+			    	login = loginA;
+			    	esta = Galeria.existeUsuario(loginA);
+			    	if (esta == false)
+			    		System.out.println("El propietario no existe, vuelva a intentarlo");
+			    	else
+			    		esta =true;
+		    	}
+		    	
+		    	Propietario propietario = (Propietario) Galeria.getUsuario(login);
+		    	List<Pieza> piezas = admin.piezasDuenioProp(propietario);
+		    	
+		    	if (piezas == null)
+		    	{
+		    		System.out.println("El propietario no tiene piezas actualmente");
+		    	}
+		    	
+		    	else
+		    	{
+			    	System.out.println("\nEstas son las piezas actuales del propietario: \n");
+			    	
+			    	for (Pieza pieza: piezas) 
+			    	{
+
+			    		System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
+		                " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+		                " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor() + "\n");
+		            }
+		    	}
+		    	
             } 
             else if (opcion == 6) 
             {
-                iniciarProcesoSubasta();
+//            	("6. Obtener el valor de las piezas actuales de un propietario")
+            	
+            	boolean esta = false;
+		    	String login = "";
+		    	
+		    	while (esta == false) 
+		    	{
+		    		System.out.print("Ingrese el login del propietario: ");
+			    	String loginA = scanner.nextLine();
+			    	login = loginA;
+			    	esta = Galeria.existeUsuario(loginA);
+			    	if (esta == false)
+			    		System.out.println("El propietario no existe, vuelva a intentarlo");
+			    	else
+			    		esta =true;
+		    	}
+		    	
+		    	Propietario propietario = (Propietario) Galeria.getUsuario(login);
+		    	double valor = admin.valorColleccion(propietario);
+		    	
+		    	System.out.println("El valor de colleccion del propietario es: " + (valor + ""));
             } 
             else if (opcion == 7) 
             {
@@ -251,7 +651,7 @@ public class Consola
             } 
             else 
             {
-                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+                System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
             }
 
             if (continuar==true) 
