@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import Artista.Artista;
 import CargadorGaleria.CargadorGaleria;
@@ -626,7 +627,6 @@ public class Consola
             } 
             else if (opcion == 6) 
             {
-//            	("6. Obtener el valor de las piezas actuales de un propietario")
             	
             	boolean esta = false;
 		    	String login = "";
@@ -651,10 +651,10 @@ public class Consola
             
             else if (opcion == 7) 
             {
-            	boolean esta = false;
+            	boolean bucle = false;
             	Artista artista = null;
 		    	
-		    	while (esta == false) 
+		    	while (bucle == false) 
 		    	{
 		    		System.out.println("1. Miguel Angelo");
 		    		System.out.println("2. Leonardo da Vinci");
@@ -663,11 +663,20 @@ public class Consola
 			    	int opcionArtista = scanner.nextInt();
 
 			    	if (opcionArtista == 1)
-			    		artista = Galeria.getArtista("Miguel Angelo");
+			    	{
+			    		artista = Galeria.getArtista("Michel Angelo");
+			    		bucle = true;
+			    	}
 			    	else if (opcionArtista == 2)
+			    	{
 			    		artista = Galeria.getArtista("Leonardo da Vinci");
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
 		    	}
 		    	
+		    	historiaArtista(artista);
 		    	
             }
             
@@ -839,6 +848,36 @@ public class Consola
     
     public static void historiaArtista(Artista artista)
     {
+    	System.out.println(artista);
+    	
+    	Map<String, Map<String, Object>> piezasHechas = artista.getPiezasHechas();
+
+    	List<String> mostrar = new ArrayList<>();
+        for (Map.Entry<String, Map<String, Object>> infoArtista : piezasHechas.entrySet()) 
+        {
+            String piezaInfo = "Pieza: "+infoArtista.getKey();
+            Map<String, Object> infoPieza=infoArtista.getValue();
+
+            piezaInfo += "\nFecha de creacion: "+infoPieza.get("fechaCreacion");
+            boolean vendida = (boolean) infoPieza.get("vendida");
+
+            if (vendida == true) 
+            {
+                piezaInfo+="\nFecha de venta:"+infoPieza.get("fechaVenta");
+                piezaInfo+="\nPrecio de venta:"+infoPieza.get("precioVenta");
+            } 
+            else 
+            {
+                piezaInfo+="\nEsta pieza no ha sido vendida.";
+            }
+
+            mostrar.add(piezaInfo);
+        }
+
+        for (String info:mostrar) 
+        {
+            System.out.println(info);
+        }
     	
     }
     
