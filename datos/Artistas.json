@@ -1,33 +1,20 @@
-{
-	"Artistas":
-		[
-			{
-			"nombre": "Michelangelo",
-			"piezasHechas": 
-				{
-					"David": 
-					{
-					"fechaCreacion": "1504",
-					"fechaVenta": "n/a",
-					"precioVenta": "n/a",
-					"vendida": false
-					}
-				}
-			},
-	
-			{
-			"nombre": "Leonardo da Vinci",
-			"piezasHechas": 
-				{
-					"La Mona Lisa": 
-					{
-					"fechaCreacion": "1503",
-					"fechaVenta": "n/a",
-					"precioVenta": "n/a",
-					"vendida": false
-					}
-				}
-			}
-		]
-} 
-  
+{"Artistas": [
+  {
+    "piezasHechas": {"David": {
+      "fechaCreacion": "1504",
+      "vendida": false,
+      "precioVenta": "n/a",
+      "fechaVenta": "n/a"
+    }},
+    "nombre": "Michelangelo"
+  },
+  {
+    "piezasHechas": {"La Mona Lisa": {
+      "fechaCreacion": "1503",
+      "vendida": false,
+      "precioVenta": "n/a",
+      "fechaVenta": "n/a"
+    }},
+    "nombre": "Leonardo da Vinci"
+  }
+]}

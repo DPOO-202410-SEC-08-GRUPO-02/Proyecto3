@@ -35,76 +35,109 @@ public class Consola
     	inicioSecion();
     }
 
-    private static void inicioSecion()
+    private static void inicioSecion() throws IOException
     {
-    	System.out.println("*** Inicio de secion ***\n");
-    	
-    	boolean esta = false;
-    	String tipo = "";
-    	String loginA = "";
-    	
-    	while (esta == false) 
+    	boolean continuar = true;
+    	while (continuar) 
     	{
-	    	System.out.print("Login: ");
-	    	String login = scanner.nextLine();
-	    	loginA = login;
-	    	esta = Galeria.existeUsuario(login);
-	    	if (esta == false)
-	    		System.out.println("El usuario no existe, vuelva a intentarlo");
-	    	else
-	    		esta =true;
-    	}
     	
-    	Usuario usuario = (Usuario) Galeria.getUsuario(loginA);
-        String password = usuario.getContraseña();
-       	
-        boolean contraseñaaCorrecta = false;
-        
-        while (contraseñaaCorrecta == false)
-        {
-        	System.out.print("Contraseña: ");
-            String contraseña = scanner.nextLine();
-            
-	        if (contraseña.equals(password))
-	       	{
-	       		tipo = usuario.getTipo();
-	       		contraseñaaCorrecta = true;
-
-	       	}
-	        	
-	       	else 
-	       	{
-	       		System.out.println("Contraseña incorrecta");
-	       	}
-        }
-        if (tipo.equals("Administrador"))
-        {
-        	menuAdministrador();
-        }
-        else if (tipo.equals("Operador"))
-        {
-        	menuOperador();
-        }
-        else if (tipo.equals("Cajero"))
-        {
-        	menuCajero();
-        }
-        else if (tipo.equals("Comprador"))
-        {
-        	menuComprador();
-        }
-        
-        else if (tipo.equals("Propietario"))
-        {
-        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no cuenta con consola");
-        	System.out.println("Ingrese otro usuario\n");
-        	inicioSecion();
-
-        }
+	    	System.out.println("*** Inicio de secion ***\n");
+	    	
+	    	System.out.println("1. Iniciar secion");
+	    	System.out.println("2. Salir de la galeria");
+	    	
+	    	System.out.print("\nIngrese una opción: ");
+	    	
+	    	int opcion = scanner.nextInt();
+	    	scanner.nextLine();
+	    	
+	    	if (opcion == 2) 
+	        {
+	    		CargadorGaleria.salvarInventario("./datos/Inventario.json");
+	    		CargadorGaleria.salvarArtistas("./datos/Artistas.json");
+	    		CargadorGaleria.salvarUsuario("./datos/Usuarios.json");
+	    		
+	    		
+	    		System.out.println("\nGracias por visitar nuestra galería. ¡Hasta pronto!");
+	    		continuar = false;
+	        }
+	    	else if (opcion == 1)
+	        {
+		    	
+		    	boolean esta = false;
+		    	String tipo = "";
+		    	String loginA = "";
+		    	
+		    	while (esta == false) 
+		    	{
+			    	System.out.print("Login: ");
+			    	String login = scanner.nextLine();
+			    	loginA = login;
+			    	esta = Galeria.existeUsuario(login);
+			    	if (esta == false)
+			    		System.out.println("El usuario no existe, vuelva a intentarlo");
+			    	else
+			    		esta =true;
+		    	}
+		    	
+		    	Usuario usuario = (Usuario) Galeria.getUsuario(loginA);
+		        String password = usuario.getContraseña();
+		       	
+		        boolean contraseñaaCorrecta = false;
+		        
+		        while (contraseñaaCorrecta == false)
+		        {
+		        	System.out.print("Contraseña: ");
+		            String contraseña = scanner.nextLine();
+		            
+			        if (contraseña.equals(password))
+			       	{
+			       		tipo = usuario.getTipo();
+			       		contraseñaaCorrecta = true;
+		
+			       	}
+			        	
+			       	else 
+			       	{
+			       		System.out.println("Contraseña incorrecta");
+			       	}
+		        }
+		        if (tipo.equals("Administrador"))
+		        {
+		        	Administrador admin = (Administrador) usuario;
+		        	menuAdministrador(admin);
+		        }
+		        else if (tipo.equals("Operador"))
+		        {
+		        	menuOperador();
+		        }
+		        else if (tipo.equals("Cajero"))
+		        {
+		        	menuCajero();
+		        }
+		        else if (tipo.equals("Comprador"))
+		        {
+		        	menuComprador();
+		        }
+		        
+		        else if (tipo.equals("Propietario"))
+		        {
+		        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no cuenta con consola");
+		        	System.out.println("Ingrese otro usuario\n");
+		        	inicioSecion();
+	
+		        }
+	        }
+	    	
+	    	else 
+            {
+                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+            }
+    	}
 
    	}
 
-    private static void menuAdministrador() 
+    private static void menuAdministrador(Administrador admin) throws IOException 
     {
     	boolean continuar = true;
         while (continuar) 
@@ -112,12 +145,13 @@ public class Consola
         	
             System.out.println("*** Bienvenida Administradora ***\n");
 
-            System.out.println("1. Cambiar el estado de una compra");
-            System.out.println("2. Agregar una pieza al inventario");
-            System.out.println("3. Obtener el historial de piezas de un propietario");
-            System.out.println("4. Obtener el las piezas actuales de un propietario");
-            System.out.println("5. Obtener el valor de las piezas actuales de un propietario");
-            System.out.println("6. Salir");
+            System.out.println("1. Cambiar el estado de una pieza");
+            System.out.println("2. Cambiar la disponibilidad de una pieza");
+            System.out.println("3. Agregar una pieza al inventario");
+            System.out.println("4. Obtener el historial de piezas de un propietario");
+            System.out.println("5. Obtener el las piezas actuales de un propietario");
+            System.out.println("6. Obtener el valor de las piezas actuales de un propietario");
+            System.out.println("7. Cerrar secion");
             
             System.out.print("Por favor, selecciona una opción: ");
             
@@ -139,12 +173,61 @@ public class Consola
     	    	}
     	    	else
     	    	{
-    	    		System.out.println(pieza);
+    	    		System.out.println("\nLa pieza que vas a editar es la siguente: \n");
+    	    		System.out.println("Estado: " + pieza.getEstado() + " - Título: " + pieza.getTitulo() +
+    	                    " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+    	                    " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor());
+    	    		
+    	    		System.out.print("Ingresa el nuevo estado de la pieza: ");
+                    
+                    String estado = scanner.nextLine();
+                    
+                    admin.cambiarEstadoObra (pieza, "estado", estado);
+                    
+                    System.out.println("\nEl estado fue cambiado con éxito: ");
+                    
+                    pieza = Inventario.getPiezaInventario(id);
+                    
+                    System.out.println("Estado: " + pieza.getEstado() + " - Título: " + pieza.getTitulo() +
+    	                    " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+    	                    " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor());
     	    	}
             } 
             else if (opcion == 2) 
             {
-                iniciarProcesoSubasta();
+            	System.out.print("Ingresa el ID de la pieza que queres modificar: ");
+                
+                String id = scanner.nextLine();
+                
+    	    	Pieza pieza = Inventario.getPiezaInventario(id);
+    	    	
+    	    	if (pieza == null)
+    	    	{
+    	    		System.out.println("La pieza no existe");
+    	    	}
+    	    	else
+    	    	{
+    	    		System.out.println("\nLa pieza que vas a editar es la siguente: \n");
+    	    		System.out.println("Disponibilidad: " + pieza.getDisponibilidad() + " - Título: " + pieza.getTitulo() +
+    	                    " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+    	                    " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor());
+    	    		
+    	    		System.out.print("Ingresa la nueva disponibilidad de la pieza (true/false): ");
+                    
+                    String estado = scanner.nextLine();
+                    
+                    
+                    
+                    admin.cambiarEstadoObra (pieza, "disponibilidad", estado);
+                    
+                    System.out.println("\nLa disponibilidad fue cambiada con éxito: ");
+                    
+                    pieza = Inventario.getPiezaInventario(id);
+                    
+                    System.out.println("Disponibilidad: " + pieza.getDisponibilidad() + " - Título: " + pieza.getTitulo() +
+    	                    " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+    	                    " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor());
+    	    	}
             } 
             else if (opcion == 3) 
             {
@@ -160,7 +243,10 @@ public class Consola
             } 
             else if (opcion == 6) 
             {
-                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
+                iniciarProcesoSubasta();
+            } 
+            else if (opcion == 7) 
+            {
                 continuar = false;
             } 
             else 
@@ -428,23 +514,23 @@ public class Consola
 //    }
 //
 //
-//    private static void mostrarCatalogo() 
-//    {
-//        Map<String, Pieza> catalogoCompleto = Inventario.getInventario();
-//        if (catalogoCompleto.isEmpty()) 
-//        {
-//            System.out.println("Actualmente no hay piezas disponibles en el catálogo.");
-//        } 
-//        else 
-//        {
-//            System.out.println("Catálogo de Piezas Disponibles:");
-//            for (Pieza pieza : catalogoCompleto.values()) 
-//            {
-//                System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
-//                " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
-//                " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor());
-//            }
-//        }
-//    }
+    private static void mostrarCatalogo() 
+    {
+        Map<String, Pieza> catalogoCompleto = Inventario.getInventario();
+        if (catalogoCompleto.isEmpty()) 
+        {
+            System.out.println("Actualmente no hay piezas disponibles en el catálogo.");
+        } 
+        else 
+        {
+            System.out.println("Catálogo de Piezas Disponibles:");
+            for (Pieza pieza : catalogoCompleto.values()) 
+            {
+                System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
+                " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+                " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor());
+            }
+        }
+    }
 }
 

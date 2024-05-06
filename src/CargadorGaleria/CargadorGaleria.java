@@ -226,7 +226,7 @@ public class CargadorGaleria {
 			
 			String tipo = pieza.getTipo();
 			
-			if (tipo == "Pintura")
+			if(tipo.equals("Pintura"))
 			{
 				Pintura pintura = (Pintura) pieza;
 				
@@ -236,7 +236,7 @@ public class CargadorGaleria {
 				jPieza.put("instalacion", pintura.getInstalacion());
 
 			}
-			else if (tipo == "Escultura")
+			else if (tipo.equals("Escultura"))
 			{
 				Escultura escultura = (Escultura) pieza;
 				
@@ -250,7 +250,7 @@ public class CargadorGaleria {
 
 			}
 			
-			else if (tipo == "Impresion")
+			else if (tipo.equals("Impresion"))
 			{
 				Impresion impresion = (Impresion) pieza;
 				
@@ -260,7 +260,7 @@ public class CargadorGaleria {
 				jPieza.put("instalacion", impresion.getInstalacion());
 			}
 			
-			else if (tipo == "Fotografia")
+			else if (tipo.equals("Fotografia"))
 			{
 				Fotografia fotografia = (Fotografia) pieza;
 				
@@ -270,7 +270,7 @@ public class CargadorGaleria {
 				jPieza.put("instalacion", fotografia.getInstalacion());
 			}
 			
-			else if (tipo == "Video")
+			else if (tipo.equals("Video"))
 			{
 				Video video = (Video) pieza;
 				
@@ -311,7 +311,7 @@ public class CargadorGaleria {
 			
 			String tipo = usuario.getTipo();
 			
-			if (tipo == "Comprador")
+			if (tipo.equals("Comprador"))
 			{
 				Comprador comprador = (Comprador) usuario;
 				
@@ -321,23 +321,24 @@ public class CargadorGaleria {
 				jUsuario.put("metodoPago", comprador.getMetodoPago());
 			}
 			
-			else if (tipo == "Propietario")
+			else if (tipo.equals("Propietario"))
 			{
 				Propietario propietario = (Propietario) usuario;
 				
 				jUsuario.put("verificado", propietario.getVerificado());
 				jUsuario.put("estadoPiezas", propietario.getEstadoPiezas());
 				jUsuario.put("historialPiezas", propietario.getHistorialPiezas());
+				jUsuario.put("piezasActuales", propietario.getPiezasActuales());
 
 			}
-			else if (tipo == "Cajero")
+			else if (tipo.equals("Cajero"))
 			{
 				Cajero cajero = (Cajero) usuario;
 				
 				jUsuario.put("accesoGaleria", cajero.getAccesoGaleria());
 				
 			}
-			else if (tipo == "Operador")
+			else if (tipo.equals("Operador"))
 			{
 				Operador operador = (Operador) usuario;
 				
@@ -347,7 +348,7 @@ public class CargadorGaleria {
 				
 			}
 			
-			else if (tipo == "Administrador")
+			else if (tipo.equals("Administrador"))
 			{
 				Administrador administrador = (Administrador) usuario;
 				
@@ -357,7 +358,7 @@ public class CargadorGaleria {
 			jUsuarios.put(jUsuario);
         }
 		
-		jobject.put( "Piezas", jUsuarios );
+		jobject.put( "Usuarios", jUsuarios );
 		
 		PrintWriter pw = new PrintWriter( archivo );
         jobject.write( pw, 2, 0 );

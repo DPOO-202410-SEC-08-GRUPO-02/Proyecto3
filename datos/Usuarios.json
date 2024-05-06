@@ -1,64 +1,64 @@
-{
-	"Usuarios": 
-	[
-		{
-			"tipo": "Comprador",
-			"login": "German23",
-			"contraseña": "1234",
-			"id":"a",
-			"nombre":"German",
-			"correo":"german23@gmail.com",
-			"numero":777,
-			"verificado":false,
-			"dineroActual":10.0,
-			"limiteCompras":20.0,
-			"metodoPago": {"tarjetaCredito": 10.5,
-					"transferenciaElectronica":11.5,
-					"efectivo": 30.0}
-		},
-		{
-			"tipo": "Propietario",
-			"login": "Pedrope",
-			"contraseña": "1234",
-			"id":"b",
-			"nombre":"Pedro",
-			"correo":"pedrope@gmail.com",
-			"numero":778,
-			"verificado":false,
-			"estadoPiezas":[],
-			"historialPiezas":{},
-			"piezasActuales":[]
-		},
-		{
-			"tipo": "Cajero",
-			"login": "Kevinsitp",
-			"contraseña": "1234",
-			"id":"c",
-			"nombre":"Kevin",
-			"correo":"kevinsitp@gmail.com",
-			"numero":779,
-			"accesoGaleria":false
-		},
-		{
-			"tipo": "Operador",
-			"login": "Scru",
-			"contraseña": "2324",
-			"id":"bb",
-			"nombre":"Santi",
-			"correo":"scru@gmail.com",
-			"numero":112,
-			"accesoGaleria":false,
-			"turnoAnterior":0,
-			"ofertas":{}
-		},
-		{	"tipo": "Administrador",
-			"login": "Majo",
-			"contraseña": "118",
-			"id":"d",
-			"nombre":"Maria",
-			"correo":"majo@gmail.com",
-			"numero":118,
-			"accesoGaleria":true
-		}
-	]
-}
+{"Usuarios": [
+  {
+    "tipo": "Cajero",
+    "accesoGaleria": false,
+    "numero": 779,
+    "correo": "kevinsitp@gmail.com",
+    "id": "c",
+    "login": "Kevinsitp",
+    "nombre": "Kevin",
+    "contraseña": "1234"
+  },
+  {
+    "verificado": false,
+    "tipo": "Propietario",
+    "numero": 778,
+    "correo": "pedrope@gmail.com",
+    "estadoPiezas": [],
+    "id": "b",
+    "login": "Pedrope",
+    "historialPiezas": {},
+    "piezasActuales": [],
+    "nombre": "Pedro",
+    "contraseña": "1234"
+  },
+  {
+    "tipo": "Operador",
+    "accesoGaleria": false,
+    "numero": 112,
+    "ofertas": {},
+    "correo": "scru@gmail.com",
+    "turnoAnterior": 0,
+    "id": "bb",
+    "login": "Scru",
+    "nombre": "Santi",
+    "contraseña": "2324"
+  },
+  {
+    "verificado": false,
+    "metodoPago": {
+      "efectivo": 30.2,
+      "tarjetaCredito": 10.5,
+      "transferenciaElectronica": 11.5
+    },
+    "tipo": "Comprador",
+    "numero": 777,
+    "correo": "german23@gmail.com",
+    "limiteCompras": 20,
+    "dineroActual": 10,
+    "id": "a",
+    "login": "German23",
+    "nombre": "German",
+    "contraseña": "1234"
+  },
+  {
+    "tipo": "Administrador",
+    "accesoGaleria": true,
+    "numero": 118,
+    "correo": "majo@gmail.com",
+    "id": "d",
+    "login": "Majo",
+    "nombre": "Maria",
+    "contraseña": "118"
+  }
+]}
