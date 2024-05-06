@@ -2,12 +2,14 @@ package Consola;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import org.json.JSONArray;
 
+import Artista.Artista;
 import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
 import Compra.Compra;
@@ -158,7 +160,8 @@ public class Consola
             System.out.println("4. Obtener el historial de piezas de un propietario");
             System.out.println("5. Obtener el las piezas actuales de un propietario");
             System.out.println("6. Obtener el valor de las piezas actuales de un propietario");
-            System.out.println("7. Cerrar secion");
+            System.out.println("7. Mirar historia de un artista");
+            System.out.println("8. Cerrar secion");
             
             System.out.print("Por favor, selecciona una opción: ");
             
@@ -645,7 +648,30 @@ public class Consola
 		    	
 		    	System.out.println("El valor de colleccion del propietario es: " + (valor + ""));
             } 
+            
             else if (opcion == 7) 
+            {
+            	boolean esta = false;
+            	Artista artista = null;
+		    	
+		    	while (esta == false) 
+		    	{
+		    		System.out.println("1. Miguel Angelo");
+		    		System.out.println("2. Leonardo da Vinci");
+		    		
+		    		System.out.print("Ingrese el numero del artista que decea ver: ");
+			    	int opcionArtista = scanner.nextInt();
+
+			    	if (opcionArtista == 1)
+			    		artista = Galeria.getArtista("Miguel Angelo");
+			    	else if (opcionArtista == 2)
+			    		artista = Galeria.getArtista("Leonardo da Vinci");
+		    	}
+		    	
+		    	
+            }
+            
+            else if (opcion == 8) 
             {
                 continuar = false;
             } 
@@ -810,6 +836,12 @@ public class Consola
             return preguntarContinuar();
         }
     } 
+    
+    public static void historiaArtista(Artista artista)
+    {
+    	
+    }
+    
     private static void iniciarProcesoCompra() 
     {
 //    	
