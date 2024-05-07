@@ -134,7 +134,6 @@ public class Consola
 		        {
 		        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no cuenta con consola");
 		        	System.out.println("Ingrese otro usuario\n");
-		        	inicioSecion();
 	
 		        }
 	        }
@@ -698,78 +697,120 @@ public class Consola
     
     private static void menuOperador() 
     {
-//    	boolean continuar = true;
-//        while (continuar) 
-//        {
-//        	
-//            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
-//            System.out.println("1. Ver catálogo e iniciar proceso de compra");
-//            System.out.println("2. Participar en una subasta");
-//            System.out.println("3. Salir");
-//            System.out.print("Por favor, elige una opción: ");
-//            int opcion = scanner.nextInt();
-//
-//            if (opcion == 1) 
-//            {
-//                iniciarProcesoCompra();
-//            } 
-//            else if (opcion == 2) 
-//            {
-//                iniciarProcesoSubasta();
-//            } 
-//            else if (opcion == 3) 
-//            {
-//                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
-//                continuar = false;
-//            } 
-//            else 
-//            {
-//                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
-//            }
-//
-//            if (continuar==true) 
-//            {
-//                continuar = preguntarContinuar();
-//            }
-//        }
+    	boolean continuar = true;
+        while (continuar) 
+        {
+        	
+            System.out.println("*** Bienvenido operador ***\n");
+            System.out.println("1. Mirar historia de un artista");
+            System.out.println("2. Salir");
+            System.out.print("Por favor, elige una opción: ");
+            int opcion = scanner.nextInt();
+
+            if (opcion == 1) 
+            {
+            	boolean bucle = false;
+            	Artista artista = null;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. Miguel Angelo");
+		    		System.out.println("2. Leonardo da Vinci");
+		    		
+		    		System.out.print("Ingrese el numero del artista que decea ver: ");
+			    	int opcionArtista = scanner.nextInt();
+			    	scanner.nextLine();
+
+			    	if (opcionArtista == 1)
+			    	{
+			    		artista = Galeria.getArtista("Michel Angelo");
+			    		bucle = true;
+			    	}
+			    	else if (opcionArtista == 2)
+			    	{
+			    		artista = Galeria.getArtista("Leonardo da Vinci");
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+		    	historiaArtista(artista);
+            } 
+            else if (opcion == 2) 
+            {
+                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
+                continuar = false;
+            } 
+            else 
+            {
+                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+            }
+
+            if (continuar==true) 
+            {
+                continuar = preguntarContinuar();
+            }
+        }
     }
     
     private static void menuCajero() 
     {
-//    	boolean continuar = true;
-//        while (continuar) 
-//        {
-//        	
-//            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
-//            System.out.println("1. Ver catálogo e iniciar proceso de compra");
-//            System.out.println("2. Participar en una subasta");
-//            System.out.println("3. Salir");
-//            System.out.print("Por favor, elige una opción: ");
-//            int opcion = scanner.nextInt();
-//
-//            if (opcion == 1) 
-//            {
-//                iniciarProcesoCompra();
-//            } 
-//            else if (opcion == 2) 
-//            {
-//                iniciarProcesoSubasta();
-//            } 
-//            else if (opcion == 3) 
-//            {
-//                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
-//                continuar = false;
-//            } 
-//            else 
-//            {
-//                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
-//            }
-//
-//            if (continuar==true) 
-//            {
-//                continuar = preguntarContinuar();
-//            }
-//        }
+    	boolean continuar = true;
+        while (continuar) 
+        {
+        	
+            System.out.println("*** Bienvenido cajero ***\n");
+            System.out.println("1. Mirar historia de un artista");
+            System.out.println("2. Salir");
+            System.out.print("Por favor, elige una opción: ");
+            int opcion = scanner.nextInt();
+
+            if (opcion == 1) 
+            {
+            	boolean bucle = false;
+            	Artista artista = null;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. Miguel Angelo");
+		    		System.out.println("2. Leonardo da Vinci");
+		    		
+		    		System.out.print("Ingrese el numero del artista que decea ver: ");
+			    	int opcionArtista = scanner.nextInt();
+			    	scanner.nextLine();
+
+			    	if (opcionArtista == 1)
+			    	{
+			    		artista = Galeria.getArtista("Michel Angelo");
+			    		bucle = true;
+			    	}
+			    	else if (opcionArtista == 2)
+			    	{
+			    		artista = Galeria.getArtista("Leonardo da Vinci");
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+		    	historiaArtista(artista);
+            } 
+            else if (opcion == 2) 
+            {
+                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
+                continuar = false;
+            } 
+            else 
+            {
+                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+            }
+
+            if (continuar==true) 
+            {
+                continuar = preguntarContinuar();
+            }
+        }
     }
     
     private static void menuComprador() 
@@ -808,21 +849,6 @@ public class Consola
 //                continuar = preguntarContinuar();
 //            }
 //        }
-    }
-    
-    private static void menuPropietario() 
-    {
-    	boolean continuar = true;
-        while (continuar) 
-        {
-        	
-            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
-
-            if (continuar==true) 
-            {
-                continuar = preguntarContinuar();
-            }
-        }
     }
     
     private static boolean preguntarContinuar() 
