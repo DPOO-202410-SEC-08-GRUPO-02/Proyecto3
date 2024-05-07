@@ -32,7 +32,7 @@
     "alto": 517,
     "autor": "Michelangelo",
     "devolucion": false,
-    "disponibilidad": true,
+    "disponibilidad": false,
     "valorMinimoS": 24,
     "fechaLimite": "0",
     "valorInicialS": 21,

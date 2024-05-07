@@ -292,9 +292,9 @@ public class CargadorGaleria {
 				JSONObject metodoPagoJson = (JSONObject) usuario.get("metodoPago");
 		        Map<String, Double> metodoPago = new HashMap<>();
 		        
-		        double tarjeta = metodoPagoJson.getDouble("tarjetaCredito");
-//		        double tarjeta = tarjetaBigDecimal.doubleValue();
-//		        dineroActual += tarjeta;
+		        BigDecimal tarjetaBigDecimal = (BigDecimal) metodoPagoJson.get("tarjetaCredito");
+		        double tarjeta = tarjetaBigDecimal.doubleValue();
+		        dineroActual += tarjeta;
 		        metodoPago.put("tarjetaCredito", tarjeta);
 		        
 		        BigDecimal transferenciaBigDecimal = (BigDecimal) metodoPagoJson.get("transferenciaElectronica");
