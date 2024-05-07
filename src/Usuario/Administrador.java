@@ -102,22 +102,22 @@ public class Administrador extends Empleado{
 		Inventario.agregarPiezaInventario(pieza);
 	}
 	
-	public Map<String, Pieza> piezasCompradasProp(Propietario propietario)
+	public Map<String, Pieza> piezasCompradas(Cliente cliente)
 	{
-		Map<String, Pieza> piezas = propietario.getHistorialPiezas();
+		Map<String, Pieza> piezas = cliente.getHistorialPiezas();
 		
 		return piezas;
 	}
 	
-	public List<Pieza> piezasDuenioProp(Propietario propietario)
+	public List<Pieza> piezasDuenio(Cliente cliente)
 	{
-		List<Pieza> piezas = propietario.getPiezasActuales();
+		List<Pieza> piezas = cliente.getPiezasActuales();
 		return piezas;
 	}
 	
-	public double valorColleccion(Propietario propietario)
+	public double valorColleccion(Cliente cliente)
 	{
-		List<Pieza> listaPiezas = propietario.getPiezasActuales();
+		List<Pieza> listaPiezas = cliente.getPiezasActuales();
 		
 		double valor = 0;
 		

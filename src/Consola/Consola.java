@@ -25,6 +25,7 @@ import Subasta.Oferta;
 import Subasta.Subasta;
 import Usuario.Administrador;
 import Usuario.Cajero;
+import Usuario.Cliente;
 import Usuario.Comprador;
 import Usuario.Propietario;
 import Usuario.Usuario;
@@ -158,9 +159,9 @@ public class Consola
             System.out.println("1. Cambiar el estado de una pieza");
             System.out.println("2. Cambiar la disponibilidad de una pieza");
             System.out.println("3. Agregar una pieza al inventario");
-            System.out.println("4. Obtener el historial de piezas de un propietario");
-            System.out.println("5. Obtener el las piezas actuales de un propietario");
-            System.out.println("6. Obtener el valor de las piezas actuales de un propietario");
+            System.out.println("4. Obtener el historial de piezas de un cliente");
+            System.out.println("5. Obtener el las piezas actuales de un cliente");
+            System.out.println("6. Obtener el valor de las piezas actuales de un cliente");
             System.out.println("7. Mirar historia de un artista");
             System.out.println("8. Cerrar sesión");
             
@@ -551,27 +552,27 @@ public class Consola
 		    	
 		    	while (esta == false) 
 		    	{
-		    		System.out.print("Ingrese el login del propietario: ");
+		    		System.out.print("Ingrese el login del cliente: ");
 			    	String loginA = scanner.nextLine();
 			    	login = loginA;
 			    	esta = Galeria.existeUsuario(loginA);
 			    	if (esta == false)
-			    		System.out.println("El propietario no existe, vuelva a intentarlo");
+			    		System.out.println("El cliente no existe, vuelva a intentarlo");
 			    	else
 			    		esta =true;
 		    	}
 		    	
-		    	Propietario propietario = (Propietario) Galeria.getUsuario(login);
-		    	Map<String,Pieza> piezas = admin.piezasCompradasProp(propietario);
+		    	Cliente cliente = (Cliente) Galeria.getUsuario(login);
+		    	Map<String,Pieza> piezas = admin.piezasCompradas(cliente);
 		    	
 		    	if (piezas == null)
 		    	{
-		    		System.out.println("El propietario no tiene historial");
+		    		System.out.println("El cliente no tiene historial");
 		    	}
 		    	
 		    	else
 		    	{
-			    	System.out.println("\nEste es el historial del propietario: \n");
+			    	System.out.println("\nEste es el historial del cliente: \n");
 			    	
 			    	for (Map.Entry<String, Pieza> entry : piezas.entrySet()) 
 			    	{
@@ -593,27 +594,27 @@ public class Consola
 		    	
 		    	while (esta == false) 
 		    	{
-		    		System.out.print("Ingrese el login del propietario: ");
+		    		System.out.print("Ingrese el login del cliente: ");
 			    	String loginA = scanner.nextLine();
 			    	login = loginA;
 			    	esta = Galeria.existeUsuario(loginA);
 			    	if (esta == false)
-			    		System.out.println("El propietario no existe, vuelva a intentarlo");
+			    		System.out.println("El cliente no existe, vuelva a intentarlo");
 			    	else
 			    		esta =true;
 		    	}
 		    	
-		    	Propietario propietario = (Propietario) Galeria.getUsuario(login);
-		    	List<Pieza> piezas = admin.piezasDuenioProp(propietario);
+		    	Cliente cliente = (Cliente) Galeria.getUsuario(login);
+		    	List<Pieza> piezas = admin.piezasDuenio(cliente);
 		    	
 		    	if (piezas == null)
 		    	{
-		    		System.out.println("El propietario no tiene piezas actualmente");
+		    		System.out.println("El cliente no tiene piezas actualmente");
 		    	}
 		    	
 		    	else
 		    	{
-			    	System.out.println("\nEstas son las piezas actuales del propietario: \n");
+			    	System.out.println("\nEstas son las piezas actuales del cliente: \n");
 			    	
 			    	for (Pieza pieza: piezas) 
 			    	{
@@ -633,20 +634,20 @@ public class Consola
 		    	
 		    	while (esta == false) 
 		    	{
-		    		System.out.print("Ingrese el login del propietario: ");
+		    		System.out.print("Ingrese el login del cliente: ");
 			    	String loginA = scanner.nextLine();
 			    	login = loginA;
 			    	esta = Galeria.existeUsuario(loginA);
 			    	if (esta == false)
-			    		System.out.println("El propietario no existe, vuelva a intentarlo");
+			    		System.out.println("El cliente no existe, vuelva a intentarlo");
 			    	else
 			    		esta =true;
 		    	}
 		    	
-		    	Propietario propietario = (Propietario) Galeria.getUsuario(login);
-		    	double valor = admin.valorColleccion(propietario);
+		    	Cliente cliente = (Cliente) Galeria.getUsuario(login);
+		    	double valor = admin.valorColleccion(cliente);
 		    	
-		    	System.out.println("El valor de colleccion del propietario es: " + (valor + ""));
+		    	System.out.println("El valor de colleccion del cliente es: " + (valor + ""));
             } 
             
             else if (opcion == 7) 
@@ -740,7 +741,6 @@ public class Consola
             } 
             else if (opcion == 2) 
             {
-                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
                 continuar = false;
             } 
             else 
@@ -799,7 +799,6 @@ public class Consola
             } 
             else if (opcion == 2) 
             {
-                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
                 continuar = false;
             } 
             else 
@@ -823,7 +822,8 @@ public class Consola
             System.out.println("\n*** Bienvenido comprador ***\n");
             System.out.println("1. Realizar una compra");
             System.out.println("2. Participar en una subasta");
-            System.out.println("3. Salir");
+            System.out.println("3. Mirar historia de un artista");
+            System.out.println("4. Salir");
             System.out.print("Por favor, elige una opción: ");
             int opcion = scanner.nextInt();
 
@@ -834,8 +834,38 @@ public class Consola
             else if (opcion == 2) 
             {
                 iniciarProcesoSubasta(comprador);
-            } 
+            }
             else if (opcion == 3) 
+            {
+            	boolean bucle = false;
+            	Artista artista = null;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. Miguel Angelo");
+		    		System.out.println("2. Leonardo da Vinci");
+		    		
+		    		System.out.print("Ingrese el numero del artista que decea ver: ");
+			    	int opcionArtista = scanner.nextInt();
+			    	scanner.nextLine();
+
+			    	if (opcionArtista == 1)
+			    	{
+			    		artista = Galeria.getArtista("Michel Angelo");
+			    		bucle = true;
+			    	}
+			    	else if (opcionArtista == 2)
+			    	{
+			    		artista = Galeria.getArtista("Leonardo da Vinci");
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+		    	historiaArtista(artista);
+            }
+            else if (opcion == 4) 
             {
                 continuar = false;
             } 

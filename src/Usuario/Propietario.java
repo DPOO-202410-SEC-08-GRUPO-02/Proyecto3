@@ -11,14 +11,12 @@ import Inventario.Pieza;
 public class Propietario extends Cliente{
 	
 	private  List<String> estadoPiezas= new ArrayList<String>( );
-	private Map<String,Pieza> historialPiezas= new HashMap<String,Pieza>();
-	private  List<Pieza> piezasActuales= new ArrayList<Pieza>( );
 	private Comprador comprador;
 	
 	public Propietario (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, boolean Verificado, 
 			List<String> EstadoPiezas, Map<String,Pieza> HistorialPiezas, List<Pieza> PiezasActuales) 
 	{
-		super(Login,Contraseña,ID,Nombre,Correo, Numero, Tipo, Verificado);
+		super(Login,Contraseña,ID,Nombre,Correo, Numero, Tipo, Verificado, HistorialPiezas, PiezasActuales);
 		this.login=Login;
 		this.contraseña=Contraseña;
 		this.iD=ID;
@@ -48,25 +46,12 @@ public class Propietario extends Cliente{
 		 return historialPiezas;
 	}
 
-	public List<String> getEstadoPiezas() {
-		return estadoPiezas;
-	}
-
-	public List<Pieza> getPiezasActuales() {
-		return piezasActuales;
-	}
-
-	public Map<String, Pieza> getHistorialPiezas() {
-		return historialPiezas;
-	}
-	
-	public Collection<Pieza> getHistorialPiezasValores() {
-		return historialPiezas.values();
-	}
-
 	public Comprador getComprador() {
 		return comprador;
 	}
 	 
+	public List<String> getEstadoPiezas() {
+		return estadoPiezas;
+	}
 }
 

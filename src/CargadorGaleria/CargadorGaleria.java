@@ -185,6 +185,36 @@ public class CargadorGaleria {
 		        }
 
 				jUsuario.put("infoCompras", jsonMapInfo);
+				
+				Map<String, Pieza> mapPiezas = comprador.getHistorialPiezas();
+				
+				Map<String, Object> jsonMap = new HashMap<>();
+		        for (Map.Entry<String, Pieza> entry : mapPiezas.entrySet()) {
+		        	
+		        	JSONObject jPieza = new JSONObject( );
+		            String key = entry.getKey();
+		            Pieza pieza = entry.getValue();
+
+		            jPieza = CargadorGaleria.salvarPieza(jPieza, pieza);
+
+		            jsonMap.put(key, jPieza);
+		        }
+
+				jUsuario.put("historialPiezas", jsonMap);
+				
+				List<Pieza> listaPiezas = comprador.getPiezasActuales();
+				
+				List<Object> jsonList = new ArrayList<>();
+		        for (Pieza pieza: listaPiezas) {
+		        	
+		        	JSONObject jPieza = new JSONObject( );
+		            
+		            jPieza = CargadorGaleria.salvarPieza(jPieza, pieza);
+
+		            jsonList.add(jPieza);
+		        }
+				
+				jUsuario.put("piezasActuales", jsonList);
 			}
 			
 			else if (tipo.equals("Propietario"))
@@ -315,9 +345,26 @@ public class CargadorGaleria {
 	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
 	                infoCompras.put(clave, nuevaPieza);
 	            }
+	            
+	            JSONObject historialJson = (JSONObject) usuario.get("historialPiezas");
+	            Map<String, Pieza> historial = new HashMap<>();
+	            for (Object key : historialJson.keySet()) {
+	                String clave = (String) key;
+	                JSONObject pieza = (JSONObject) historialJson.get(clave);
+	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
+	                historial.put(clave, nuevaPieza);
+	            }
+	            
+	            JSONArray piezasActualesArray = (JSONArray) usuario.getJSONArray("piezasActuales");
+				List<Pieza> piezasActuales = new ArrayList<>();
+	            for (Object piezasActualesObj : piezasActualesArray) {
+	            	JSONObject pieza = (JSONObject) piezasActualesObj;
+	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
+	            	piezasActuales.add(nuevaPieza);
+	            }
 		        
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
-						dineroActual,limiteCompras, metodoPago, infoCompras);
+						dineroActual,limiteCompras, metodoPago, infoCompras, historial, piezasActuales);
 			}
 			
 			else if (tipo.equals("Propietario"))

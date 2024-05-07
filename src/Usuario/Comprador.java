@@ -1,6 +1,8 @@
 package Usuario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import Compra.Compra;
@@ -16,8 +18,8 @@ public class Comprador extends Cliente{
 	
 	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, 
 			boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> MetodoPago,
-			Map<String,Pieza> InfoCompras ) {
-		super(Login,Contraseña,ID,Nombre,Correo, Numero,Tipo,Verificado);
+			Map<String,Pieza> InfoCompras, Map<String,Pieza> HistorialPiezas, List<Pieza> PiezasActuales) {
+		super(Login,Contraseña,ID,Nombre,Correo, Numero,Tipo,Verificado, HistorialPiezas, PiezasActuales);
 		this.login=Login;
 		this.contraseña=Contraseña;
 		this.iD=ID;
@@ -30,6 +32,8 @@ public class Comprador extends Cliente{
 		this.limiteCompras=LimiteCompras;
 		this.metodoPago=MetodoPago;
 		this.infoCompras=InfoCompras;
+		this.historialPiezas = HistorialPiezas;
+		this.piezasActuales = PiezasActuales;
 	}
 
 	public double getDineroActual() {
