@@ -170,6 +170,21 @@ public class CargadorGaleria {
 				jUsuario.put("dineroActual", comprador.getDineroActual());
 				jUsuario.put("limiteCompras", comprador.getLimiteCompras());
 				jUsuario.put("metodoPago", comprador.getMetodoPago());
+				
+				Map<String, Pieza> mapInfoPiezas = comprador.getInfoCompras();
+				Map<String, Object> jsonMapInfo = new HashMap<>();
+		        for (Map.Entry<String, Pieza> entry : mapInfoPiezas.entrySet()) {
+		        	
+		        	JSONObject jPieza = new JSONObject( );
+		            String key = entry.getKey();
+		            Pieza pieza = entry.getValue();
+
+		            jPieza = CargadorGaleria.salvarPieza(jPieza, pieza);
+
+		            jsonMapInfo.put(key, jPieza);
+		        }
+
+				jUsuario.put("infoCompras", jsonMapInfo);
 			}
 			
 			else if (tipo.equals("Propietario"))
@@ -272,25 +287,37 @@ public class CargadorGaleria {
 			if (tipo.equals("Comprador"))
 			{
 				boolean verificado = usuario.getBoolean("verificado");
-				double dineroActual = usuario.getDouble("dineroActual");
+				double dineroActual = 0.0;
 				double limiteCompras = usuario.getDouble("limiteCompras");
 				JSONObject metodoPagoJson = (JSONObject) usuario.get("metodoPago");
 		        Map<String, Double> metodoPago = new HashMap<>();
 		        
-		        BigDecimal targetaBigDecimal = (BigDecimal) metodoPagoJson.get("tarjetaCredito");
-		        double targeta = targetaBigDecimal.doubleValue();
-		        metodoPago.put("tarjetaCredito", targeta);
+		        double tarjeta = metodoPagoJson.getDouble("tarjetaCredito");
+//		        double tarjeta = tarjetaBigDecimal.doubleValue();
+//		        dineroActual += tarjeta;
+		        metodoPago.put("tarjetaCredito", tarjeta);
 		        
 		        BigDecimal transferenciaBigDecimal = (BigDecimal) metodoPagoJson.get("transferenciaElectronica");
 		        double transferencia = transferenciaBigDecimal.doubleValue();
+		        dineroActual += transferencia;
 		        metodoPago.put("transferenciaElectronica", transferencia);
 		        
 		        BigDecimal efectivoBigDecimal = (BigDecimal) metodoPagoJson.get("efectivo");
 		        double efectivo = efectivoBigDecimal.doubleValue();
+		        dineroActual += efectivo;
 		        metodoPago.put("efectivo", efectivo);
 		        
+		        JSONObject infoPiezasJson = (JSONObject) usuario.get("infoCompras");
+	            Map<String, Pieza> infoCompras = new HashMap<>();
+	            for (Object key : infoPiezasJson.keySet()) {
+	                String clave = (String) key;
+	                JSONObject pieza = (JSONObject) infoPiezasJson.get(clave);
+	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
+	                infoCompras.put(clave, nuevaPieza);
+	            }
+		        
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
-						dineroActual,limiteCompras, metodoPago);
+						dineroActual,limiteCompras, metodoPago, infoCompras);
 			}
 			
 			else if (tipo.equals("Propietario"))

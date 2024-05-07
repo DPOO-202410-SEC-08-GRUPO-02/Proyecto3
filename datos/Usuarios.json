@@ -113,7 +113,29 @@
     "id": "a",
     "login": "German23",
     "nombre": "German",
-    "contraseña": "1234"
+    "contraseña": "1234",
+    "infoCompras": {"d": {
+      "estado": "Exhibida",
+      "tipo": "Fotografia",
+      "lugar": "Londres",
+      "consignacion": true,
+      "valor": 15,
+      "aColor": false,
+      "titulo": "Moonrise, Hernandez, New Mexico",
+      "alto": 39,
+      "autor": "Ansel Adams",
+      "devolucion": false,
+      "disponibilidad": false,
+      "valorMinimoS": 14,
+      "fechaLimite": "2024-06-10",
+      "valorInicialS": 11,
+      "ancho": 49,
+      "tecnica": "Impresion digital",
+      "subasta": true,
+      "instalacion": false,
+      "id": "d",
+      "anio": 1941
+    }}
   },
   {
     "tipo": "Administrador",

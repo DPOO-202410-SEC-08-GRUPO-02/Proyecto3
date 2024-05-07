@@ -40,12 +40,11 @@ public class Compra {
 		/*Se llama pasar a Caja para diferenciar que es proceso inicial de la compra, osea consultar todos 
 		 * los datos necesarios y mandar a verificarlos al cajero o al administarador y dependiendo del caso pasara a compra rechazada o confirmar compra
 		 */
-		
 		String llave = "disponibilidad";
 		admin.cambiarEstadoObra(pieza, llave, "false");
 		
 		double valor = 0.0;
-		
+			
 		if (tipoCompra == "subasta")
 		{
 			Oferta ganador = Subasta.getGanador();
@@ -56,23 +55,6 @@ public class Compra {
 			valor = pieza.getValor();
 		}
 		
-		boolean compraVerificada = admin.verificarCompra(comprador, pieza, valor, cajero);
-		
-		
-		if(compraVerificada ==true) {
-			Compra.confirmarCompra(comprador, pieza, valor, admin, cajero);
-		}else{
-			Compra.compraRechazada(comprador, pieza, admin );
-		}
-	}
-	
-	public static void confirmarCompra(Comprador comprador,Pieza pieza, double valorCompra, Administrador admin, Cajero cajero) {
-		/* Hace todo el proceso necesario para realizar la compra, entregar la pieza al usuario, entre otros procesos*/
-		HashMap<String, Double> metodoPago= (HashMap<String, Double>) comprador.getMetodoPago();
-		double dineroActual= comprador.getDineroActual();
-		cajero.realizarPago(valorCompra,comprador,metodoPago,dineroActual,pieza);
-		
-		admin.agregarPieza (comprador, pieza);
 	}
 	
 	public static void compraRechazada (Comprador comprador, Pieza pieza, Administrador admin) {

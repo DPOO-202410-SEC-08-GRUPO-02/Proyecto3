@@ -30,9 +30,9 @@ public class Galeria {
 		return pieza;
 	}
 	
-	public static Object getUsuario(String login) {
+	public static Usuario getUsuario(String login) {
 		/*Obtiene la informacion de la informacion del Usuario*/
-		Object usuario = usuariosMap.get(login);
+		Usuario usuario = usuariosMap.get(login);
 		return usuario;
 	}
 	

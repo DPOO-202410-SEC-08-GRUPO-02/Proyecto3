@@ -34,18 +34,17 @@ public class Administrador extends Empleado{
 			return false;
 	}
 	
-	public boolean verificarUsuario (Cliente cliente) {
+	public boolean verificarUsuario (Comprador comprador) {
 		/* Verifica un usuario para que sea comprador o propietario*/
-		boolean verificado = cliente.getVerificado();
+		
+		boolean verificado = comprador.getVerificado();
 		if (verificado == false)
 		{
-			String id = cliente.getID();
-			Object obj = Galeria.getUsuario(id);
-			Comprador comprador = (Comprador) obj;
 			double dineroActual = comprador.getDineroActual();
 			
 			double limiteCompras = Math.round((dineroActual - (dineroActual/3)* 100.0) / 100.0);
 			comprador.setLimiteCompras(limiteCompras);
+			comprador.setVerificado(true);
 		}
 		
 		return true;

@@ -42,18 +42,18 @@ public class Consola
     	CargadorGaleria.cargarArtista("./datos/Artistas.json");
     	CargadorGaleria.cargarUsuario("./datos/Usuarios.json");
     	
-    	inicioSecion();
+    	inicioSesion();
     }
 
-    private static void inicioSecion() throws IOException
+    private static void inicioSesion() throws IOException
     {
     	boolean continuar = true;
     	while (continuar) 
     	{
     	
-	    	System.out.println("*** Inicio de secion ***\n");
+	    	System.out.println("\n*** Inicio de sesión ***\n");
 	    	
-	    	System.out.println("1. Iniciar secion");
+	    	System.out.println("1. Iniciar sesión");
 	    	System.out.println("2. Salir de la galeria");
 	    	
 	    	System.out.print("\nIngrese una opción: ");
@@ -127,12 +127,13 @@ public class Consola
 		        }
 		        else if (tipo.equals("Comprador"))
 		        {
-		        	menuComprador();
+		        	Comprador comprador = (Comprador) usuario;
+		        	menuComprador(comprador);
 		        }
 		        
 		        else if (tipo.equals("Propietario"))
 		        {
-		        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no cuenta con consola");
+		        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no se cuenta con consola");
 		        	System.out.println("Ingrese otro usuario\n");
 	
 		        }
@@ -152,7 +153,7 @@ public class Consola
         while (continuar) 
         {
         	
-            System.out.println("*** Bienvenida Administradora ***\n");
+            System.out.println("\n*** Bienvenida Administradora ***\n");
 
             System.out.println("1. Cambiar el estado de una pieza");
             System.out.println("2. Cambiar la disponibilidad de una pieza");
@@ -161,7 +162,7 @@ public class Consola
             System.out.println("5. Obtener el las piezas actuales de un propietario");
             System.out.println("6. Obtener el valor de las piezas actuales de un propietario");
             System.out.println("7. Mirar historia de un artista");
-            System.out.println("8. Cerrar secion");
+            System.out.println("8. Cerrar sesión");
             
             System.out.print("Por favor, selecciona una opción: ");
             
@@ -701,7 +702,7 @@ public class Consola
         while (continuar) 
         {
         	
-            System.out.println("*** Bienvenido operador ***\n");
+            System.out.println("\n*** Bienvenido operador ***\n");
             System.out.println("1. Mirar historia de un artista");
             System.out.println("2. Salir");
             System.out.print("Por favor, elige una opción: ");
@@ -760,7 +761,7 @@ public class Consola
         while (continuar) 
         {
         	
-            System.out.println("*** Bienvenido cajero ***\n");
+            System.out.println("\n*** Bienvenido cajero ***\n");
             System.out.println("1. Mirar historia de un artista");
             System.out.println("2. Salir");
             System.out.print("Por favor, elige una opción: ");
@@ -813,48 +814,47 @@ public class Consola
         }
     }
     
-    private static void menuComprador() 
+    private static void menuComprador(Comprador comprador) 
     {
-//    	boolean continuar = true;
-//        while (continuar) 
-//        {
-//        	
-//            System.out.println("*** BIENVENIDA A LA GALERÍA DE ARTE ***\n");
-//            System.out.println("1. Ver catálogo e iniciar proceso de compra");
-//            System.out.println("2. Participar en una subasta");
-//            System.out.println("3. Salir");
-//            System.out.print("Por favor, elige una opción: ");
-//            int opcion = scanner.nextInt();
-//
-//            if (opcion == 1) 
-//            {
-//                iniciarProcesoCompra();
-//            } 
-//            else if (opcion == 2) 
-//            {
-//                iniciarProcesoSubasta();
-//            } 
-//            else if (opcion == 3) 
-//            {
-//                System.out.println("Gracias por visitar nuestra galería. ¡Hasta pronto!");
-//                continuar = false;
-//            } 
-//            else 
-//            {
-//                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
-//            }
-//
-//            if (continuar==true) 
-//            {
-//                continuar = preguntarContinuar();
-//            }
-//        }
+    	boolean continuar = true;
+        while (continuar) 
+        {
+        	
+            System.out.println("\n*** Bienvenido comprador ***\n");
+            System.out.println("1. Realizar una compra");
+            System.out.println("2. Participar en una subasta");
+            System.out.println("3. Salir");
+            System.out.print("Por favor, elige una opción: ");
+            int opcion = scanner.nextInt();
+
+            if (opcion == 1) 
+            {
+                iniciarProcesoCompra(comprador);
+            } 
+            else if (opcion == 2) 
+            {
+                iniciarProcesoSubasta(comprador);
+            } 
+            else if (opcion == 3) 
+            {
+                continuar = false;
+            } 
+            else 
+            {
+                System.out.println("Opción no válida. Por favor, intenta de nuevo.");
+            }
+
+            if (continuar==true) 
+            {
+                continuar = preguntarContinuar();
+            }
+        }
     }
     
     private static boolean preguntarContinuar() 
     {
-    	System.out.println("\n1. Ver otro caso");
-        System.out.println("2. terminar proceso");
+    	System.out.println("\n1. Realizar otra accion");
+        System.out.println("2. Cerrar sesión");
         System.out.print("\n¿Deseas ver otro caso o terminar la operación? (1/2): ");
         int respuesta = scanner.nextInt();
         if (respuesta == 1) 
@@ -874,8 +874,6 @@ public class Consola
     
     public static void historiaArtista(Artista artista)
     {
-    	System.out.println(artista);
-    	
     	Map<String, Map<String, Object>> piezasHechas = artista.getPiezasHechas();
 
     	List<String> mostrar = new ArrayList<>();
@@ -907,58 +905,110 @@ public class Consola
     	
     }
     
-    private static void iniciarProcesoCompra() 
+    private static void iniciarProcesoCompra(Comprador comprador) 
     {
-//    	
-//        Map<String, Pieza> catalogoCompleto = Inventario.getInventario();
-//        
-//        mostrarCatalogo();
-//        
-//        System.out.print("\nEscoge el id de la pieza que quieras(segun el catalogo mostrado): ");
-//        String idr = scanner.next();
-//        
-//        
-//        Pieza piezaSeleccionada = catalogoCompleto.get(idr);
-//        
-//        // Datos ficticios del comprador para efectos practicos :D
-//        
-//        Comprador compradorActual = new Comprador("usuario123", "contraseña", "ID123", "Usuario", "correo@ejemplo.com", 5551234, "Comprador", true, 23.0, 5.0);
-//        if (piezaSeleccionada != null && piezaSeleccionada.getDisponibilidad()) 
-//        {
-//            // Datos ficticios del Administrador para efectos practicos :D
-//        	
-//            Administrador admin = new Administrador("admin123", "adminpass", "ADM001", "Admin Nombre", "admin@ejemplo.com", 5554321, "Administrador", true);
-//            if (admin.verificarCompra(compradorActual, piezaSeleccionada, piezaSeleccionada.getValor())) 
-//            {
-//                Compra nuevaCompra = new Compra(piezaSeleccionada, compradorActual, piezaSeleccionada.getValor());
-//                nuevaCompra.pasarCaja(compradorActual, piezaSeleccionada, "normal");
-//                
-//                // Datos ficticios del Cajero para efectos practicos :D
-//                
-//                Cajero cajero = new Cajero("cajero123", "cajeropass", "CAJ001", "Cajero Nombre", "cajero@ejemplo.com", 5556789, "Cajero", true);
-//                if (cajero.verificarSaldo(piezaSeleccionada.getValor(), compradorActual, compradorActual.getMetodoPago(), compradorActual.getDineroActual()) && cajero.verificarLimite(piezaSeleccionada.getValor(), compradorActual)) 
-//                {
-//                    cajero.realizarPago(piezaSeleccionada.getValor(), compradorActual, compradorActual.getMetodoPago(),compradorActual.getDineroActual(), piezaSeleccionada);
-//                    admin.agregarPieza(compradorActual, piezaSeleccionada);
-//                    System.out.println("Compra realizada con éxito. Gracias por tu compra.");
-//                } 
-//                else 
-//                {
-//                    System.out.println("No se pudo realizar la compra. Verifica tu saldo o límite de compra.");
-//                }
-//            } 
-//            else 
-//            {
-//                System.out.println("La compra no ha sido aprobada por el administrador.");
-//            }
-//        } 
-//        else 
-//        {
-//            System.out.println("Lo sentimos, la pieza no está disponible o no existe.");
-//        }
+    	
+        Map<String, Pieza> catalogoCompleto = Inventario.getInventario();
+        
+        mostrarCatalogo(catalogoCompleto);
+        
+        Pieza pieza = null;
+        
+        boolean continuar = true;
+        while (continuar) 
+        {
+	        System.out.print("\nIngresa el id de la pieza que quieras comprar(segun el catalogo mostrado): ");
+	        String idr = scanner.next();
+	        
+	        boolean esta = Galeria.existePieza(idr);
+	        
+	        if (esta == true)
+	        {
+	        	continuar = false;
+	        	pieza = Inventario.getPiezaInventario(idr);
+	        }
+	        else
+	        {
+	        	System.out.println("\nOpción no válida.");
+	        }
+        
+        }
+        
+        boolean disponibilidad = pieza.getDisponibilidad();
+        
+        if (disponibilidad == true) 
+        {
+        	Administrador admin = Usuario.getAdmin();
+        	double valor = pieza.getValor();
+        	Cajero cajero = Usuario.getCajero();
+        	
+        	boolean verificarCompra = admin.verificarCompra(comprador, pieza, valor, cajero);
+
+            if (verificarCompra == true) 
+            {
+            	Map<String, Double> mapMetodo = comprador.getMetodoPago();
+            	double dineroActual = comprador.getDineroActual();
+            	
+            	boolean saldo = cajero.verificarSaldo(valor, comprador, mapMetodo, dineroActual);
+            	
+            	if (saldo == true)
+            	{
+	                Compra nuevaCompra = new Compra(pieza, comprador, valor);
+	                
+	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero);
+	
+		            double efectivo = mapMetodo.get("efectivo");
+		            double tarjeta = mapMetodo.get("tarjetaCredito");
+		            double transferencia = mapMetodo.get("transferenciaElectronica");
+		            
+		            System.out.println("Metodos de pago: \n");
+		            System.out.println("1. Efectivo: " + (efectivo + ""));
+		            System.out.println("2. Tarjeta de credito: " + (tarjeta + ""));
+		            System.out.println("3. Transferencia electronica: " + (transferencia + ""));
+		            
+		            System.out.print("Ingrese el numero de la opcion deceada: ");
+		            int metPagoNum = scanner.nextInt();
+		            scanner.nextLine();
+	                
+		            String metodoPago = "";
+		            
+		            if (metPagoNum == 1)
+		            {
+		            	metodoPago = "efectivo";
+		            }
+		            
+		            else if (metPagoNum == 2)
+		            {
+		            	metodoPago = "tarjetaCredito";
+		            }
+		            
+		            else if (metPagoNum == 3)
+		            {
+		            	metodoPago = "transferenciaElectronica";
+		            }
+		            
+	                cajero.realizarPago(comprador, pieza, valor, admin, cajero, metodoPago);
+	                
+	                System.out.println("Compra realizada con éxito. Gracias por tu compra.");
+                } 
+                else 
+                {
+                    System.out.println("No se pudo realizar la compra. Saldo insuficiente");
+                }
+            } 
+            else 
+            {
+                System.out.println("La compra no ha sido aprobada por el administrador.");
+                Compra.compraRechazada (comprador, pieza, admin);
+            }
+        } 
+        else 
+        {
+            System.out.println("Lo sentimos, la pieza no está disponible o no existe.");
+        }
     }
 
-    private static void iniciarProcesoSubasta() 
+    private static void iniciarProcesoSubasta(Comprador comprador) 
     {
 //        // Datos ficticios para efectos practicos >:(
 //        Comprador compradorActual = new Comprador("usuario123", "contraseña123", "ID123", "Juan Perez", "juan.perez@example.com", 5551234, "Comprador", true, 100000.0, 50000.0);
@@ -1011,9 +1061,9 @@ public class Consola
 //    }
 //
 //
-    private static void mostrarCatalogo() 
+    private static void mostrarCatalogo(Map<String, Pieza> catalogoCompleto) 
     {
-        Map<String, Pieza> catalogoCompleto = Inventario.getInventario();
+;
         if (catalogoCompleto.isEmpty()) 
         {
             System.out.println("Actualmente no hay piezas disponibles en el catálogo.");

@@ -1,8 +1,13 @@
 package Usuario;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
+import Inventario.Pieza;
 
 public class Usuario {
 			protected String login;
@@ -54,6 +59,64 @@ public class Usuario {
 	public String getTipo() {
 		return tipo;
 	}
+	public static Administrador getAdmin()
+	{
+		Map<String,Usuario> usuarios = Galeria.getUsuariosMap();
+		Administrador admin = null;
+		
+        for (Map.Entry<String, Usuario> entry : usuarios.entrySet()) 
+        {
+            Usuario usuario = entry.getValue();
+            
+            String tipo = usuario.getTipo();
+            
+            if (tipo.equals("Administrador"))
+            {
+            	admin = (Administrador) usuario;
+            }
+        }
+        
+        return admin;
+	}
 	
+	public static Cajero getCajero()
+	{
+		Map<String,Usuario> usuarios = Galeria.getUsuariosMap();
+		Cajero cajero = null;
+		
+        for (Map.Entry<String, Usuario> entry : usuarios.entrySet()) 
+        {
+            Usuario usuario = entry.getValue();
+            
+            String tipo = usuario.getTipo();
+            
+            if (tipo.equals("Cajero"))
+            {
+            	cajero = (Cajero) usuario;
+            }
+        }
+        
+        return cajero;
+	}
+	
+	public static Operador getOperador()
+	{
+		Map<String,Usuario> usuarios = Galeria.getUsuariosMap();
+		Operador operador = null;
+		
+        for (Map.Entry<String, Usuario> entry : usuarios.entrySet()) 
+        {
+            Usuario usuario = entry.getValue();
+            
+            String tipo = usuario.getTipo();
+            
+            if (tipo.equals("Cajero"))
+            {
+            	operador = (Operador) usuario;
+            }
+        }
+        
+        return operador;
+	}
 }
 

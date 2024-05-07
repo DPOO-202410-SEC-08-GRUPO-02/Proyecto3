@@ -10,11 +10,13 @@ import Subasta.Subasta;
 public class Comprador extends Cliente{
 	private double dineroActual;
 	private double limiteCompras;
-	private HashMap<String,Pieza> infoCompras= new HashMap<String,Pieza>();
+	private Map<String,Pieza> infoCompras= new HashMap<String,Pieza>();
 	private Map<String,Double> metodoPago= new HashMap<String,Double>();
 	private Propietario Propietario;
 	
-	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> MetodoPago ) {
+	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, 
+			boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> MetodoPago,
+			Map<String,Pieza> InfoCompras ) {
 		super(Login,Contraseña,ID,Nombre,Correo, Numero,Tipo,Verificado);
 		this.login=Login;
 		this.contraseña=Contraseña;
@@ -27,6 +29,7 @@ public class Comprador extends Cliente{
 		this.dineroActual=dineroActual;
 		this.limiteCompras=LimiteCompras;
 		this.metodoPago=MetodoPago;
+		this.infoCompras=InfoCompras;
 	}
 
 	public double getDineroActual() {
@@ -103,4 +106,8 @@ public class Comprador extends Cliente{
 		this.metodoPago= (HashMap<String, Double>) map ;
 	}
 	
+	public void setVerificado(boolean nuevoValor)
+	{
+		this.verificado = nuevoValor;
+	}
 }
