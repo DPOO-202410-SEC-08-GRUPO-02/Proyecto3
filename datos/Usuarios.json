@@ -99,7 +99,7 @@
     "contraseña": "2324"
   },
   {
-    "verificado": false,
+    "verificado": true,
     "metodoPago": {
       "efectivo": 30.2,
       "tarjetaCredito": 10.5,
@@ -107,13 +107,6 @@
     },
     "tipo": "Comprador",
     "numero": 777,
-    "correo": "german23@gmail.com",
-    "limiteCompras": 20,
-    "dineroActual": 10,
-    "id": "a",
-    "login": "German23",
-    "nombre": "German",
-    "contraseña": "1234",
     "infoCompras": {"d": {
       "estado": "Exhibida",
       "tipo": "Fotografia",
@@ -135,7 +128,14 @@
       "instalacion": false,
       "id": "d",
       "anio": 1941
-    }}
+    }},
+    "correo": "german23@gmail.com",
+    "limiteCompras": 25,
+    "dineroActual": 52,
+    "id": "a",
+    "login": "German23",
+    "nombre": "German",
+    "contraseña": "1234"
   },
   {
     "tipo": "Administrador",

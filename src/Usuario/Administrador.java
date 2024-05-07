@@ -28,7 +28,7 @@ public class Administrador extends Empleado{
 		boolean verificado = this.verificarUsuario(comprador);
 		boolean limite = this.verificarLimite(comprador, valor, cajero);
 		
-		if ((verificado && limite) == true)
+		if ((verificado == true) && (limite == true))
 			return true;
 		else
 			return false;

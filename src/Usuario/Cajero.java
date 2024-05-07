@@ -178,11 +178,13 @@ public class Cajero extends Empleado{
 		
 		double Total=  map.get("tarjetaCredito")+ map.get("transferenciaElectronica") + map.get("efectivo");
 		
+		System.out.println(dineroActual);
+		System.out.println(Total);
+		
 		if (dineroActual == Total) {
 			if (dineroActual > valorCompra)
 			return true;
 		}
-		
 		return false;
 	}
 	
