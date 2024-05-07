@@ -1,6 +1,7 @@
 package Subasta;
 
 import java.util.Map;
+import java.util.Random;
 
 import CargadorGaleria.Galeria;
 import Compra.Compra;
@@ -53,9 +54,12 @@ public class Subasta {
 		return subasta;
 	}
 	
-	public double ofertaAleatoria()
+	public static double ofertaAleatoria(double ofertaComprador, double valorMin)
 	{
-		return -0.0;
+		Random random = new Random();
+		double numeroAleatorio = ofertaComprador + (valorMin - ofertaComprador) * random.nextDouble();
+		
+		return numeroAleatorio;
 	}
 	
 	public static Oferta getGanador()

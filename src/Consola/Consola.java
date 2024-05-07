@@ -27,6 +27,7 @@ import Usuario.Administrador;
 import Usuario.Cajero;
 import Usuario.Cliente;
 import Usuario.Comprador;
+import Usuario.Operador;
 import Usuario.Propietario;
 import Usuario.Usuario;
 
@@ -1040,57 +1041,118 @@ public class Consola
 
     private static void iniciarProcesoSubasta(Comprador comprador) 
     {
-//        // Datos ficticios para efectos practicos >:(
-//        Comprador compradorActual = new Comprador("usuario123", "contraseña123", "ID123", "Juan Perez", "juan.perez@example.com", 5551234, "Comprador", true, 100000.0, 50000.0);
-//
-//        Map<String, Pieza> piezasSubasta = Subasta.getSubasta();
-//        mostrarPiezasSubasta(piezasSubasta);
-//        System.out.println(Subasta.getSubasta());
-//
-//        String idPiezaSeleccionada = "PIEZA001";
-//        Pieza piezaSeleccionada = piezasSubasta.get(idPiezaSeleccionada);
-//
-//        if (piezaSeleccionada != null && piezaSeleccionada.getSubasta()) 
-//        {
-//            double valorOferta = 30000.0;
-//            String resultadoOferta = Subasta.generarOferta(compradorActual, piezaSeleccionada, valorOferta);
-//            System.out.println(resultadoOferta);
-//
-//            Oferta ofertaGanadora = Subasta.getGanador();
-//            if (ofertaGanadora != null && ofertaGanadora.getPieza().equals(piezaSeleccionada)) 
-//            {
-//                Compra compra = new Compra(piezaSeleccionada, ofertaGanadora.getComprador(), ofertaGanadora.getValorOferta());
-//                compra.pasarCaja(ofertaGanadora.getComprador(), piezaSeleccionada, "subasta");
-//                System.out.println("Compra realizada con éxito. La pieza ha sido adjudicada a: " + ofertaGanadora.getComprador().getNombre());
-//            } 
-//            else 
-//            {
-//                System.out.println("No se ha podido completar la subasta para la pieza seleccionada.");
-//            }
-//        } 
-//        else 
-//        {
-//            System.out.println("La pieza seleccionada no está disponible para subasta o no existe.");
-//        }
+        Map<String, Pieza> piezasSubasta = Subasta.getSubasta();
+        mostrarPiezasSubasta(piezasSubasta);
+        
+        Pieza pieza = null;
+        
+        boolean continuar = true;
+        while (continuar) 
+        {
+	        System.out.print("\nIngresa el id de la pieza por la cual quieres ofertar: ");
+	        String idr = scanner.next();
+	        
+	        boolean esta = Galeria.existePieza(idr);
+	        boolean subasta = pieza.getSubasta();
+	        
+	        if ((esta == true) && (subasta == true))
+	        {
+	        	continuar = false;
+	        	pieza = Inventario.getPiezaInventario(idr);
+	        }
+	        else
+	        {
+	        	System.out.println("\nOpción no válida.");
+	        }
+        
+        }
+        
+        Administrador admin = Usuario.getAdmin();
+    	Operador operador = Usuario.getOperador();
+    	Cajero cajero = Usuario.getCajero();
+    	
+    	boolean verificado = true;
+    	boolean continuarSubasta = true;
+        while (continuarSubasta) 
+        {
+        	boolean valorMenor = true;
+        	double valorOferta = 0.0;
+            while (valorMenor) 
+            {
+		    	System.out.print("Ingrese el valor de la oferta: ");
+		    	valorOferta = scanner.nextDouble();
+		    	scanner.nextLine();
+		    	
+		    	double valorInicial = pieza.getValorInicialS();
+		    	
+		    	if (valorOferta >= valorInicial)
+		    	{
+		    		valorMenor = false;
+		    	}
+		    	else
+		    	{
+		    		System.out.println("El valor ingresado es menor al valor de la oferta inicial");
+		    	}
+            }
+            
+	    	String mensaje = comprador.generarOfertasSubasta(pieza, valorOferta, operador, admin);
+	    	
+	    	if (mensaje.equals("Comprador no verificado"))
+	    	{
+	    		System.out.println("Comprador no verificado");
+	    		continuarSubasta = false;
+	    		verificado = false;
+	    	}
+	    	else if (mensaje.equals("Ha ganado la subasta"))
+	    	{
+	    		continuarSubasta = false;
+	    	}
+	    	else if (mensaje.equals("Oferta realizada con exito"))
+	    	{
+	    		
+	    		
+	    		double ofertaMin = pieza.getValorMinimoS();
+	    		
+	    		if (valorOferta < ofertaMin)
+	    		{
+	    			Subasta.ofertaAleatoria(valorOferta, ofertaMin);
+	    		}
+	    	}
+	    	
+        }
+    	String resultadoOferta = Subasta.generarOferta(comprador, piezaSeleccionada, valorOferta, operador, admin);
+    	System.out.println(resultadoOferta);
+    	
+    	Oferta ofertaGanadora = Subasta.getGanador();
+    	if (ofertaGanadora != null && ofertaGanadora.getPieza().equals(piezaSeleccionada)) 
+    	{
+    		Compra compra = new Compra(piezaSeleccionada, ofertaGanadora.getComprador(), ofertaGanadora.getValorOferta());
+    		compra.pasarCaja(ofertaGanadora.getComprador(), piezaSeleccionada, "subasta", admin, cajero);
+    		System.out.println("Compra realizada con éxito. La pieza ha sido adjudicada a: " + ofertaGanadora.getComprador().getNombre());
+    	} 
+    	else
+    	{
+    		System.out.println("No se ha podido completar la subasta para la pieza seleccionada.");
+        } 
     }
-//
-//    private static void mostrarPiezasSubasta(Map<String, Pieza> piezasSubasta) 
-//    {
-//        if (piezasSubasta.isEmpty()) {
-//            System.out.println("Actualmente no hay piezas disponibles para subasta.");
-//        } 
-//        else 
-//        {
-//            System.out.println("Piezas Disponibles para Subasta:");
-//            for (Pieza pieza : piezasSubasta.values())
-//            {
-//                System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
-//                " - Autor: " + pieza.getAutor() + " - Valor Mínimo: $" + pieza.getValorMinimoS());
-//            }
-//        }
-//    }
-//
-//
+
+    private static void mostrarPiezasSubasta(Map<String, Pieza> piezasSubasta) 
+    {
+        if (piezasSubasta.isEmpty()) {
+            System.out.println("Actualmente no hay piezas disponibles para subasta.");
+        } 
+        else 
+        {
+            System.out.println("Piezas Disponibles para Subasta:");
+            for (Pieza pieza : piezasSubasta.values())
+            {
+                System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
+                " - Autor: " + pieza.getAutor() + " - Valor Mínimo: $" + pieza.getValorMinimoS());
+            }
+        }
+    }
+
+
     private static void mostrarCatalogo(Map<String, Pieza> catalogoCompleto) 
     {
 ;
