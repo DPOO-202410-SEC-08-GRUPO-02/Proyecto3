@@ -43,5 +43,15 @@ public class Cliente extends Usuario {
 	public Collection<Pieza> getHistorialPiezasValores() {
 		return historialPiezas.values();
 	}
+	
+	public void agregarPiezaHistorial(Pieza pieza)
+	{
+		historialPiezas.put("16-10-23", pieza);
+	}
+	
+	public void agregarPiezaActual(Pieza pieza)
+	{
+		piezasActuales.add(pieza);
+	}
 
 }

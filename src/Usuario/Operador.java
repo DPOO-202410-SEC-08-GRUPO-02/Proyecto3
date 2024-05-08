@@ -31,8 +31,9 @@ public class Operador extends Empleado {
 	public String generarTurno(int turnoAnterior) {
 		/*Genera otro turno (o inicia la subasta).
 		 * Los turnos se miden por el input del usuario.*/
-		turnoAnterior = turnoAnterior+1;
-		return turnoAnterior + "";
+		int nuevoTurno = turnoAnterior+1;
+		this.turnoAnterior = nuevoTurno;
+		return nuevoTurno + "";
 	}
 	
 	public Oferta elegirGanador(String turno) {
@@ -50,4 +51,7 @@ public class Operador extends Empleado {
 		return ofertas;
 	}
 	
+	public void setOfertas() {
+		ofertas.clear();
+	}
 }

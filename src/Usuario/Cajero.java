@@ -1,5 +1,6 @@
 package Usuario;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -168,8 +169,14 @@ public class Cajero extends Empleado{
 		
 		}
 		
-		comprador.editarDineroActual(dineroActual, tarjetaCredito, transferenciaElectronica, efectivo, metodoPagoMap);
+		DecimalFormat df = new DecimalFormat("#.##");
+		String dineroActualString = df.format(dineroActual);
+		double dineroActualCorto = Double.parseDouble(dineroActualString);
+		
+		comprador.editarDineroActual(dineroActualCorto, tarjetaCredito, transferenciaElectronica, efectivo, metodoPagoMap);
 		admin.agregarPieza (comprador, pieza);
+		admin.agregarPiezaActual(comprador, pieza);
+		admin.agregarPiezaHist(comprador, pieza);
 		
 	}
 	
@@ -177,9 +184,6 @@ public class Cajero extends Empleado{
 		/*Verifica si el saldo del comprador es suficiente para comprar la obra y que sus metodos de pago si sean igual al dinero actual*/
 		
 		double Total=  map.get("tarjetaCredito")+ map.get("transferenciaElectronica") + map.get("efectivo");
-		
-		System.out.println(dineroActual);
-		System.out.println(Total);
 		
 		if (dineroActual == Total) {
 			if (dineroActual > valorCompra)

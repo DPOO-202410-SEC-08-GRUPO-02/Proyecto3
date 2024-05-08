@@ -161,7 +161,7 @@ public class Consola
             System.out.println("2. Cambiar la disponibilidad de una pieza");
             System.out.println("3. Agregar una pieza al inventario");
             System.out.println("4. Obtener el historial de piezas de un cliente");
-            System.out.println("5. Obtener el las piezas actuales de un cliente");
+            System.out.println("5. Obtener las piezas actuales de un cliente");
             System.out.println("6. Obtener el valor de las piezas actuales de un cliente");
             System.out.println("7. Mirar historia de un artista");
             System.out.println("8. Cerrar sesión");
@@ -1053,12 +1053,21 @@ public class Consola
 	        String idr = scanner.next();
 	        
 	        boolean esta = Galeria.existePieza(idr);
-	        boolean subasta = pieza.getSubasta();
-	        
-	        if ((esta == true) && (subasta == true))
+
+	        if (esta == true)
 	        {
-	        	continuar = false;
 	        	pieza = Inventario.getPiezaInventario(idr);
+	        	boolean subasta = pieza.getSubasta();
+	        	
+	        	if (subasta == true)
+	        	{
+	        	continuar = false;
+	        	}
+	        	
+	        	else
+		        {
+		        	System.out.println("\nOpción no válida.");
+		        }
 	        }
 	        else
 	        {
@@ -1073,6 +1082,7 @@ public class Consola
     	
     	boolean verificado = true;
     	boolean continuarSubasta = true;
+    	double valorOfertaAnterior = 0.0;
         while (continuarSubasta) 
         {
         	boolean valorMenor = true;
@@ -1087,7 +1097,15 @@ public class Consola
 		    	
 		    	if (valorOferta >= valorInicial)
 		    	{
+		    		
+		    		if (valorOfertaAnterior > valorOferta)
+		    		{
+		    			System.out.println("No puede ingresar un valor menor a la oferta anterior: " + valorOfertaAnterior);
+		    		}
+		    		else 
+		    		{
 		    		valorMenor = false;
+		    		}
 		    	}
 		    	else
 		    	{
@@ -1110,30 +1128,116 @@ public class Consola
 	    	else if (mensaje.equals("Oferta realizada con exito"))
 	    	{
 	    		
-	    		
 	    		double ofertaMin = pieza.getValorMinimoS();
 	    		
 	    		if (valorOferta < ofertaMin)
-	    		{
-	    			Subasta.ofertaAleatoria(valorOferta, ofertaMin);
+	    		{    			
+	    			System.out.println("Generando oferta aleatoria...\n");
+	    			valorOfertaAnterior = Subasta.ofertaAleatoria(valorOferta, ofertaMin, operador, pieza);
 	    		}
+	    		else
+	    		{
+	    			valorOfertaAnterior = valorOferta;
+	    		}
+	    		
+	    		Map<String, Oferta> ofertas = operador.getOfertas();
+	    		System.out.println("Ofertas realizadas hasta el momento: ");
+	    		
+	    		for (Map.Entry<String, Oferta> entry : ofertas.entrySet()) 
+		    	{
+		            Oferta oferta = entry.getValue();		
+		            
+		            Comprador compOferta = oferta.getComprador();
+		            
+		            if (compOferta == null)
+		            {
+			    		System.out.println("Turno: " + oferta.getTurno() + " - Valor de la oferta: " + oferta.getValorOferta() +
+		                " - Comprador: Aleatorio" + " - Titulo de la pieza: " + pieza.getTitulo() + "\n");
+		            }
+		            else
+		            {
+		            	System.out.println("Turno: " + oferta.getTurno() + " - Valor de la oferta: " + oferta.getValorOferta() +
+				        " - Comprador: " + compOferta.getNombre() + " - Titulo de la pieza: " + pieza.getTitulo() + "\n");
+		            }
+	            }
+	    		
 	    	}
 	    	
         }
-    	String resultadoOferta = Subasta.generarOferta(comprador, piezaSeleccionada, valorOferta, operador, admin);
-    	System.out.println(resultadoOferta);
+        
+        Oferta ganador = Subasta.getGanador();
     	
-    	Oferta ofertaGanadora = Subasta.getGanador();
-    	if (ofertaGanadora != null && ofertaGanadora.getPieza().equals(piezaSeleccionada)) 
+    	Pieza piezaOferta = ganador.getPieza();
+    	if (piezaOferta.equals(pieza)) 
     	{
-    		Compra compra = new Compra(piezaSeleccionada, ofertaGanadora.getComprador(), ofertaGanadora.getValorOferta());
-    		compra.pasarCaja(ofertaGanadora.getComprador(), piezaSeleccionada, "subasta", admin, cajero);
-    		System.out.println("Compra realizada con éxito. La pieza ha sido adjudicada a: " + ofertaGanadora.getComprador().getNombre());
+        	double valor = ganador.getValorOferta();
+        	
+        	boolean verificarCompra = admin.verificarCompra(comprador, pieza, valor, cajero);
+
+            if (verificarCompra == true) 
+            {
+            	Map<String, Double> mapMetodo = comprador.getMetodoPago();
+            	double dineroActual = comprador.getDineroActual();
+            	
+            	boolean saldo = cajero.verificarSaldo(valor, comprador, mapMetodo, dineroActual);
+            	
+            	if (saldo == true)
+            	{
+	                Compra nuevaCompra = new Compra(pieza, comprador, valor);
+	                
+	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero);
+	
+		            double efectivo = mapMetodo.get("efectivo");
+		            double tarjeta = mapMetodo.get("tarjetaCredito");
+		            double transferencia = mapMetodo.get("transferenciaElectronica");
+		            
+		            System.out.println("Metodos de pago: \n");
+		            System.out.println("1. Efectivo: " + (efectivo + ""));
+		            System.out.println("2. Tarjeta de credito: " + (tarjeta + ""));
+		            System.out.println("3. Transferencia electronica: " + (transferencia + ""));
+		            
+		            System.out.print("Ingrese el numero de la opcion deceada: ");
+		            int metPagoNum = scanner.nextInt();
+		            scanner.nextLine();
+	                
+		            String metodoPago = "";
+		            
+		            if (metPagoNum == 1)
+		            {
+		            	metodoPago = "efectivo";
+		            }
+		            
+		            else if (metPagoNum == 2)
+		            {
+		            	metodoPago = "tarjetaCredito";
+		            }
+		            
+		            else if (metPagoNum == 3)
+		            {
+		            	metodoPago = "transferenciaElectronica";
+		            }
+		            
+	                cajero.realizarPago(comprador, pieza, valor, admin, cajero, metodoPago);
+	                
+	                System.out.println("Compra realizada con éxito. Gracias por su compra.");
+                } 
+                else 
+                {
+                    System.out.println("No se pudo realizar la compra. Saldo insuficiente");
+                }
+            } 
+            else 
+            {
+                System.out.println("La compra no ha sido aprobada por el administrador.");
+                Compra.compraRechazada (comprador, pieza, admin);
+            }
     	} 
     	else
     	{
     		System.out.println("No se ha podido completar la subasta para la pieza seleccionada.");
         } 
+    	
+    	operador.setOfertas();
     }
 
     private static void mostrarPiezasSubasta(Map<String, Pieza> piezasSubasta) 

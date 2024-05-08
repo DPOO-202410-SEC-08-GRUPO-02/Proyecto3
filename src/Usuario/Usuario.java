@@ -110,7 +110,7 @@ public class Usuario {
             
             String tipo = usuario.getTipo();
             
-            if (tipo.equals("Cajero"))
+            if (tipo.equals("Operador"))
             {
             	operador = (Operador) usuario;
             }

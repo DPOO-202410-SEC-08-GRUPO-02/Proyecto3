@@ -91,6 +91,16 @@ public class Administrador extends Empleado{
 		comprador.agregarPieza(pieza);
 	}
 	
+	public void agregarPiezaHist (Cliente cliente, Pieza pieza) {
+		/* Agrega una pieza a el inventario del comprador y hace todos los procesos necesarios para sacarlo del inventario*/
+		cliente.agregarPiezaHistorial(pieza);
+	}
+	
+	public void agregarPiezaActual (Cliente cliente, Pieza pieza) {
+		/* Agrega una pieza a el inventario del comprador y hace todos los procesos necesarios para sacarlo del inventario*/
+		cliente.agregarPiezaActual(pieza);
+	}
+	
 	public void ingresarPieza (Pieza pieza) {
 		/* Ingresa una pieza totalmente nueva al inventario de la galeria*/
 		Inventario.agregarPiezaInventario(pieza);
