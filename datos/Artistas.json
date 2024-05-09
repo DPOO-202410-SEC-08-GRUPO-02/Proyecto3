@@ -2,18 +2,18 @@
   {
     "piezasHechas": {"David": {
       "fechaCreacion": "1504",
-      "vendida": false,
-      "precioVenta": "n/a",
-      "fechaVenta": "n/a"
+      "vendida": true,
+      "precioVenta": 25,
+      "fechaVenta": "18-11-23"
     }},
     "nombre": "Michel Angelo"
   },
   {
     "piezasHechas": {"La Mona Lisa": {
       "fechaCreacion": "1503",
-      "vendida": false,
-      "precioVenta": "n/a",
-      "fechaVenta": "n/a"
+      "vendida": true,
+      "precioVenta": 23,
+      "fechaVenta": "07-09-20"
     }},
     "nombre": "Leonardo da Vinci"
   }

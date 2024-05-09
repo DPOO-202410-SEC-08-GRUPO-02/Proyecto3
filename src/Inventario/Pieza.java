@@ -1,5 +1,7 @@
 package Inventario;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pieza {
 		protected String iD;
@@ -18,10 +20,15 @@ public class Pieza {
 		protected double valorMinimoS;
 		protected double valorInicialS;
 		protected String tipo;
+        protected boolean vendida;
+		protected double precioVenta;
+		protected String fechaVenta;
+		protected List<String> dueños= new ArrayList<String>();
 		
 		
 	public Pieza(String ID, String Tecnica,String Autor,String Titulo,int Anio,String Lugar, String Estado, boolean Disponibilidad, 
-			String FechaLimite, double Valor, boolean Consignacion, boolean Devolucion, boolean Subasta, double ValorMinimoS, double ValorInicialS, String Tipo) {
+			String FechaLimite, double Valor, boolean Consignacion, boolean Devolucion, boolean Subasta, double ValorMinimoS, double ValorInicialS, String Tipo,
+			boolean vendida, double precioVenta, String fechaVenta,List<String> dueños) {
 			this.iD=ID;
 			this.tecnica=Tecnica;
 			this.autor=Autor;
@@ -38,6 +45,10 @@ public class Pieza {
 			this.valorMinimoS=ValorMinimoS;
 			this.valorInicialS=ValorInicialS;
 			this.tipo=Tipo;
+			this.vendida= vendida;
+			this.precioVenta= precioVenta;
+			this.fechaVenta= fechaVenta;
+			this.dueños=dueños;
 		}
 	
 	
@@ -115,11 +126,24 @@ public class Pieza {
 		return valorInicialS;
 	}
 
+	public boolean getVendida() {
+		return vendida;
+	}
+	
+	public double getPrecioVenta() {
+		return precioVenta;
+	}
 
+	public String getFechaVenta() {
+		return fechaVenta;
+	}
+	public List<String> getDueños() {
+		return dueños;
+	}
+	
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
 
 	public void setDisponibilidad(Boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
@@ -156,6 +180,19 @@ public class Pieza {
 
 	public String getTipo() {
 		return tipo;
+	}
+	
+	
+	public void setVendida(boolean vendida) {
+		this.vendida= vendida;
+	}
+	
+	public void setPrecioVenta(double precioVenta) {
+		this.precioVenta= precioVenta;
+	}
+	
+	public void setfechaVenta(String fechaVenta) {
+		this.fechaVenta= fechaVenta;
 	}
 	
 }

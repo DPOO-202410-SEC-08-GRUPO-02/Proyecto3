@@ -3,6 +3,7 @@ package Consola;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -164,7 +165,8 @@ public class Consola
             System.out.println("5. Obtener las piezas actuales de un cliente");
             System.out.println("6. Obtener el valor de las piezas actuales de un cliente");
             System.out.println("7. Mirar historia de un artista");
-            System.out.println("8. Cerrar sesión");
+            System.out.println("8. Mirar historia de una pieza");
+            System.out.println("0. Cerrar sesión");
             
             System.out.print("Por favor, selecciona una opción: ");
             
@@ -366,10 +368,14 @@ public class Consola
                     } else {
                     	instalacion = false;
                     }
+                    boolean vendida=false;
+                    double precioVenta=0.0;
+                    String fechaVenta="n/a";
+                    List<String> dueños = null;
                     
                     nuevaPieza = new Pintura(id, tecnica, autor, titulo, anio, lugar, estado, 
     						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS,tipo,
-    						alto, ancho, movimientoArtistico, instalacion);
+    						alto, ancho, movimientoArtistico, instalacion, vendida, precioVenta, fechaVenta, dueños);
                 }
                 else if (tipoPieza == 2)
                 {
@@ -423,10 +429,13 @@ public class Consola
                     } else {
                     	electricidad = false;
                     }
-                    
+                    boolean vendida=false;
+                    double precioVenta=0.0;
+                    String fechaVenta="n/a";
+                    List<String> dueños = null;
                     nuevaPieza = new Escultura (id, tecnica, autor, titulo, anio, lugar, estado, 
     						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-    						alto, ancho, profundidad, materiales, peso, instalacion, electricidad);
+    						alto, ancho, profundidad, materiales, peso, instalacion, electricidad, vendida, precioVenta, fechaVenta, dueños);
     	            
                 }
                 
@@ -455,10 +464,13 @@ public class Consola
                     } else {
                     	instalacion = false;
                     }
-                    
+                    boolean vendida=false;
+                    double precioVenta=0.0;
+                    String fechaVenta="n/a";
+                    List<String> dueños = null;
                     nuevaPieza = new Impresion (id, tecnica, autor, titulo, anio, lugar, estado, 
     						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-    						alto, ancho, soporte, instalacion);
+    						alto, ancho, soporte, instalacion, vendida, precioVenta, fechaVenta, dueños);
                 }
                 
                 else if (tipoPieza == 4)
@@ -494,10 +506,13 @@ public class Consola
                     } else {
                     	instalacion = false;
                     }
-                    
+                    boolean vendida=false;
+                    double precioVenta=0.0;
+                    String fechaVenta="n/a";
+                    List<String> dueños = null;
                     nuevaPieza = new Fotografia (id, tecnica, autor, titulo, anio, lugar, estado, 
     						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-    						alto, ancho, aColor, instalacion);
+    						alto, ancho, aColor, instalacion, vendida, precioVenta, fechaVenta, dueños);
                 }
                 
                 else if (tipoPieza == 5)
@@ -517,10 +532,13 @@ public class Consola
                     } else {
                     	electricidad = false;
                     }
-                    
+                    boolean vendida=false;
+                    double precioVenta=0.0;
+                    String fechaVenta="n/a";
+                    List<String> dueños = null;
                     nuevaPieza = new Video (id, tecnica, autor, titulo, anio, lugar, estado, 
     						disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-    						duracion, electricidad);
+    						duracion, electricidad, vendida, precioVenta, fechaVenta, dueños);
                 }
                 
                 Galeria.agregarPiezaInventario(nuevaPieza);
@@ -684,6 +702,165 @@ public class Consola
             
             else if (opcion == 8) 
             {
+            	boolean bucle = false;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. La Mona Lisa");
+		    		System.out.println("2. David");
+		    		System.out.println("3. Campbell's Soup Cans");
+		    		System.out.println("4. Moonrise, Hernandez, New Mexico");
+		    		System.out.println("5. Toy Story");
+		    		System.out.println("6. Brave");
+		    		
+		    		
+		    		
+		    		System.out.print("Ingrese el numero de la pieza que desea consultar: ");
+			    	int opcionPieza = scanner.nextInt();
+
+			    	if (opcionPieza == 1)
+			    	{
+			    		Pintura pintura;
+			    		pintura = (Pintura) Inventario.getPiezaInventario("a");
+
+	    	    		System.out.println("	Titulo: " + pintura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ pintura.getAutor() + "\n"+
+	    	    							"		Año: " + pintura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + pintura.getTipo()+ "\n"+
+	    	    							"		Movimiento Artistico: " + pintura.getMovimientoArtistico()+ "\n"+
+	    	    							"		Tecnica: " + pintura.getTecnica() + "\n"+
+	    	    							"		Estado: " + pintura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  pintura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + pintura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ pintura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ pintura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ pintura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ pintura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + pintura.getAncho()+ " cm\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + pintura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 2)
+			    	{
+			    		Escultura escultura;
+			    		escultura = (Escultura) Inventario.getPiezaInventario("b");
+
+	    	    		System.out.println("	Titulo: " + escultura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ escultura.getAutor() + "\n"+
+	    	    							"		Año: " + escultura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + escultura.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + escultura.getTecnica() + "\n"+
+	    	    							"		Estado: " + escultura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  escultura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + escultura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ escultura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ escultura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ escultura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ escultura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + escultura.getAncho()+ " cm\n"+
+	    	    							"		Profundidad: " + escultura.getProfundidad()+ " cm\n"+
+	    	    							"		Materiales: " + escultura.getMateriales()+ " \n"+
+	    	    							"		Peso: " + escultura.getPeso()+ " kg\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + escultura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 3)
+			    	{
+			    		Impresion impresion;
+			    		impresion = (Impresion) Inventario.getPiezaInventario("c");
+
+	    	    		System.out.println("	Titulo: " + impresion.getTitulo()+"\n"+
+	    	    							"		Autor: "+ impresion.getAutor() + "\n"+
+	    	    							"		Año: " + impresion.getAnio()+ "\n"+
+	    	    							"		Tipo: " + impresion.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + impresion.getTecnica() + "\n"+
+	    	    							"		Estado: " + impresion.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  impresion.getLugar()+ "\n"+
+	    	    							"		Valor: $" + impresion.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ impresion.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ impresion.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ impresion.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ impresion.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + impresion.getAncho()+ " cm\n"+
+	    	    							"		Soporte: " + impresion.getSoporte()+ "\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + impresion.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 4)
+			    	{
+			    		Fotografia fotografia;
+			    		fotografia= (Fotografia) Inventario.getPiezaInventario("d");
+
+	    	    		System.out.println("	Titulo: " + fotografia.getTitulo()+"\n"+
+	    	    							"		Autor: "+ fotografia.getAutor() + "\n"+
+	    	    							"		Año: " + fotografia.getAnio()+ "\n"+
+	    	    							"		Tipo: " + fotografia.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + fotografia.getTecnica() + "\n"+
+	    	    							"		Estado: " + fotografia.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  fotografia.getLugar()+ "\n"+
+	    	    							"		Valor: $" + fotografia.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ fotografia.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ fotografia.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ fotografia.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ fotografia.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + fotografia.getAncho()+ " cm\n"+
+	    	    							"		¿Esta a color?: " + fotografia.getaColor()+ " \n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + fotografia.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 5)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("e");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 6)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("f");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+            }
+            
+            else if (opcion == 0) 
+            {
                 continuar = false;
             } 
             else 
@@ -706,7 +883,8 @@ public class Consola
         	
             System.out.println("\n*** Bienvenido operador ***\n");
             System.out.println("1. Mirar historia de un artista");
-            System.out.println("2. Salir");
+            System.out.println("2. Mirar historia de una pieza");
+            System.out.println("0. Salir");
             System.out.print("Por favor, elige una opción: ");
             int opcion = scanner.nextInt();
 
@@ -741,6 +919,166 @@ public class Consola
 		    	historiaArtista(artista);
             } 
             else if (opcion == 2) 
+            {
+            	boolean bucle = false;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. La Mona Lisa");
+		    		System.out.println("2. David");
+		    		System.out.println("3. Campbell's Soup Cans");
+		    		System.out.println("4. Moonrise, Hernandez, New Mexico");
+		    		System.out.println("5. Toy Story");
+		    		System.out.println("6. Brave");
+		    		
+		    		
+		    		
+		    		System.out.print("Ingrese el numero de la pieza que desea consultar: ");
+			    	int opcionPieza = scanner.nextInt();
+
+			    	if (opcionPieza == 1)
+			    	{
+			    		Pintura pintura;
+			    		pintura = (Pintura) Inventario.getPiezaInventario("a");
+
+	    	    		System.out.println("	Titulo: " + pintura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ pintura.getAutor() + "\n"+
+	    	    							"		Año: " + pintura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + pintura.getTipo()+ "\n"+
+	    	    							"		Movimiento Artistico: " + pintura.getMovimientoArtistico()+ "\n"+
+	    	    							"		Tecnica: " + pintura.getTecnica() + "\n"+
+	    	    							"		Estado: " + pintura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  pintura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + pintura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ pintura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ pintura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ pintura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ pintura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + pintura.getAncho()+ " cm\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + pintura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 2)
+			    	{
+			    		Escultura escultura;
+			    		escultura = (Escultura) Inventario.getPiezaInventario("b");
+
+	    	    		System.out.println("	Titulo: " + escultura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ escultura.getAutor() + "\n"+
+	    	    							"		Año: " + escultura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + escultura.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + escultura.getTecnica() + "\n"+
+	    	    							"		Estado: " + escultura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  escultura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + escultura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ escultura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ escultura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ escultura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ escultura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + escultura.getAncho()+ " cm\n"+
+	    	    							"		Profundidad: " + escultura.getProfundidad()+ " cm\n"+
+	    	    							"		Materiales: " + escultura.getMateriales()+ " \n"+
+	    	    							"		Peso: " + escultura.getPeso()+ " kg\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + escultura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 3)
+			    	{
+			    		Impresion impresion;
+			    		impresion = (Impresion) Inventario.getPiezaInventario("c");
+
+	    	    		System.out.println("	Titulo: " + impresion.getTitulo()+"\n"+
+	    	    							"		Autor: "+ impresion.getAutor() + "\n"+
+	    	    							"		Año: " + impresion.getAnio()+ "\n"+
+	    	    							"		Tipo: " + impresion.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + impresion.getTecnica() + "\n"+
+	    	    							"		Estado: " + impresion.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  impresion.getLugar()+ "\n"+
+	    	    							"		Valor: $" + impresion.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ impresion.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ impresion.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ impresion.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ impresion.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + impresion.getAncho()+ " cm\n"+
+	    	    							"		Soporte: " + impresion.getSoporte()+ "\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + impresion.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 4)
+			    	{
+			    		Fotografia fotografia;
+			    		fotografia= (Fotografia) Inventario.getPiezaInventario("d");
+
+	    	    		System.out.println("	Titulo: " + fotografia.getTitulo()+"\n"+
+	    	    							"		Autor: "+ fotografia.getAutor() + "\n"+
+	    	    							"		Año: " + fotografia.getAnio()+ "\n"+
+	    	    							"		Tipo: " + fotografia.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + fotografia.getTecnica() + "\n"+
+	    	    							"		Estado: " + fotografia.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  fotografia.getLugar()+ "\n"+
+	    	    							"		Valor: $" + fotografia.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ fotografia.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ fotografia.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ fotografia.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ fotografia.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + fotografia.getAncho()+ " cm\n"+
+	    	    							"		¿Esta a color?: " + fotografia.getaColor()+ " \n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + fotografia.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 5)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("e");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 6)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("f");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+            }
+
+            
+            else if (opcion == 0) 
             {
                 continuar = false;
             } 
@@ -764,7 +1102,8 @@ public class Consola
         	
             System.out.println("\n*** Bienvenido cajero ***\n");
             System.out.println("1. Mirar historia de un artista");
-            System.out.println("2. Salir");
+            System.out.println("2. Mirar la historia de una pieza");
+            System.out.println("0. Salir");
             System.out.print("Por favor, elige una opción: ");
             int opcion = scanner.nextInt();
 
@@ -799,6 +1138,166 @@ public class Consola
 		    	historiaArtista(artista);
             } 
             else if (opcion == 2) 
+            {
+            	boolean bucle = false;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. La Mona Lisa");
+		    		System.out.println("2. David");
+		    		System.out.println("3. Campbell's Soup Cans");
+		    		System.out.println("4. Moonrise, Hernandez, New Mexico");
+		    		System.out.println("5. Toy Story");
+		    		System.out.println("6. Brave");
+		    		
+		    		
+		    		
+		    		System.out.print("Ingrese el numero de la pieza que desea consultar: ");
+			    	int opcionPieza = scanner.nextInt();
+
+			    	if (opcionPieza == 1)
+			    	{
+			    		Pintura pintura;
+			    		pintura = (Pintura) Inventario.getPiezaInventario("a");
+
+	    	    		System.out.println("	Titulo: " + pintura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ pintura.getAutor() + "\n"+
+	    	    							"		Año: " + pintura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + pintura.getTipo()+ "\n"+
+	    	    							"		Movimiento Artistico: " + pintura.getMovimientoArtistico()+ "\n"+
+	    	    							"		Tecnica: " + pintura.getTecnica() + "\n"+
+	    	    							"		Estado: " + pintura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  pintura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + pintura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ pintura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ pintura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ pintura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ pintura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + pintura.getAncho()+ " cm\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + pintura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 2)
+			    	{
+			    		Escultura escultura;
+			    		escultura = (Escultura) Inventario.getPiezaInventario("b");
+
+	    	    		System.out.println("	Titulo: " + escultura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ escultura.getAutor() + "\n"+
+	    	    							"		Año: " + escultura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + escultura.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + escultura.getTecnica() + "\n"+
+	    	    							"		Estado: " + escultura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  escultura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + escultura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ escultura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ escultura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ escultura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ escultura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + escultura.getAncho()+ " cm\n"+
+	    	    							"		Profundidad: " + escultura.getProfundidad()+ " cm\n"+
+	    	    							"		Materiales: " + escultura.getMateriales()+ " \n"+
+	    	    							"		Peso: " + escultura.getPeso()+ " kg\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + escultura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 3)
+			    	{
+			    		Impresion impresion;
+			    		impresion = (Impresion) Inventario.getPiezaInventario("c");
+
+	    	    		System.out.println("	Titulo: " + impresion.getTitulo()+"\n"+
+	    	    							"		Autor: "+ impresion.getAutor() + "\n"+
+	    	    							"		Año: " + impresion.getAnio()+ "\n"+
+	    	    							"		Tipo: " + impresion.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + impresion.getTecnica() + "\n"+
+	    	    							"		Estado: " + impresion.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  impresion.getLugar()+ "\n"+
+	    	    							"		Valor: $" + impresion.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ impresion.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ impresion.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ impresion.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ impresion.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + impresion.getAncho()+ " cm\n"+
+	    	    							"		Soporte: " + impresion.getSoporte()+ "\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + impresion.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 4)
+			    	{
+			    		Fotografia fotografia;
+			    		fotografia= (Fotografia) Inventario.getPiezaInventario("d");
+
+	    	    		System.out.println("	Titulo: " + fotografia.getTitulo()+"\n"+
+	    	    							"		Autor: "+ fotografia.getAutor() + "\n"+
+	    	    							"		Año: " + fotografia.getAnio()+ "\n"+
+	    	    							"		Tipo: " + fotografia.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + fotografia.getTecnica() + "\n"+
+	    	    							"		Estado: " + fotografia.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  fotografia.getLugar()+ "\n"+
+	    	    							"		Valor: $" + fotografia.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ fotografia.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ fotografia.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ fotografia.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ fotografia.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + fotografia.getAncho()+ " cm\n"+
+	    	    							"		¿Esta a color?: " + fotografia.getaColor()+ " \n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + fotografia.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 5)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("e");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 6)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("f");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+            }
+
+            
+            else if (opcion == 0) 
             {
                 continuar = false;
             } 
@@ -824,7 +1323,8 @@ public class Consola
             System.out.println("1. Realizar una compra");
             System.out.println("2. Participar en una subasta");
             System.out.println("3. Mirar historia de un artista");
-            System.out.println("4. Salir");
+            System.out.println("4. Mirar historia de una pieza");
+            System.out.println("0. Salir");
             System.out.print("Por favor, elige una opción: ");
             int opcion = scanner.nextInt();
 
@@ -866,7 +1366,167 @@ public class Consola
 		    	
 		    	historiaArtista(artista);
             }
+            
             else if (opcion == 4) 
+            {
+            	boolean bucle = false;
+		    	
+		    	while (bucle == false) 
+		    	{
+		    		System.out.println("1. La Mona Lisa");
+		    		System.out.println("2. David");
+		    		System.out.println("3. Campbell's Soup Cans");
+		    		System.out.println("4. Moonrise, Hernandez, New Mexico");
+		    		System.out.println("5. Toy Story");
+		    		System.out.println("6. Brave");
+		    		
+		    		
+		    		
+		    		System.out.print("Ingrese el numero de la pieza que desea consultar: ");
+			    	int opcionPieza = scanner.nextInt();
+
+			    	if (opcionPieza == 1)
+			    	{
+			    		Pintura pintura;
+			    		pintura = (Pintura) Inventario.getPiezaInventario("a");
+
+	    	    		System.out.println("	Titulo: " + pintura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ pintura.getAutor() + "\n"+
+	    	    							"		Año: " + pintura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + pintura.getTipo()+ "\n"+
+	    	    							"		Movimiento Artistico: " + pintura.getMovimientoArtistico()+ "\n"+
+	    	    							"		Tecnica: " + pintura.getTecnica() + "\n"+
+	    	    							"		Estado: " + pintura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  pintura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + pintura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ pintura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ pintura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ pintura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ pintura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + pintura.getAncho()+ " cm\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + pintura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 2)
+			    	{
+			    		Escultura escultura;
+			    		escultura = (Escultura) Inventario.getPiezaInventario("b");
+
+	    	    		System.out.println("	Titulo: " + escultura.getTitulo()+"\n"+
+	    	    							"		Autor: "+ escultura.getAutor() + "\n"+
+	    	    							"		Año: " + escultura.getAnio()+ "\n"+
+	    	    							"		Tipo: " + escultura.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + escultura.getTecnica() + "\n"+
+	    	    							"		Estado: " + escultura.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  escultura.getLugar()+ "\n"+
+	    	    							"		Valor: $" + escultura.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ escultura.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ escultura.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ escultura.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ escultura.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + escultura.getAncho()+ " cm\n"+
+	    	    							"		Profundidad: " + escultura.getProfundidad()+ " cm\n"+
+	    	    							"		Materiales: " + escultura.getMateriales()+ " \n"+
+	    	    							"		Peso: " + escultura.getPeso()+ " kg\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + escultura.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 3)
+			    	{
+			    		Impresion impresion;
+			    		impresion = (Impresion) Inventario.getPiezaInventario("c");
+
+	    	    		System.out.println("	Titulo: " + impresion.getTitulo()+"\n"+
+	    	    							"		Autor: "+ impresion.getAutor() + "\n"+
+	    	    							"		Año: " + impresion.getAnio()+ "\n"+
+	    	    							"		Tipo: " + impresion.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + impresion.getTecnica() + "\n"+
+	    	    							"		Estado: " + impresion.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  impresion.getLugar()+ "\n"+
+	    	    							"		Valor: $" + impresion.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ impresion.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ impresion.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ impresion.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ impresion.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + impresion.getAncho()+ " cm\n"+
+	    	    							"		Soporte: " + impresion.getSoporte()+ "\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + impresion.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 4)
+			    	{
+			    		Fotografia fotografia;
+			    		fotografia= (Fotografia) Inventario.getPiezaInventario("d");
+
+	    	    		System.out.println("	Titulo: " + fotografia.getTitulo()+"\n"+
+	    	    							"		Autor: "+ fotografia.getAutor() + "\n"+
+	    	    							"		Año: " + fotografia.getAnio()+ "\n"+
+	    	    							"		Tipo: " + fotografia.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + fotografia.getTecnica() + "\n"+
+	    	    							"		Estado: " + fotografia.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  fotografia.getLugar()+ "\n"+
+	    	    							"		Valor: $" + fotografia.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ fotografia.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ fotografia.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ fotografia.getFechaVenta()+ "\n"+
+	    	    							"		Alto: "+ fotografia.getAlto()+ " cm\n"+
+	    	    							"		Ancho: " + fotografia.getAncho()+ " cm\n"+
+	    	    							"		¿Esta a color?: " + fotografia.getaColor()+ " \n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + fotografia.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 5)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("e");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	
+			    	else if (opcionPieza == 6)
+			    	{
+			    		Video video;
+			    		video= (Video) Inventario.getPiezaInventario("f");
+
+	    	    		System.out.println("	Titulo: " + video.getTitulo()+"\n"+
+	    	    							"		Autor: "+ video.getAutor() + "\n"+
+	    	    							"		Año: " + video.getAnio()+ "\n"+
+	    	    							"		Tipo: " + video.getTipo()+ "\n"+
+	    	    							"		Tecnica: " + video.getTecnica() + "\n"+
+	    	    							"		Estado: " + video.getEstado() +"\n"+ 
+	    	    							"		Lugar: "+  video.getLugar()+ "\n"+
+	    	    							"		Valor: $" + video.getValor()+ "\n"+
+	    	    							"		¿Ya se vendio?: "+ video.getVendida()+ "\n"+
+	    	    							"		Precio de la venta: $"+ video.getPrecioVenta()+ "\n"+
+	    	    							"		Fecha de la venta: "+ video.getFechaVenta()+ "\n"+
+	    	    							"		Duracion: "+ video.getDuracion()+"\n"+
+	    	    							"		Dueños (en orden de ultimo hasta el primero): " + video.getDueños());
+			    		bucle = true;
+			    	}
+			    	else
+			    		System.out.println("\nOpción no válida. Por favor, intenta de nuevo.");
+		    	}
+		    	
+            }
+
+            else if (opcion == 0) 
             {
                 continuar = false;
             } 
@@ -935,6 +1595,8 @@ public class Consola
         }
     	
     }
+    
+
     
     private static void iniciarProcesoCompra(Comprador comprador) 
     {

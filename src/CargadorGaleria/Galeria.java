@@ -24,6 +24,11 @@ public class Galeria {
 		return pieza;
 	}
 	
+	public static Map<String,Pieza> getPiezas() {
+		/*Obtiene la informacion de todas las pieza en el inventario*/
+		return inventarioMap;
+	}
+	
 	public static Pieza getPiezaSubasta(String idPieza) {
 		/*Obtiene la informacion de una pieza en el inventario*/
 		Pieza pieza= subastaMap.get(idPieza);

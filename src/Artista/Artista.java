@@ -25,12 +25,12 @@ public class Artista
         return piezasHechas;
     }
 
-    public void addPiezaHecha(String nombrePieza, String fechaCreacion, String fechaVenta, String precioVenta, boolean vendida) 
+    public void addPiezaHecha(String nombrePieza, String fechaCreacion, String fechaVenta, double precioVenta, boolean vendida) 
     {
         Map<String, Object> infoPieza = new HashMap<>();
         infoPieza.put("fechaCreacion", fechaCreacion);
         infoPieza.put("fechaVenta", fechaVenta);
-        infoPieza.put("precioVenta", String.valueOf(precioVenta));
+        infoPieza.put("precioVenta", precioVenta);
         infoPieza.put("vendida", vendida);
         piezasHechas.put(nombrePieza, infoPieza);
     }

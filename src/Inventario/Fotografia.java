@@ -1,5 +1,7 @@
 package Inventario;
 
+import java.util.List;
+
 public class Fotografia extends Pieza{
 	private double alto;
 	private double ancho;
@@ -8,8 +10,8 @@ public class Fotografia extends Pieza{
 	
 	public Fotografia(String ID, String Tecnica,String Autor,String Titulo,int Anio,String Lugar, String Estado, boolean Disponibilidad, 
 			String FechaLimite, double Valor, boolean Consignacion, boolean Devolucion, boolean Subasta, double ValorMinimoS, double ValorInicialS,
-			String Tipo, double Alto, double Ancho, boolean aColor,boolean Instalacion) {
-			super(ID,Tecnica,Autor,Titulo,Anio,Lugar,Estado,Disponibilidad,FechaLimite,Valor,Consignacion,Devolucion,Subasta,ValorMinimoS,ValorInicialS, Tipo);
+			String Tipo, double Alto, double Ancho, boolean aColor,boolean Instalacion, boolean vendida, double precioVenta, String fechaVenta,List<String> dueños) {
+			super(ID,Tecnica,Autor,Titulo,Anio,Lugar,Estado,Disponibilidad,FechaLimite,Valor,Consignacion,Devolucion,Subasta,ValorMinimoS,ValorInicialS, Tipo,vendida,precioVenta,fechaVenta,dueños);
 			this.iD=ID;
 			this.tecnica=Tecnica;
 			this.autor=Autor;
@@ -30,6 +32,10 @@ public class Fotografia extends Pieza{
 			this.ancho=Ancho;
 			this.aColor=aColor;
 			this.instalacion=Instalacion;
+			this.vendida=vendida;
+			this.precioVenta=precioVenta;
+			this.fechaVenta=fechaVenta;
+			this.dueños=dueños;
 		}
 
 	public double getAlto() {

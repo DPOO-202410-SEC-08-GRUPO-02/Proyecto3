@@ -48,7 +48,7 @@ public class CargadorGaleria {
 			
 			String fechaCreacion = "";
 			String fechaVenta = "";
-			String precioVenta = "";
+			double precioVenta = 0.0;
 			boolean vendida = false;
 			
 			JSONObject piezasHechasJson = (JSONObject) artista.get("piezasHechas");
@@ -57,7 +57,7 @@ public class CargadorGaleria {
 	                JSONObject mapPieza = (JSONObject) piezasHechasJson.getJSONObject(clave);
 	                fechaCreacion = mapPieza.getString("fechaCreacion");
 	                fechaVenta = mapPieza.getString("fechaVenta");
-	                precioVenta = mapPieza.getString("precioVenta");
+	                precioVenta = mapPieza.getDouble("precioVenta");
 	                vendida = mapPieza.getBoolean("vendida");
 
 	                nuevoArtista.addPiezaHecha(clave, fechaCreacion, fechaVenta, precioVenta, vendida);
@@ -450,10 +450,20 @@ public class CargadorGaleria {
 		boolean subasta = pieza.getBoolean("subasta");
 		double valorMinimoS = pieza.getDouble("valorMinimoS");
 		double valorInicialS = pieza.getDouble("valorInicialS");
+		boolean vendida = pieza.getBoolean("vendida");
+		double precioVenta = pieza.getDouble("precioVenta");
+		String fechaVenta= pieza.getString("fechaVenta");
+		JSONArray dueñosArray = (JSONArray) pieza.getJSONArray("dueños");
+		List<String> dueños = new ArrayList<>();
+		for (Object dueño : dueñosArray) {
+            dueños.add((String) dueño);
+        }
+       
+		
 		
 		
 		Pieza nuevaPieza = null;
-		
+	
 		if(tipo.equals("Pintura"))
 		{
 			double alto = pieza.getDouble("alto");
@@ -462,7 +472,7 @@ public class CargadorGaleria {
 			boolean instalacion = pieza.getBoolean("instalacion");
 			nuevaPieza = new Pintura(id, tecnica, autor, titulo, anio, lugar, estado, 
 					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS,tipo,
-					alto, ancho, movimientoArtistico, instalacion);
+					alto, ancho, movimientoArtistico, instalacion,vendida,precioVenta,fechaVenta,dueños);
 		
 		}
 		else if (tipo.equals("Escultura"))
@@ -481,7 +491,7 @@ public class CargadorGaleria {
 			
 			nuevaPieza = new Escultura (id, tecnica, autor, titulo, anio, lugar, estado, 
 					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-					alto, ancho, profundidad, materiales, peso, instalacion, electricidad);
+					alto, ancho, profundidad, materiales, peso, instalacion, electricidad,vendida,precioVenta,fechaVenta,dueños);
 		}
 		
 		else if (tipo.equals("Impresion"))
@@ -493,7 +503,7 @@ public class CargadorGaleria {
 			
 			nuevaPieza = new Impresion (id, tecnica, autor, titulo, anio, lugar, estado, 
 					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-					alto, ancho, soporte, instalacion);
+					alto, ancho, soporte, instalacion,vendida,precioVenta,fechaVenta,dueños);
 		}
 		
 		else if (tipo.equals("Fotografia"))
@@ -505,7 +515,7 @@ public class CargadorGaleria {
 			
 			nuevaPieza = new Fotografia (id, tecnica, autor, titulo, anio, lugar, estado, 
 					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-					alto, ancho, aColor, instalacion);
+					alto, ancho, aColor, instalacion,vendida,precioVenta,fechaVenta,dueños);
 		}
 		
 		else if (tipo.equals("Video"))
@@ -515,7 +525,7 @@ public class CargadorGaleria {
 			
 			nuevaPieza = new Video (id, tecnica, autor, titulo, anio, lugar, estado, 
 					disponibilidad, fechaLimite,valor, consignacion, devolucion, subasta, valorMinimoS, valorInicialS, tipo,
-					duracion, electricidad);
+					duracion, electricidad,vendida,precioVenta,fechaVenta,dueños);
 		}
 		
 		return nuevaPieza;
@@ -538,6 +548,10 @@ public class CargadorGaleria {
 		jPieza.put("valorMinimoS", pieza.getValorMinimoS());
 		jPieza.put("valorInicialS", pieza.getValorInicialS());
 		jPieza.put("tipo", pieza.getTipo());
+		jPieza.put("vendida",pieza.getVendida());
+		jPieza.put("precioVenta",pieza.getPrecioVenta());
+		jPieza.put("fechaVenta",pieza.getFechaVenta());
+		jPieza.put("dueños",pieza.getDueños());
 		
 		String tipo = pieza.getTipo();
 		
