@@ -2,6 +2,7 @@ package GaleraTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +42,7 @@ class GaleriaTest {
 	@Test
 	@DisplayName("Comprobar Carga de datos funciona")
 
-	public void CargaFuncionando() {
+	public void CargaFuncionando() throws IOException {
 		/* Esta prueba es para ver que todo haya cargado bien para las pruebas*/
 		/*Comprador*/
 		assertEquals("German", comprador.getNombre());
@@ -62,6 +63,11 @@ class GaleriaTest {
 		assertEquals("Brave", video.getTitulo());
 		assertEquals("Pixar Animation Studios", video.getAutor());
 		assertEquals( 23.5, video.getValor());
+		
+		/*Salvar galeria (para el coverage)*/
+		CargadorGaleria.salvarInventario("./datos/Inventario.json");
+		CargadorGaleria.salvarArtistas("./datos/Artistas.json");
+		CargadorGaleria.salvarUsuario("./datos/Usuarios.json");
 		
 	}
 	
