@@ -42,7 +42,7 @@ public class Administrador extends Empleado{
 		{
 			double dineroActual = comprador.getDineroActual();
 			
-			double limiteCompras = Math.round((dineroActual - (dineroActual/3)* 100.0) / 100.0);
+			double limiteCompras = Math.round(((dineroActual - (dineroActual/3))* 100.0) / 100.0);
 			comprador.setLimiteCompras(limiteCompras);
 			comprador.setVerificado(true);
 		}
@@ -55,6 +55,18 @@ public class Administrador extends Empleado{
 		
 		comprador.devolverPieza(pieza);
 		pieza.setDevolucion(true);
+		pieza.setEstado("Bodega");
+		pieza.setDisponibilidad(true);
+		pieza.setfechaVenta("n/a");
+		pieza.setVendida(false);
+		double dineroActual= comprador.getDineroActual();
+		double precioVenta=pieza.getPrecioVenta();
+		HashMap<String, Double> metodoPagoMap= (HashMap<String, Double>) comprador.getMetodoPago();
+		double efectivo= metodoPagoMap.get("efectivo");
+		dineroActual=dineroActual+precioVenta;
+		efectivo= efectivo+precioVenta;
+		comprador.editarDineroActual(dineroActual, metodoPagoMap.get("tarjetaCredito"), metodoPagoMap.get("transferenciaElectronica"), efectivo, metodoPagoMap);
+		pieza.setPrecioVenta(0);
 	}
 	
 	public void cambiarEstadoObra (Pieza pieza, String llave, String valor) {

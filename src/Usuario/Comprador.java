@@ -2,6 +2,7 @@ package Usuario;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -75,8 +76,14 @@ public class Comprador extends Cliente{
 	
 	public void devolverPieza(Pieza pieza) {
 		/* No se le presentara al comprador para que la use. el administrador es el que debe usarla.*/
-		
-		this.infoCompras.remove(pieza.getID(),pieza);
+		List<Pieza> nuevasPiezasActuales= new ArrayList<Pieza>( );
+		for (int i=0; i<piezasActuales.size(); i++) {
+			Pieza piezaEnLista = piezasActuales.get(i);
+			if (pieza.getID()!=piezaEnLista.getID()) {
+				nuevasPiezasActuales.add(piezaEnLista);
+			}
+		}
+		piezasActuales=nuevasPiezasActuales;
 	}
 	
 	public void agregarPieza(Pieza pieza) {
