@@ -624,7 +624,7 @@ public class Consola
 		    	}
 		    	
 		    	Cliente cliente = (Cliente) Galeria.getUsuario(login);
-		    	List<Pieza> piezas = admin.piezasDuenio(cliente);
+		    	List<Pieza> piezas = admin.piezasDueño(cliente);
 		    	
 		    	if (piezas == null)
 		    	{
@@ -1648,8 +1648,6 @@ public class Consola
             	{
 	                Compra nuevaCompra = new Compra(pieza, comprador, valor);
 	                
-	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero);
-	
 		            double efectivo = mapMetodo.get("efectivo");
 		            double tarjeta = mapMetodo.get("tarjetaCredito");
 		            double transferencia = mapMetodo.get("transferenciaElectronica");
@@ -1679,8 +1677,8 @@ public class Consola
 		            {
 		            	metodoPago = "transferenciaElectronica";
 		            }
-		            
-	                cajero.realizarPago(comprador, pieza, valor, admin, cajero, metodoPago);
+
+	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero,metodoPago);
 	                
 	                System.out.println("Compra realizada con éxito. Gracias por tu compra.");
                 } 
@@ -1847,8 +1845,6 @@ public class Consola
             	{
 	                Compra nuevaCompra = new Compra(pieza, comprador, valor);
 	                
-	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero);
-	
 		            double efectivo = mapMetodo.get("efectivo");
 		            double tarjeta = mapMetodo.get("tarjetaCredito");
 		            double transferencia = mapMetodo.get("transferenciaElectronica");
@@ -1879,7 +1875,7 @@ public class Consola
 		            	metodoPago = "transferenciaElectronica";
 		            }
 		            
-	                cajero.realizarPago(comprador, pieza, valor, admin, cajero, metodoPago);
+	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero,metodoPago);
 	                
 	                System.out.println("Compra realizada con éxito. Gracias por su compra.");
                 } 

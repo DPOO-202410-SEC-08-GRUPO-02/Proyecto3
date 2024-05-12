@@ -194,5 +194,8 @@ public class Pieza {
 	public void setfechaVenta(String fechaVenta) {
 		this.fechaVenta= fechaVenta;
 	}
+	public void setDueños(List<String> dueños) {
+		this.dueños=dueños;
+	}
 	
 }

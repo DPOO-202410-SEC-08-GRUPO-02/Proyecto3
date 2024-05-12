@@ -65,9 +65,9 @@ public class Comprador extends Cliente{
 		
 	}
 	
-	public void comprarPieza(Pieza pieza,Comprador comprador, Administrador admin, Cajero cajero) {
+	public void comprarPieza(Pieza pieza,Comprador comprador, Administrador admin, Cajero cajero, String metodoPagoPreferido) {
 		/* El usuario podra elegir una pieza en el Catalogo para comprar*/
-		Compra.pasarCaja(comprador, pieza, "Compra normal", admin, cajero);
+		Compra.pasarCaja(comprador, pieza, "Compra normal", admin, cajero,metodoPagoPreferido);
 	}
 	
 	public void editarLimite(double nuevoLimite) {

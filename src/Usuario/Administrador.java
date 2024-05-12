@@ -113,6 +113,14 @@ public class Administrador extends Empleado{
 		cliente.agregarPiezaActual(pieza);
 	}
 	
+	public void agregarDueño (Cliente cliente, Pieza pieza) {
+		/* Agrega el dueño a una pieza*/
+		String nombre= cliente.getNombre();
+		List<String> dueños=pieza.getDueños();
+		dueños.add(0, nombre);
+		pieza.setDueños(dueños);
+	}
+	
 	public void ingresarPieza (Pieza pieza) {
 		/* Ingresa una pieza totalmente nueva al inventario de la galeria*/
 		Inventario.agregarPiezaInventario(pieza);
@@ -131,7 +139,7 @@ public class Administrador extends Empleado{
 		return piezas;
 	}
 	
-	public List<Pieza> piezasDuenio(Cliente cliente)
+	public List<Pieza> piezasDueño(Cliente cliente)
 	{
 		List<Pieza> piezas = cliente.getPiezasActuales();
 		return piezas;

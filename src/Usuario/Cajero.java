@@ -2,6 +2,7 @@ package Usuario;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import Inventario.Pieza;
@@ -31,6 +32,9 @@ public class Cajero extends Empleado{
 		double transferenciaElectronica= metodoPagoMap.get("transferenciaElectronica");
 		double efectivo= metodoPagoMap.get("efectivo");
 		
+
+		pieza.setPrecioVenta(valorCompra);
+		
 		if (metodoPago.equals("tarjetaCredito"))
 		{
 			if (tarjetaCredito - valorCompra >= 0) 
@@ -39,7 +43,7 @@ public class Cajero extends Empleado{
 				dineroActual= dineroActual- valorCompra;
 				valorCompra=0.001;
 			}
-			
+		
 			else 
 			{
 				dineroActual= dineroActual- tarjetaCredito;
@@ -169,11 +173,26 @@ public class Cajero extends Empleado{
 		
 		}
 		
-		DecimalFormat df = new DecimalFormat("#.##");
-		String dineroActualString = df.format(dineroActual);
-		double dineroActualCorto = Double.parseDouble(dineroActualString);
+		dineroActual=dineroActual*100;
+		double dineroActualCorto = Math.round(dineroActual);
+		dineroActualCorto=dineroActualCorto/100;
 		
-		comprador.editarDineroActual(dineroActualCorto, tarjetaCredito, transferenciaElectronica, efectivo, metodoPagoMap);
+		efectivo=efectivo*100;
+		double efectivoCorto = Math.round(efectivo);
+		efectivoCorto=efectivoCorto/100;
+		
+		tarjetaCredito=tarjetaCredito*100;
+		double tarjetaCreditoCorto = Math.round(tarjetaCredito);
+		tarjetaCreditoCorto=tarjetaCreditoCorto/100;
+		
+		transferenciaElectronica=transferenciaElectronica*100;
+		double transferenciaElectronicaCorto = Math.round(transferenciaElectronica);
+		transferenciaElectronicaCorto=transferenciaElectronicaCorto/100;
+		
+		comprador.editarDineroActual(dineroActualCorto, tarjetaCreditoCorto, transferenciaElectronicaCorto, efectivoCorto, metodoPagoMap);
+		pieza.setEstado("Vendida");
+		pieza.setVendida(true);
+		admin.agregarDueño(comprador,pieza);
 		admin.agregarPieza (comprador, pieza);
 		admin.agregarPiezaActual(comprador, pieza);
 		admin.agregarPiezaHist(comprador, pieza);
