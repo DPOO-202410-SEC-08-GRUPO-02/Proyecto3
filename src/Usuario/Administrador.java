@@ -59,13 +59,6 @@ public class Administrador extends Empleado{
 		pieza.setDisponibilidad(true);
 		pieza.setfechaVenta("n/a");
 		pieza.setVendida(false);
-		double dineroActual= comprador.getDineroActual();
-		double precioVenta=pieza.getPrecioVenta();
-		HashMap<String, Double> metodoPagoMap= (HashMap<String, Double>) comprador.getMetodoPago();
-		double efectivo= metodoPagoMap.get("efectivo");
-		dineroActual=dineroActual+precioVenta;
-		efectivo= efectivo+precioVenta;
-		comprador.editarDineroActual(dineroActual, metodoPagoMap.get("tarjetaCredito"), metodoPagoMap.get("transferenciaElectronica"), efectivo, metodoPagoMap);
 		pieza.setPrecioVenta(0);
 	}
 	

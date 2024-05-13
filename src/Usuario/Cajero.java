@@ -231,4 +231,30 @@ public class Cajero extends Empleado{
 				return false;
 		}
 	}
+	
+	public void realizarDevolucion (Comprador comprador, Pieza pieza, String metodoDePago,Administrador administrador) {
+		/* Verifica que todo este en orden para realizar una devolucion si es asi entonces la aprueba*/
+		double dineroActual= comprador.getDineroActual();
+		double precioVenta=pieza.getPrecioVenta();
+		HashMap<String, Double> metodoPagoMap= (HashMap<String, Double>) comprador.getMetodoPago();
+		double efectivo= metodoPagoMap.get("efectivo");
+		double tarjetaCredito=metodoPagoMap.get("tarjetaCredito");
+		double transferenciaElectronica= metodoPagoMap.get("transferenciaElectronica");
+		if (metodoDePago=="efectivo") {
+		dineroActual=dineroActual+precioVenta;
+		efectivo= efectivo+precioVenta;
+			}
+		
+		if (metodoDePago=="tarjetaCredito") {
+			dineroActual=dineroActual+precioVenta;
+			tarjetaCredito= tarjetaCredito+precioVenta;
+			}
+		
+		if (metodoDePago=="transferenciaElectronica") {
+			dineroActual=dineroActual+precioVenta;
+			transferenciaElectronica= transferenciaElectronica+precioVenta;
+			}
+		comprador.editarDineroActual(dineroActual, tarjetaCredito, transferenciaElectronica, efectivo, metodoPagoMap);
+		administrador.verificarDevolucion (comprador, pieza);
+	}
 }
