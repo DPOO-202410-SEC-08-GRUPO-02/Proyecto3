@@ -1,6 +1,5 @@
 package Subasta;
 
-import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Random;
 
@@ -58,10 +57,9 @@ public class Subasta {
 	public static double ofertaAleatoria(double ofertaComprador, double valorMin, Operador operador, Pieza pieza)
 	{
 		Random random = new Random();
-		double numeroAleatorioLargo = ofertaComprador + (valorMin - ofertaComprador) * random.nextDouble();
-		DecimalFormat df = new DecimalFormat("#.##");
-		String numeroAleatorioString = df.format(numeroAleatorioLargo);
-		double numeroAleatorio = Double.parseDouble(numeroAleatorioString);
+		double numeroAleatorioLargo = (ofertaComprador + (valorMin - ofertaComprador) * random.nextDouble())*100;
+		double numeroAleatorioCorto =  Math.round(numeroAleatorioLargo);
+		double numeroAleatorio = numeroAleatorioCorto/100;
 		
 		int turnoAnterior = operador.getTurnoAnterior();
 		String turno = operador.generarTurno(turnoAnterior);

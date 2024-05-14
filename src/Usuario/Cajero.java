@@ -1,8 +1,6 @@
 package Usuario;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import Inventario.Pieza;
