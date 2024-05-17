@@ -1909,7 +1909,7 @@ public class Consola
             for (Pieza pieza : piezasSubasta.values())
             {
                 System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
-                " - Autor: " + pieza.getAutor() + " - Valor Mínimo: $" + pieza.getValorMinimoS());
+                " - Autor: " + pieza.getAutor() + " - Valor Inicial: $" + pieza.getValorInicialS());
             }
         }
     }
