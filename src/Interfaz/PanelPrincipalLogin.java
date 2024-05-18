@@ -6,12 +6,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import CargadorGaleria.Galeria;
+import Usuario.Administrador;
+import Usuario.Comprador;
+import Usuario.Usuario;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class PanelPrincipalLogin extends JFrame
+public class PanelPrincipalLogin extends JFrame implements ActionListener
 {
 //	private PanelPrincipalLogin panelLogin;
 	
@@ -19,8 +26,6 @@ public class PanelPrincipalLogin extends JFrame
 	private JPanel subPanelCentral;
 	private JPanel panelNorte;
 	private JPanel panelSur;
-	private JPanel panelEste;
-	private JPanel panelOeste;
 	
 	private JLabel lbltituloGal;
 	private JLabel lbltituloLogin;
@@ -32,6 +37,7 @@ public class PanelPrincipalLogin extends JFrame
     private JTextField txtcontrasenia;
 	
 	private JButton btnSalida;
+	private JButton btnLogin;
 	
 	public PanelPrincipalLogin()
 	
@@ -44,7 +50,7 @@ public class PanelPrincipalLogin extends JFrame
         
         panelCentral = new JPanel( );
         add(panelCentral,BorderLayout.CENTER);
-        panelCentral.setLayout( new BorderLayout( ) );
+        panelCentral.setLayout( new GridLayout( 3, 1 ) );
         
         subPanelCentral = new JPanel( );
         
@@ -54,12 +60,6 @@ public class PanelPrincipalLogin extends JFrame
         panelSur = new JPanel( );
         add(panelSur,BorderLayout.SOUTH);
         
-        panelEste = new JPanel( );
-        add(panelEste,BorderLayout.EAST);
-        
-        panelOeste = new JPanel( );
-        add(panelOeste,BorderLayout.WEST);
-        
 //        Panel norte
         lbltituloGal= new JLabel("Bienvenido a la galeria");
         panelNorte.add(lbltituloGal);
@@ -68,33 +68,99 @@ public class PanelPrincipalLogin extends JFrame
         
         btnSalida = new JButton("SALIDA" );
         panelSur.add( btnSalida );
-        
-//      Panel este
-        lblespacio= new JLabel("                                    ");
-        panelEste.add(lblespacio);
-      
-//      Panel oeste
-        
-        lblespacio= new JLabel("                                    ");
-        panelOeste.add( lblespacio );
+        btnSalida.addActionListener( this );
+        btnSalida.setActionCommand( "salir" );
         
 //        Panel central
         
         lbltituloLogin= new JLabel("Inicio de sesión");
-        panelCentral.add(lbltituloLogin,BorderLayout.NORTH);
+        panelCentral.add(lbltituloLogin);
         
-        subPanelCentral.setLayout( new GridLayout( 2, 2 ) );
+        subPanelCentral.setLayout( new GridLayout( 2, 1 ) );
         lbllogin= new JLabel("Login:" );
         subPanelCentral.add(lbllogin);
+        
         txtlogin = new JTextField();
         subPanelCentral.add(txtlogin);
         
+        panelCentral.add(subPanelCentral);
+        
+        subPanelCentral.setLayout( new GridLayout( 2, 1 ) );
         lblcontrasenia= new JLabel("Contraseña:" );
         subPanelCentral.add(lblcontrasenia);
+        
         txtcontrasenia = new JTextField();
         subPanelCentral.add(txtcontrasenia);
         
-        panelCentral.add(subPanelCentral,BorderLayout.SOUTH);
+        panelCentral.add(subPanelCentral);
+        
+        btnLogin = new JButton("ACEPTAR" );
+        panelCentral.add( btnLogin );
+        btnLogin.addActionListener( this );
+        btnLogin.setActionCommand( "login" );
+        
+    }
+	
+	public void actionPerformed( ActionEvent e )
+    {
+		if(e.getActionCommand( ).equals("salir"))
+        {
+			JOptionPane.showMessageDialog( null, "Gracias por visitar la galeria" );  
+			dispose();
+        }
+		else if(e.getActionCommand( ).equals("login"))
+        {
+			String login = txtlogin.getText();
+			String contrasenia = txtcontrasenia.getText();
+			
+			Boolean esta = Galeria.existeUsuario("Majo");
+			System.out.println(login);
+			System.out.println(esta);
+	    	if (esta == false)
+	    		JOptionPane.showMessageDialog(null, "El usuario no existe, vuelva a intentarlo");
+	    	else
+	    	{
+	    		Usuario usuario = (Usuario) Galeria.getUsuario(login);
+	        	String password = usuario.getContraseña();
+            
+		        if (contrasenia.equals(password))
+		       	{
+		       		String tipo = usuario.getTipo();
+		       		
+		       		if (tipo.equals("Administrador"))
+			        {
+//			        	Administrador admin = (Administrador) usuario;
+//			        	menuAdministrador(admin);
+			        }
+			        else if (tipo.equals("Operador"))
+			        {
+//			        	menuOperador();
+			        }
+			        else if (tipo.equals("Cajero"))
+			        {
+//			        	menuCajero();
+			        }
+			        else if (tipo.equals("Comprador"))
+			        {
+//			        	Comprador comprador = (Comprador) usuario;
+//			        	menuComprador(comprador);
+			        }
+			        
+			        else if (tipo.equals("Propietario"))
+			        {
+//			        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no se cuenta con consola");
+//			        	System.out.println("Ingrese otro usuario\n");
+			        }
+		       		
+		       	}
+		        	
+		       	else 
+		       	{
+		       		JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+		       	}
+	    	}
+        }
+		
     }
 	
 	public static void main (String[] args)
