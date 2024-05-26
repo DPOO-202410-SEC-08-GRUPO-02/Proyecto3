@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
 import Usuario.Administrador;
 import Usuario.Comprador;
@@ -15,6 +16,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 
@@ -105,17 +107,33 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
     {
 		if(e.getActionCommand( ).equals("salir"))
         {
-			JOptionPane.showMessageDialog( null, "Gracias por visitar la galeria" );  
+			JOptionPane.showMessageDialog( null, "Gracias por visitar la galeria" ); 
+			try {
+				CargadorGaleria.salvarInventario("./datos/Inventario.json");
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog( null, "Error al guardar informacion del inventario" ); 
+				e1.printStackTrace();
+			}
+    		try {
+				CargadorGaleria.salvarArtistas("./datos/Artistas.json");
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog( null, "Error al guardar informacion de los artistas" ); 
+				e1.printStackTrace();
+			}
+    		try {
+				CargadorGaleria.salvarUsuario("./datos/Usuarios.json");
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog( null, "Error al guardar informacion de los usuarios" );
+				e1.printStackTrace();
+			}
 			dispose();
         }
 		else if(e.getActionCommand( ).equals("login"))
         {
-			String login = txtlogin.getText();
-			String contrasenia = txtcontrasenia.getText();
+			String login = txtlogin.getText().trim();
+			String contrasenia = txtcontrasenia.getText().trim();
 			
-			Boolean esta = Galeria.existeUsuario("Majo");
-			System.out.println(login);
-			System.out.println(esta);
+			Boolean esta = Galeria.existeUsuario(login);
 	    	if (esta == false)
 	    		JOptionPane.showMessageDialog(null, "El usuario no existe, vuelva a intentarlo");
 	    	else
@@ -163,8 +181,29 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 		
     }
 	
+	
+	
 	public static void main (String[] args)
     {
+		try {
+			CargadorGaleria.cargarInventario("./datos/Inventario.json");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog( null, "Error al cargar informacion del inventario" );
+			e.printStackTrace();
+		}
+    	try {
+			CargadorGaleria.cargarArtista("./datos/Artistas.json");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog( null, "Error al cargar informacion de los artistas" );
+			e.printStackTrace();
+		}
+    	try {
+			CargadorGaleria.cargarUsuario("./datos/Usuarios.json");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog( null, "Error al cargar informacion de los usuarios" );
+			e.printStackTrace();
+		}
+    	
 		PanelPrincipalLogin inicio = new PanelPrincipalLogin( );
         inicio.setVisible( true );
         inicio.setLocationRelativeTo( null );

@@ -70,7 +70,6 @@ public class Consola
 	    		CargadorGaleria.salvarArtistas("./datos/Artistas.json");
 	    		CargadorGaleria.salvarUsuario("./datos/Usuarios.json");
 	    		
-	    		
 	    		System.out.println("\nGracias por visitar nuestra galería. ¡Hasta pronto!");
 	    		continuar = false;
 	        }
