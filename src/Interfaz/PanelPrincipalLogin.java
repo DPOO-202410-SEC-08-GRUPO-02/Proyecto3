@@ -14,6 +14,7 @@ import Usuario.Usuario;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -147,8 +148,12 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 		       		
 		       		if (tipo.equals("Administrador"))
 			        {
-//			        	Administrador admin = (Administrador) usuario;
-//			        	menuAdministrador(admin);
+			        	PrincipalAdmin principalAdmin = new PrincipalAdmin();
+			   		 	principalAdmin.setVisible(true);
+			   		 	Point location = getLocation();
+			   		 	principalAdmin.setLocation(location);
+			   		 	setVisible(false);
+
 			        }
 			        else if (tipo.equals("Operador"))
 			        {
@@ -180,8 +185,6 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
         }
 		
     }
-	
-	
 	
 	public static void main (String[] args)
     {
