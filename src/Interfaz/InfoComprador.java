@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Map;
 
 import javax.print.DocFlavor.URL;
 import javax.swing.ImageIcon;
@@ -17,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import CargadorGaleria.Galeria;
+import Inventario.Pieza;
+import Usuario.Administrador;
 import Usuario.Cliente;
 
 public class InfoComprador extends JFrame implements ActionListener
@@ -41,9 +44,13 @@ public class InfoComprador extends JFrame implements ActionListener
     private JLabel lblTipo;
     
     private JButton btnRegresar;
+    
+    private Administrador admin;
 	
-	public InfoComprador(String usuarioSTR)
+	public InfoComprador(String usuarioSTR, Administrador admin)
 	{
+		this.admin = admin;
+		
 		setSize(750,600);
 		setTitle( "Galeria" );
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
@@ -76,9 +83,17 @@ public class InfoComprador extends JFrame implements ActionListener
 		panelOeste.add(lblImagen);
 
 		//imagen obra
+		
+		ImageIcon fOriginal = new ImageIcon("./datos/imagenes/" + nombre + ".png");
+		
+		System.out.println(("./datos/imagenes/" + nombre + ".png"));
+		
+        Image iOriginal = fOriginal.getImage();
 
-		ImageIcon foto = new ImageIcon("./datos/imagenes/prueba.png" );
-		lblImagen.setIcon( foto );
+        Image iNueva = iOriginal.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon fNueva = new ImageIcon(iNueva);
+
+		lblImagen.setIcon( fNueva );
 		
 		//Subpanel con informacio
 		
@@ -122,13 +137,38 @@ public class InfoComprador extends JFrame implements ActionListener
 		btnRegresar.setActionCommand( "regresar" );
 
 //		Panel Este
+		
+    	Map<String,Pieza> piezas = admin.piezasCompradas(cliente);
+    	
+    	if (piezas == null)
+    	{
+    		System.out.println("El cliente no tiene historial");
+    	}
+    	
+    	else
+    	{
+	    	System.out.println("\nEste es el historial del cliente: \n");
+	    	
+	    	for (Map.Entry<String, Pieza> entry : piezas.entrySet()) 
+	    	{
+	    		String key = entry.getKey();
+	            Pieza pieza = entry.getValue();		
+	            
+	            System.out.println("Pieza obtenida el: " + key);
+	    		System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
+                " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
+                " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor() + "\n");
+            }
+    	}
+		
+		
 	}
 	
 	public void actionPerformed( ActionEvent e )
     {
 		if(e.getActionCommand( ).equals("regresar"))
         {
-			PrincipalAdmin principalAdmin = new PrincipalAdmin();
+			PrincipalAdmin principalAdmin = new PrincipalAdmin(admin);
         	
         	Point location = getLocation();
    		 	principalAdmin.setLocation(location);

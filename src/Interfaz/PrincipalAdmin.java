@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import CargadorGaleria.Galeria;
+import Usuario.Administrador;
 
 public class PrincipalAdmin extends JFrame implements ActionListener
 {
@@ -32,8 +33,12 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 	private JButton btnAddPieza;
 	private JButton btnEditUsuario;
 	
-	public PrincipalAdmin()
+	private Administrador admin;
+	
+	public PrincipalAdmin(Administrador admin)
 	{
+		this.admin = admin;
+		
 		setSize(750,600);
 	    setTitle( "Galeria" );
 	    setDefaultCloseOperation( EXIT_ON_CLOSE );
@@ -118,7 +123,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			
 			else
 			{
-			InfoComprador infoComprador = new InfoComprador(usuario);
+			InfoComprador infoComprador = new InfoComprador(usuario, admin);
 			
 			Point location = getLocation();
 			infoComprador.setLocation(location);

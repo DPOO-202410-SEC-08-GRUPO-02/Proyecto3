@@ -9,7 +9,9 @@ import javax.swing.JTextField;
 import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
 import Usuario.Administrador;
+import Usuario.Cajero;
 import Usuario.Comprador;
+import Usuario.Operador;
 import Usuario.Usuario;
 
 import java.awt.BorderLayout;
@@ -148,7 +150,9 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 		       		
 		       		if (tipo.equals("Administrador"))
 			        {
-			        	PrincipalAdmin principalAdmin = new PrincipalAdmin();
+		       			Administrador admin = (Administrador) usuario;
+		       			
+			        	PrincipalAdmin principalAdmin = new PrincipalAdmin(admin);
 			        	
 			        	Point location = getLocation();
 			   		 	principalAdmin.setLocation(location);
@@ -158,26 +162,29 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 			        }
 			        else if (tipo.equals("Operador"))
 			        {
+			        	Operador operador = (Operador) usuario;
+			        	
 //			        	menuOperador();
 			        }
 			        else if (tipo.equals("Cajero"))
 			        {
+			        	Cajero cajero = (Cajero) usuario;
+			        	
 //			        	menuCajero();
 			        }
 			        else if (tipo.equals("Comprador"))
 			        {
-//			        	Comprador comprador = (Comprador) usuario;
+			        	Comprador comprador = (Comprador) usuario;
 //			        	menuComprador(comprador);
 			        }
 			        
 			        else if (tipo.equals("Propietario"))
 			        {
-//			        	System.out.println("\nEl usuario ingresado es un propietario, para esta entrega no se cuenta con consola");
-//			        	System.out.println("Ingrese otro usuario\n");
+			        	
+			        	JOptionPane.showMessageDialog(null, "El usuario ingresado es un propietario, para esta entrega no se cuenta con consola");
 			        }
 		       		
 		       	}
-		        	
 		       	else 
 		       	{
 		       		JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
