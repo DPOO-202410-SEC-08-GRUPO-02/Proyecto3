@@ -101,8 +101,8 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			Point location = getLocation();
    		 	panelLogin.setLocation(location);
 			setVisible(false);
-			panelLogin.setVisible(true);
 			dispose();
+			panelLogin.setVisible(true);
         }
     }
 }
