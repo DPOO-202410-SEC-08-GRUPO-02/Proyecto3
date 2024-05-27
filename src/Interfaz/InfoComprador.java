@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.print.DocFlavor.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -55,7 +56,9 @@ public class InfoComprador extends JFrame //implements ActionListener
 		panelOeste.add(lblImagen);
 
 		//imagen obra
-		ImageIcon foto = new ImageIcon("./imagenes/" + nombre +".png" );
+		java.net.URL url = getClass().getResource("./imagenes/Pedrope.jpg");
+		System.out.println(url);
+		ImageIcon foto = new ImageIcon(getClass().getResource("/imagenes/" + nombre +".png" ));
 		lblImagen.setIcon( foto );
 
 	}
