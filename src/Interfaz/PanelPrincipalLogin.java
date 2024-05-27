@@ -149,10 +149,11 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 		       		if (tipo.equals("Administrador"))
 			        {
 			        	PrincipalAdmin principalAdmin = new PrincipalAdmin();
-			   		 	principalAdmin.setVisible(true);
-			   		 	Point location = getLocation();
+			        	
+			        	Point location = getLocation();
 			   		 	principalAdmin.setLocation(location);
-			   		 	setVisible(false);
+			        	setVisible(false);
+			   		 	principalAdmin.setVisible(true);
 
 			        }
 			        else if (tipo.equals("Operador"))
