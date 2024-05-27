@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import javax.print.DocFlavor.URL;
@@ -27,6 +28,11 @@ public class InfoComprador extends JFrame implements ActionListener
 	private JPanel panelEste;
 	private JPanel panelOeste;
 	private JPanel subPanelOeste;
+	private JPanel subPanelEsteNorte;
+	private JPanel subPanelEsteCentro;
+	private JPanel subPanelEsteSur;
+	private JPanel subSubPanelEsteNorte;
+	private JPanel subSubPanelEsteCentro;
 	
 	private JLabel lblImagen;
 	
@@ -38,10 +44,34 @@ public class InfoComprador extends JFrame implements ActionListener
     private JLabel lblLogin;
     private JLabel lblTituloCorreo;
     private JLabel lblCorreo;
-    private JLabel lblTituloNumro;
+    private JLabel lblTituloNumero;
     private JLabel lblNumero;
     private JLabel lblTituloTipo;
     private JLabel lblTipo;
+    
+    private JLabel lblTituloHist;
+    private JLabel lblNoHist;
+    private JLabel lblTituloActl;
+    private JLabel lblNoActl;
+    private JLabel lblTituloValor;
+    private JLabel lblValor;
+    
+    private JLabel lblTituloFechaP;
+	private JLabel lblFechaP;
+	private JLabel lblTituloIDP;
+	private JLabel lblIDP;
+	private JLabel lblTituloTituloP;
+	private JLabel lblTituloP;
+	private JLabel lblTituloAutorP;
+	private JLabel lblAutorP;
+	private JLabel lblTituloAnioP;
+	private JLabel lblAnioP;
+	private JLabel lblTituloTecnicaP;
+	private JLabel lblTecnicaP;
+	private JLabel lblTituloPrecioP;
+	private JLabel lblPrecioP;
+	
+	private JLabel lblEspacio;
     
     private JButton btnRegresar;
     
@@ -51,7 +81,7 @@ public class InfoComprador extends JFrame implements ActionListener
 	{
 		this.admin = admin;
 		
-		setSize(750,600);
+		setSize(1030,850);
 		setTitle( "Galeria" );
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
 //		setResizable( false );
@@ -59,12 +89,20 @@ public class InfoComprador extends JFrame implements ActionListener
 
 		panelEste = new JPanel( );
 		add(panelEste,BorderLayout.EAST);
+		panelEste.setLayout( new GridLayout( 3, 1 ) );
 
 		panelOeste = new JPanel( );
 		add(panelOeste,BorderLayout.WEST);
 		panelOeste.setLayout( new GridLayout( 2, 1 ) );
 		
 		subPanelOeste = new JPanel( );
+		
+		subPanelEsteNorte = new JPanel( );
+		subPanelEsteCentro = new JPanel( );
+		subPanelEsteSur = new JPanel( );
+		
+		subSubPanelEsteNorte = new JPanel( );
+		subSubPanelEsteCentro = new JPanel( );
 
 		Cliente cliente = (Cliente) Galeria.getUsuario(usuarioSTR);
 
@@ -85,9 +123,6 @@ public class InfoComprador extends JFrame implements ActionListener
 		//imagen obra
 		
 		ImageIcon fOriginal = new ImageIcon("./datos/imagenes/" + nombre + ".png");
-		
-		System.out.println(("./datos/imagenes/" + nombre + ".png"));
-		
         Image iOriginal = fOriginal.getImage();
 
         Image iNueva = iOriginal.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
@@ -95,7 +130,7 @@ public class InfoComprador extends JFrame implements ActionListener
 
 		lblImagen.setIcon( fNueva );
 		
-		//Subpanel con informacio
+		//Subpanel con informacion
 		
 		subPanelOeste.setLayout( new GridLayout( 7, 2 ) );
 		
@@ -119,8 +154,8 @@ public class InfoComprador extends JFrame implements ActionListener
 		lblCorreo= new JLabel(correo );
 		subPanelOeste.add(lblCorreo);
 		
-		lblTituloNumro= new JLabel("Numero:" );
-		subPanelOeste.add(lblTituloNumro);
+		lblTituloNumero= new JLabel("Numero:" );
+		subPanelOeste.add(lblTituloNumero);
 		lblNumero= new JLabel( numero );
 		subPanelOeste.add(lblNumero);
 		
@@ -131,37 +166,191 @@ public class InfoComprador extends JFrame implements ActionListener
 
 		panelOeste.add(subPanelOeste);
 
-		btnRegresar = new JButton("ANTERIOR" );
+		btnRegresar = new JButton("REGRESAR" );
 		subPanelOeste.add( btnRegresar );
 		btnRegresar.addActionListener( this );
 		btnRegresar.setActionCommand( "regresar" );
 
 //		Panel Este
 		
-    	Map<String,Pieza> piezas = admin.piezasCompradas(cliente);
-    	
+		//Panel Este norte
+		
+		Map<String,Pieza> piezas = admin.piezasCompradas(cliente);
+
     	if (piezas == null)
     	{
-    		System.out.println("El cliente no tiene historial");
+    		subPanelEsteNorte.setLayout( new GridLayout(2 , 1 ) );
+    		
+    		lblTituloHist= new JLabel("Historial de piezas:" );
+    		subPanelEsteNorte.add(lblTituloHist);
+    		
+    		lblNoHist= new JLabel("El cliente no tiene historial" );
+    		subPanelEsteNorte.add(lblNoHist);
     	}
     	
     	else
     	{
-	    	System.out.println("\nEste es el historial del cliente: \n");
+    		int lengPiezas = piezas.size();
+    		
+    		subPanelEsteNorte.setLayout( new GridLayout(lengPiezas + 1 , 1 ) );
+    		
+    		lblTituloHist= new JLabel("Historial de piezas:" );
+    		subPanelEsteNorte.add(lblTituloHist);
 	    	
 	    	for (Map.Entry<String, Pieza> entry : piezas.entrySet()) 
 	    	{
-	    		String key = entry.getKey();
+	    		subSubPanelEsteNorte.setLayout( new GridLayout(7 , 2 ) );
+
+	    		String fecha = entry.getKey();
 	            Pieza pieza = entry.getValue();		
 	            
-	            System.out.println("Pieza obtenida el: " + key);
-	    		System.out.println("ID: " + pieza.getID() + " - Título: " + pieza.getTitulo() +
-                " - Autor: " + pieza.getAutor() + " - Año: " + pieza.getAnio() +
-                " - Técnica: " + pieza.getTecnica() + " - Precio: $" + pieza.getValor() + "\n");
+	            //Datos pieza
+	            
+	            String idP = pieza.getID();
+	            String tituloP = pieza.getTitulo();
+	            String autorP = pieza.getAutor();
+	            String anioP = pieza.getAnio() + "";
+	            String tecnicaP = pieza.getTecnica();
+	            String precioP = pieza.getValor() + "";
+	            
+	            //Sub sub panel norte
+	            
+	            lblTituloIDP= new JLabel("ID:" );
+	    		subSubPanelEsteNorte.add(lblTituloIDP);
+	    		lblIDP= new JLabel(idP );
+	    		subSubPanelEsteNorte.add(lblIDP);
+	    		
+	    		lblTituloTituloP= new JLabel("Titulo:" );
+	    		subSubPanelEsteNorte.add(lblTituloTituloP);
+	    		lblTituloP= new JLabel(tituloP );
+	    		subSubPanelEsteNorte.add(lblTituloP);
+	    		
+	    		lblTituloAutorP= new JLabel("Autor:" );
+	    		subSubPanelEsteNorte.add(lblTituloAutorP);
+	    		lblAutorP= new JLabel(autorP );
+	    		subSubPanelEsteNorte.add(lblAutorP);
+	    		
+	    		lblTituloAnioP= new JLabel("Año:" );
+	    		subSubPanelEsteNorte.add(lblTituloAnioP);
+	    		lblAnioP= new JLabel(anioP );
+	    		subSubPanelEsteNorte.add(lblAnioP);
+	    		
+	    		lblTituloTecnicaP= new JLabel("Tecnica:" );
+	    		subSubPanelEsteNorte.add(lblTituloTecnicaP);
+	    		lblTecnicaP= new JLabel(tecnicaP );
+	    		subSubPanelEsteNorte.add(lblTecnicaP);
+	    		
+	    		lblTituloPrecioP= new JLabel("Precio:" );
+	    		subSubPanelEsteNorte.add(lblTituloPrecioP);
+	    		lblPrecioP= new JLabel(precioP );
+	    		subSubPanelEsteNorte.add(lblPrecioP);
+	    		
+	    		lblTituloFechaP= new JLabel("Pieza obtenida el:" );
+	    		subSubPanelEsteNorte.add(lblTituloFechaP);
+	    		lblFechaP= new JLabel(fecha );
+	    		subSubPanelEsteNorte.add(lblFechaP);
+	    		
+	    		subPanelEsteNorte.add(subSubPanelEsteNorte);
             }
+	    	
+	    	panelEste.add(subPanelEsteNorte);
     	}
 		
+    	//Panel Este centro
+    	
+    	List<Pieza> piezasL = admin.piezasDueño(cliente);
+    	
+    	if (piezasL == null)
+    	{
+    		subPanelEsteCentro.setLayout( new GridLayout(2 , 1 ) );
+    		
+    		lblTituloActl= new JLabel("Piezas actuales:" );
+    		subPanelEsteCentro.add(lblTituloActl);
+    		
+    		lblNoActl= new JLabel("El cliente no tiene piezas actualmente" );
+    		subPanelEsteCentro.add(lblNoActl);
+    	}
+    	
+    	else
+    	{
+    		int lengPiezas = piezasL.size();
+    		
+    		subPanelEsteCentro.setLayout( new GridLayout(lengPiezas + 1 , 1 ) );
+    		
+    		lblTituloActl= new JLabel("Historial de piezas:" );
+    		subPanelEsteCentro.add(lblTituloActl);
+	    	
+    		for (Pieza pieza: piezasL)  
+	    	{
+	    		subSubPanelEsteCentro.setLayout( new GridLayout(7 , 2 ) );	
+	            
+	            //Datos pieza
+	            
+	            String idP = pieza.getID();
+	            String tituloP = pieza.getTitulo();
+	            String autorP = pieza.getAutor();
+	            String anioP = pieza.getAnio() + "";
+	            String tecnicaP = pieza.getTecnica();
+	            String precioP = pieza.getValor() + "";
+	            
+	            //Sub sub panel centro
+	            
+	            lblTituloIDP= new JLabel("ID:" );
+	    		subSubPanelEsteCentro.add(lblTituloIDP);
+	    		lblIDP= new JLabel(idP );
+	    		subSubPanelEsteCentro.add(lblIDP);
+	    		
+	    		lblTituloTituloP= new JLabel("Titulo:" );
+	    		subSubPanelEsteCentro.add(lblTituloTituloP);
+	    		lblTituloP= new JLabel(tituloP );
+	    		subSubPanelEsteCentro.add(lblTituloP);
+	    		
+	    		lblTituloAutorP= new JLabel("Autor:" );
+	    		subSubPanelEsteCentro.add(lblTituloAutorP);
+	    		lblAutorP= new JLabel(autorP );
+	    		subSubPanelEsteCentro.add(lblAutorP);
+	    		
+	    		lblTituloAnioP= new JLabel("Año:" );
+	    		subSubPanelEsteCentro.add(lblTituloAnioP);
+	    		lblAnioP= new JLabel(anioP );
+	    		subSubPanelEsteCentro.add(lblAnioP);
+	    		
+	    		lblTituloTecnicaP= new JLabel("Tecnica:" );
+	    		subSubPanelEsteCentro.add(lblTituloTecnicaP);
+	    		lblTecnicaP= new JLabel(tecnicaP );
+	    		subSubPanelEsteCentro.add(lblTecnicaP);
+	    		
+	    		lblTituloPrecioP= new JLabel("Precio:" );
+	    		subSubPanelEsteCentro.add(lblTituloPrecioP);
+	    		lblPrecioP= new JLabel(precioP );
+	    		subSubPanelEsteCentro.add(lblPrecioP);
+	    		
+	    		lblEspacio= new JLabel("" );
+	    		subSubPanelEsteCentro.add(lblEspacio);
+	    		
+	    		lblEspacio= new JLabel("" );
+	    		subSubPanelEsteCentro.add(lblEspacio);
+	    		
+	    		subPanelEsteCentro.add(subSubPanelEsteCentro);
+            }
+	    	
+	    	panelEste.add(subPanelEsteCentro);
+    	}
+    	
+    	//Panel Este sur
+    	
+    	subPanelEsteSur.setLayout( new GridLayout(1 , 2 ) );
 		
+    	double valor = admin.valorColleccion(cliente);
+    	
+    	lblTituloValor= new JLabel("Valor de la coleccion:" );
+		subPanelEsteSur.add(lblTituloValor);
+		
+		lblValor= new JLabel(valor + "" );
+		subPanelEsteSur.add(lblValor);
+		
+		panelEste.add(subPanelEsteSur);
+
 	}
 	
 	public void actionPerformed( ActionEvent e )

@@ -39,7 +39,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 	{
 		this.admin = admin;
 		
-		setSize(750,600);
+		setSize(1030,850);
 	    setTitle( "Galeria" );
 	    setDefaultCloseOperation( EXIT_ON_CLOSE );
 	//    setResizable( false );

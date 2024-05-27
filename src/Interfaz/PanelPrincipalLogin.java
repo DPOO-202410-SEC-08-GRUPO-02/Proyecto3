@@ -47,7 +47,7 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 	public PanelPrincipalLogin()
 	
     {
-        setSize(750,600);
+        setSize(1030,850);
         setTitle( "Galeria" );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
 //        setResizable( false );
