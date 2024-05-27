@@ -77,7 +77,7 @@ public class InfoComprador extends JFrame implements ActionListener
 
 		//imagen obra
 
-		ImageIcon foto = new ImageIcon("./datos/imagenes/" + nombre +".png" );
+		ImageIcon foto = new ImageIcon("./datos/imagenes/prueba.png" );
 		lblImagen.setIcon( foto );
 		
 		//Subpanel con informacio
