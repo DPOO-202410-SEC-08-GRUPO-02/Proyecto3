@@ -10,8 +10,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import CargadorGaleria.Galeria;
 
 public class PrincipalAdmin extends JFrame implements ActionListener
 {
@@ -65,8 +68,6 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         panelCentral.setLayout(new GridLayout ( 2, 3));
         
         btnInfoCliente = new JButton("<html>Obtener el historial, piezas actuales y el valor de la colección de un cliente" );
-        btnInfoCliente.setHorizontalAlignment(SwingConstants.CENTER);
-        btnInfoCliente.setVerticalAlignment(SwingConstants.CENTER);
         panelCentral.add( btnInfoCliente );
         btnInfoCliente.addActionListener( this );
         btnInfoCliente.setActionCommand( "infoCliente" );
@@ -103,6 +104,44 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			setVisible(false);
 			dispose();
 			panelLogin.setVisible(true);
+        }
+		else if(e.getActionCommand( ).equals("infoCliente"))
+        {
+			String usuario = JOptionPane.showInputDialog( "Ingrese el nombre del usuario" );
+			
+			boolean esta = Galeria.existeUsuario(usuario);
+			
+			if (esta == false)
+			{
+				JOptionPane.showMessageDialog(null, "El usuario no existe, vuelva a intentarlo");
+			}
+			
+			else
+			{
+			InfoComprador infoComprador = new InfoComprador(usuario);
+			
+			Point location = getLocation();
+			infoComprador.setLocation(location);
+			setVisible(false);
+			infoComprador.setVisible(true);
+			
+			}
+        }
+		else if(e.getActionCommand( ).equals("histArtista"))
+        {
+			
+        }
+		else if(e.getActionCommand( ).equals("histPieza"))
+        {
+			
+        }
+		else if(e.getActionCommand( ).equals("addPieza"))
+        {
+			
+        }
+		else if(e.getActionCommand( ).equals("editUsuario"))
+        {
+			
         }
     }
 }
