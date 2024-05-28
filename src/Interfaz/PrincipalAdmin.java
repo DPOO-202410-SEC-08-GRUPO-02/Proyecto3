@@ -154,9 +154,5 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			setVisible(false);
 			inventarioAdmin.setVisible(true);
         }
-		else if(e.getActionCommand( ).equals("editUsuario"))
-        {
-			
-        }
     }
 }

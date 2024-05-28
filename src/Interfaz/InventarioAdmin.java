@@ -6,14 +6,18 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
 import Inventario.Pieza;
 import Usuario.Administrador;
@@ -51,7 +55,7 @@ public class InventarioAdmin extends JFrame implements ActionListener
 	private JLabel lblTituloPrecio;
 	private JLabel lblPrecio;
 	private JLabel lblTituloFecha;
-	private JLabel lblFacha;
+	private JLabel lblFecha;
 	private JLabel lblTituloDuenios;
 	private JLabel lblDuenios;
 	
@@ -64,7 +68,7 @@ public class InventarioAdmin extends JFrame implements ActionListener
 	private JButton btnRegresar;
 	private JButton btnSiguiente;
 	
-	private String idActual = "a";
+	private char idActual = 'a';
 	
 	private Administrador admin;
 	
@@ -84,10 +88,6 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		panelSur = new JPanel( );
 		add(panelSur,BorderLayout.SOUTH);
 		panelSur.setLayout( new GridLayout( 1, 4 ) );
-		
-		panelCentral = new JPanel( );
-		add(panelCentral,BorderLayout.CENTER);
-		panelCentral.setLayout( new GridLayout( 1, 3 ) );
 		
 //		Panel norte
 		lblTituloPantalla= new JLabel("Piezas del inventario");
@@ -115,14 +115,21 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		btnSiguiente.addActionListener( this );
 		btnSiguiente.setActionCommand( "siguiente" );
 		
-		
+		mostrarPieza(idActual);
 	}
 	
 //	Panel central
 	
-	public void mostrarPieza(String idActual)
+	public void mostrarPieza(char idActual)
 	{
-		Pieza pieza = Galeria.getPiezaInventario(idActual);
+		panelCentral = new JPanel( );
+		add(panelCentral,BorderLayout.CENTER);
+		panelCentral.setLayout( new GridLayout( 1, 3 ) );
+		
+		subPanelCentralCentro = new JPanel( );
+		subPanelCentralEste = new JPanel( );
+		
+		Pieza pieza = Galeria.getPiezaInventario(idActual + "");
 		
 //		Datos pieza
 		
@@ -146,7 +153,7 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		lblImagen = new JLabel( );
 		panelCentral.add(lblImagen);
 		
-		ImageIcon fOriginal = new ImageIcon("./datos/imagenes/prueba.png");
+		ImageIcon fOriginal = new ImageIcon("./datos/imagenes/" + idActual + ".png");
         Image iOriginal = fOriginal.getImage();
 
         Image iNueva = iOriginal.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
@@ -156,7 +163,113 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		
 		// Primer subpanel
 		
+		subPanelCentralCentro.setLayout( new GridLayout(8 , 2 ) );
 		
+		lblTituloTitulo= new JLabel("Titulo:" );
+		subPanelCentralCentro.add(lblTituloTitulo);
+		lblTitulo= new JLabel(tituloP );
+		subPanelCentralCentro.add(lblTitulo);
+		
+		lblTituloAutor= new JLabel("Autor:" );
+		subPanelCentralCentro.add(lblTituloAutor);
+		lblAutor= new JLabel(autorP );
+		subPanelCentralCentro.add(lblAutor);
+		
+		lblTituloAnio= new JLabel("Año:" );
+		subPanelCentralCentro.add(lblTituloAnio);
+		lblAnio= new JLabel(anioP );
+		subPanelCentralCentro.add(lblAnio);
+		
+		lblTituloTipo= new JLabel("Tipo:" );
+		subPanelCentralCentro.add(lblTituloTipo);
+		lblTipo= new JLabel(tipoP );
+		subPanelCentralCentro.add(lblTipo);
+		
+		lblTituloTecnica= new JLabel("Tecnica:" );
+		subPanelCentralCentro.add(lblTituloTecnica);
+		lblTecnica= new JLabel(tecnicaP );
+		subPanelCentralCentro.add(lblTecnica);
+		
+		lblTituloEstado= new JLabel("Estado:" );
+		subPanelCentralCentro.add(lblTituloEstado);
+		lblEstado= new JLabel(estadoP );
+		subPanelCentralCentro.add(lblEstado);
+		
+		lblTituloLugar= new JLabel("Lugar:" );
+		subPanelCentralCentro.add(lblTituloLugar);
+		lblLugar= new JLabel(lugarP );
+		subPanelCentralCentro.add(lblLugar);
+
+		btnDisponibilidad = new JButton("Editar disponibilidad" );
+		subPanelCentralCentro.add( btnDisponibilidad );
+		btnDisponibilidad.addActionListener( this );
+		btnDisponibilidad.setActionCommand( "disponibilidad" );
+		
+		panelCentral.add(subPanelCentralCentro);
+		
+		// Segundo subpanel
+		
+		subPanelCentralEste.setLayout( new GridLayout(8 , 2 ) );
+		
+		lblTituloDisponibilidad= new JLabel("Disponibilidad:" );
+		subPanelCentralEste.add(lblTituloDisponibilidad);
+		lblDisponibilidad= new JLabel(disponibilidadP );
+		subPanelCentralEste.add(lblDisponibilidad);
+		
+		lblTituloVendida= new JLabel("Vendida:" );
+		subPanelCentralEste.add(lblTituloVendida);
+		lblVendida= new JLabel(vendidaP );
+		subPanelCentralEste.add(lblVendida);
+		
+		lblTituloPrecio= new JLabel("Precio:" );
+		subPanelCentralEste.add(lblTituloPrecio);
+		lblPrecio= new JLabel(precioP );
+		subPanelCentralEste.add(lblPrecio);
+		
+		lblTituloFecha= new JLabel("Fecha de venta:" );
+		subPanelCentralEste.add(lblTituloFecha);
+		lblFecha= new JLabel(fechaP );
+		subPanelCentralEste.add(lblFecha);
+		
+		lblTituloDuenios= new JLabel("Dueños:" );
+		subPanelCentralEste.add(lblTituloDuenios);
+		
+		String duenios = "No ha sido vendida";
+		
+		for (String duenio: dueniosP) 
+		{
+			if (duenios.equals("No ha sido vendida"))
+			{
+				duenios = duenio;
+			}
+			
+			else
+			{
+				duenios += "-"+duenio;
+			}
+		}
+		
+		lblDuenios= new JLabel(duenios );
+		subPanelCentralEste.add(lblDuenios);
+		
+		lblEspacio= new JLabel("" );
+		subPanelCentralEste.add(lblEspacio);
+		
+		lblEspacio= new JLabel("" );
+		subPanelCentralEste.add(lblEspacio);
+		
+		lblEspacio= new JLabel("" );
+		subPanelCentralEste.add(lblEspacio);
+		
+		lblEspacio= new JLabel("" );
+		subPanelCentralEste.add(lblEspacio);
+
+		btnEstado = new JButton("Editar estado" );
+		subPanelCentralEste.add( btnEstado );
+		btnEstado.addActionListener( this );
+		btnEstado.setActionCommand( "estado" );
+		
+		panelCentral.add(subPanelCentralEste);
 		
 	}
 	
@@ -170,6 +283,66 @@ public class InventarioAdmin extends JFrame implements ActionListener
    		 	principalAdmin.setLocation(location);
         	setVisible(false);
    		 	principalAdmin.setVisible(true);
+        }
+		else if(e.getActionCommand( ).equals("estado"))
+        {
+			Pieza pieza = Galeria.getPiezaInventario(idActual + "");
+			
+			String usuario = JOptionPane.showInputDialog( "Ingrese el nuevo estado de la pieza" );
+			admin.cambiarEstadoObra (pieza, "estado", usuario);
+			
+			try {
+				CargadorGaleria.salvarInventario("./datos/Inventario.json");
+				JOptionPane.showMessageDialog( null, "El estado fue cambiado con éxito" );
+				mostrarPieza(idActual);
+			} catch (IOException a) {
+				JOptionPane.showMessageDialog( null, "Error al cambiar el estado" );
+				a.printStackTrace();
+			}
+        }
+		else if(e.getActionCommand( ).equals("disponibilidad"))
+        {
+			Pieza pieza = Galeria.getPiezaInventario(idActual + "");
+			
+			String usuario = JOptionPane.showInputDialog( "Ingrese la nueva disponibilidad de la pieza (true/false)" );
+			admin.cambiarEstadoObra (pieza, "disponibilidad", usuario);
+			
+			try {
+				CargadorGaleria.salvarInventario("./datos/Inventario.json");
+				JOptionPane.showMessageDialog( null, "La disponibilidad fue cambiada con éxito" );
+				mostrarPieza(idActual);
+			} catch (IOException a) {
+				JOptionPane.showMessageDialog( null, "Error al cambiar la disponibilidad" );
+				a.printStackTrace();
+			}
+        }
+		else if(e.getActionCommand( ).equals("anterior"))
+        {
+			if ((idActual + "").equals("a"))
+			{
+				JOptionPane.showMessageDialog( null, "Esta en la primera pieza" );
+			}
+			else
+			{
+				idActual--;
+				mostrarPieza(idActual);
+			}
+        }
+		else if(e.getActionCommand( ).equals("siguiente"))
+        {
+			if ((idActual + "").equals("f"))
+			{
+				JOptionPane.showMessageDialog( null, "Esta en la ultima pieza" );
+			}
+			else
+			{
+				idActual++;
+				mostrarPieza(idActual);
+			}
+        }
+		else if(e.getActionCommand( ).equals("addPieza"))
+        {
+			
         }
     }
 	
