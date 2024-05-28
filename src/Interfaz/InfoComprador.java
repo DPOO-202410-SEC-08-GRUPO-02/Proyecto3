@@ -25,6 +25,7 @@ import Usuario.Cliente;
 
 public class InfoComprador extends JFrame implements ActionListener
 {
+	private JPanel panelNorte;
 	private JPanel panelEste;
 	private JPanel panelOeste;
 	private JPanel subPanelOeste;
@@ -35,6 +36,8 @@ public class InfoComprador extends JFrame implements ActionListener
 	private JPanel subSubPanelEsteCentro;
 	
 	private JLabel lblImagen;
+	
+	private JLabel lblTituloPantalla;
 	
 	private JLabel lblTituloNombre;
     private JLabel lblNombre;
@@ -87,6 +90,9 @@ public class InfoComprador extends JFrame implements ActionListener
 //		setResizable( false );
 		setLayout( new BorderLayout( ) );
 
+		panelNorte = new JPanel( );
+		add(panelNorte,BorderLayout.NORTH);
+		
 		panelEste = new JPanel( );
 		add(panelEste,BorderLayout.EAST);
 		panelEste.setLayout( new GridLayout( 3, 1 ) );
@@ -103,6 +109,10 @@ public class InfoComprador extends JFrame implements ActionListener
 		
 		subSubPanelEsteNorte = new JPanel( );
 		subSubPanelEsteCentro = new JPanel( );
+
+//		Panel norte
+		lblTituloPantalla= new JLabel("Información del cliente");
+		panelNorte.add(lblTituloPantalla);
 
 		Cliente cliente = (Cliente) Galeria.getUsuario(usuarioSTR);
 

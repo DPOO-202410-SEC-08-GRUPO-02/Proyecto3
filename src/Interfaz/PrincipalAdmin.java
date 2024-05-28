@@ -62,19 +62,24 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         
 //        Panel sur
         
-        btnSalida = new JButton("SALIDA" );
+        btnSalida = new JButton("SALIR" );
         panelSur.add( btnSalida );
         btnSalida.addActionListener( this );
         btnSalida.setActionCommand( "salir" );
         
 //        Panel central
         
-        panelCentral.setLayout(new GridLayout ( 2, 3));
+        panelCentral.setLayout(new GridLayout ( 2, 2));
         
         btnInfoCliente = new JButton("<html>Obtener el historial, piezas actuales y el valor de la colección de un cliente" );
         panelCentral.add( btnInfoCliente );
         btnInfoCliente.addActionListener( this );
         btnInfoCliente.setActionCommand( "infoCliente" );
+        
+        btnInventario = new JButton("<html>Cambiar la disponibilidad/estado de una pieza y agregar una pieza");
+        panelCentral.add( btnInventario );
+        btnInventario.addActionListener( this );
+        btnInventario.setActionCommand( "inventario" );
         
         btnHistArtista = new JButton("<html>Mirar la historia de un artista" );
         panelCentral.add( btnHistArtista );
@@ -86,10 +91,6 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         btnHistPieza.addActionListener( this );
         btnHistPieza.setActionCommand( "histPieza" );
         
-        btnInventario = new JButton("<html>Cambiar la disponibilidad/estado de una pieza y agregar una pieza");
-        panelCentral.add( btnInventario );
-        btnInventario.addActionListener( this );
-        btnInventario.setActionCommand( "inventario" );
 	}	
 	
 	public void actionPerformed( ActionEvent e )
@@ -117,12 +118,12 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			
 			else
 			{
-			InfoComprador infoComprador = new InfoComprador(usuario, admin);
-			
-			Point location = getLocation();
-			infoComprador.setLocation(location);
-			setVisible(false);
-			infoComprador.setVisible(true);
+				InfoComprador infoComprador = new InfoComprador(usuario, admin);
+				
+				Point location = getLocation();
+				infoComprador.setLocation(location);
+				setVisible(false);
+				infoComprador.setVisible(true);
 			
 			}
         }
@@ -146,7 +147,12 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         }
 		else if(e.getActionCommand( ).equals("inventario"))
         {
+			InventarioAdmin inventarioAdmin = new InventarioAdmin(admin);
 			
+			Point location = getLocation();
+			inventarioAdmin.setLocation(location);
+			setVisible(false);
+			inventarioAdmin.setVisible(true);
         }
 		else if(e.getActionCommand( ).equals("editUsuario"))
         {

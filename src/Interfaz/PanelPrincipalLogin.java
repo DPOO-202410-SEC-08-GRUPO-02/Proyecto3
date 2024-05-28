@@ -71,7 +71,7 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
         
 //        Panel sur
         
-        btnSalida = new JButton("SALIDA" );
+        btnSalida = new JButton("SALIR" );
         panelSur.add( btnSalida );
         btnSalida.addActionListener( this );
         btnSalida.setActionCommand( "salir" );
