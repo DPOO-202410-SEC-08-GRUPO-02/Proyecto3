@@ -30,8 +30,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 	private JButton btnInfoCliente;
 	private JButton btnHistArtista;
 	private JButton btnHistPieza;
-	private JButton btnAddPieza;
-	private JButton btnEditUsuario;
+	private JButton btnInventario;
 	
 	private Administrador admin;
 	
@@ -77,25 +76,20 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         btnInfoCliente.addActionListener( this );
         btnInfoCliente.setActionCommand( "infoCliente" );
         
-        btnHistArtista = new JButton("<html>Cambiar la disponibilidad/estado de una pieza" );
+        btnHistArtista = new JButton("<html>Mirar la historia de un artista" );
         panelCentral.add( btnHistArtista );
         btnHistArtista.addActionListener( this );
         btnHistArtista.setActionCommand( "histArtista" );
         
-        btnHistPieza = new JButton("<html>Agregar una pieza al inventario" );
+        btnHistPieza = new JButton("<html>Mirar la historia de una pieza" );
         panelCentral.add( btnHistPieza );
         btnHistPieza.addActionListener( this );
         btnHistPieza.setActionCommand( "histPieza" );
         
-        btnAddPieza = new JButton("<html>Mirar la historia de un artista" );
-        panelCentral.add( btnAddPieza );
-        btnAddPieza.addActionListener( this );
-        btnAddPieza.setActionCommand( "addPieza" );
-        
-        btnEditUsuario = new JButton("<html>Mirar la historia de una pieza" );
-        panelCentral.add( btnEditUsuario );
-        btnEditUsuario.addActionListener( this );
-        btnEditUsuario.setActionCommand( "editUsuario" );
+        btnInventario = new JButton("<html>Cambiar la disponibilidad/estado de una pieza y agregar una pieza");
+        panelCentral.add( btnInventario );
+        btnInventario.addActionListener( this );
+        btnInventario.setActionCommand( "inventario" );
 	}	
 	
 	public void actionPerformed( ActionEvent e )
@@ -140,7 +134,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         {
 			
         }
-		else if(e.getActionCommand( ).equals("addPieza"))
+		else if(e.getActionCommand( ).equals("inventario"))
         {
 			
         }
