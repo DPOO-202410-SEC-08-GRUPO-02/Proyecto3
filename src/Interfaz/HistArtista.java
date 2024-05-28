@@ -1,5 +1,8 @@
 package Interfaz;
 
-public class HistArtista {
+import javax.swing.JFrame;
+
+public class HistArtista extends JFrame
+{
 
 }

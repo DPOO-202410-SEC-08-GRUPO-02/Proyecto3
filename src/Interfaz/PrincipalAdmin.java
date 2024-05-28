@@ -128,11 +128,21 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         }
 		else if(e.getActionCommand( ).equals("histArtista"))
         {
+			HistArtista histArtista = new HistArtista();
 			
+			Point location = getLocation();
+			histArtista.setLocation(location);
+			setVisible(false);
+			histArtista.setVisible(true);
         }
 		else if(e.getActionCommand( ).equals("histPieza"))
         {
+			HistPieza histPieza = new HistPieza();
 			
+			Point location = getLocation();
+			histPieza.setLocation(location);
+			setVisible(false);
+			histPieza.setVisible(true);
         }
 		else if(e.getActionCommand( ).equals("inventario"))
         {

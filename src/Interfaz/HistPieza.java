@@ -1,5 +1,8 @@
 package Interfaz;
 
-public class HistPieza {
+import javax.swing.JFrame;
+
+public class HistPieza extends JFrame
+{
 
 }
