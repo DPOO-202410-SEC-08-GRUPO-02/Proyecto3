@@ -356,7 +356,12 @@ public class InventarioAdmin extends JFrame implements ActionListener
         }
 		else if(e.getActionCommand( ).equals("addPieza"))
         {
-			
+			AddPieza addPieza = new AddPieza(admin);
+        	
+        	Point location = getLocation();
+        	addPieza.setLocation(location);
+        	setVisible(false);
+        	addPieza.setVisible(true);
         }
     }
 	

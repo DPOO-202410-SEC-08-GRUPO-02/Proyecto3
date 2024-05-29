@@ -36,7 +36,6 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 	private JLabel lbltituloLogin;
 	private JLabel lbllogin;
 	private JLabel lblcontrasenia;
-	private JLabel lblespacio;
 	
 	private JTextField txtlogin;
     private JTextField txtcontrasenia;
