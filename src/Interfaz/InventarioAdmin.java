@@ -171,7 +171,7 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		
 		lblTituloTitulo= new JLabel("Titulo:" );
 		subPanelCentralCentro.add(lblTituloTitulo);
-		lblTitulo= new JLabel(tituloP );
+		lblTitulo= new JLabel("<html>" + tituloP );
 		subPanelCentralCentro.add(lblTitulo);
 		
 		lblTituloAutor= new JLabel("Autor:" );
@@ -292,32 +292,38 @@ public class InventarioAdmin extends JFrame implements ActionListener
         {
 			Pieza pieza = Galeria.getPiezaInventario(idActual + "");
 			
-			String usuario = JOptionPane.showInputDialog( "Ingrese el nuevo estado de la pieza" );
-			admin.cambiarEstadoObra (pieza, "estado", usuario);
+			String estado = JOptionPane.showInputDialog( "Ingrese el nuevo estado de la pieza" );
+			admin.cambiarEstadoObra (pieza, "estado", estado);
 			
-			try {
-				CargadorGaleria.salvarInventario("./datos/Inventario.json");
-				JOptionPane.showMessageDialog( null, "El estado fue cambiado con éxito" );
-				mostrarPieza(idActual);
-			} catch (IOException a) {
-				JOptionPane.showMessageDialog( null, "Error al cambiar el estado" );
-				a.printStackTrace();
+			if (estado != null)
+			{
+				try {
+					CargadorGaleria.salvarInventario("./datos/Inventario.json");
+					JOptionPane.showMessageDialog( null, "El estado fue cambiado con éxito" );
+					mostrarPieza(idActual);
+				} catch (IOException a) {
+					JOptionPane.showMessageDialog( null, "Error al cambiar el estado" );
+					a.printStackTrace();
+				}
 			}
         }
 		else if(e.getActionCommand( ).equals("disponibilidad"))
         {
 			Pieza pieza = Galeria.getPiezaInventario(idActual + "");
 			
-			String usuario = JOptionPane.showInputDialog( "Ingrese la nueva disponibilidad de la pieza (true/false)" );
-			admin.cambiarEstadoObra (pieza, "disponibilidad", usuario);
+			String disponibilidad = JOptionPane.showInputDialog( "Ingrese la nueva disponibilidad de la pieza (true/false)" );
+			admin.cambiarEstadoObra (pieza, "disponibilidad", disponibilidad);
 			
-			try {
-				CargadorGaleria.salvarInventario("./datos/Inventario.json");
-				JOptionPane.showMessageDialog( null, "La disponibilidad fue cambiada con éxito" );
-				mostrarPieza(idActual);
-			} catch (IOException a) {
-				JOptionPane.showMessageDialog( null, "Error al cambiar la disponibilidad" );
-				a.printStackTrace();
+			if (disponibilidad != null)
+			{
+				try {
+					CargadorGaleria.salvarInventario("./datos/Inventario.json");
+					JOptionPane.showMessageDialog( null, "La disponibilidad fue cambiada con éxito" );
+					mostrarPieza(idActual);
+				} catch (IOException a) {
+					JOptionPane.showMessageDialog( null, "Error al cambiar la disponibilidad" );
+					a.printStackTrace();
+				}
 			}
         }
 		else if(e.getActionCommand( ).equals("anterior"))
