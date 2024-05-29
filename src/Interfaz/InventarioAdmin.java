@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -340,7 +341,10 @@ public class InventarioAdmin extends JFrame implements ActionListener
         }
 		else if(e.getActionCommand( ).equals("siguiente"))
         {
-			if ((idActual + "").equals("f"))
+			Map<String, Pieza> piezas = Galeria.getPiezas();
+			int lenPiezas = piezas.size();
+			
+			if (idActual == ('a' + (lenPiezas - 1)))
 			{
 				JOptionPane.showMessageDialog( null, "Esta en la ultima pieza" );
 			}
