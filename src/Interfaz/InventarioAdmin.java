@@ -133,6 +133,7 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		
 //		Datos pieza
 		
+		String idP = pieza.getID();
         String tituloP = pieza.getTitulo();
         String autorP = pieza.getAutor();
         String anioP = pieza.getAnio() + "";
@@ -153,10 +154,13 @@ public class InventarioAdmin extends JFrame implements ActionListener
 		lblImagen = new JLabel( );
 		panelCentral.add(lblImagen);
 		
-		ImageIcon fOriginal = new ImageIcon("./datos/imagenes/" + idActual + ".png");
+		ImageIcon fOriginal = new ImageIcon("./datos/imagenes/" + idP + ".png");
         Image iOriginal = fOriginal.getImage();
 
-        Image iNueva = iOriginal.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+        int nuevoAncho = 325;
+        int nuevoAlto = (int) (iOriginal.getHeight(null) * ((double) nuevoAncho / iOriginal.getWidth(null)));
+        
+        Image iNueva = iOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
         ImageIcon fNueva = new ImageIcon(iNueva);
 
 		lblImagen.setIcon( fNueva );
