@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 import CargadorGaleria.Galeria;
 import Inventario.Escultura;
-import Inventario.Pintura;
 import Usuario.Administrador;
 
 public class AddEscultura extends JFrame implements ActionListener
@@ -89,8 +88,8 @@ public class AddEscultura extends JFrame implements ActionListener
 	private Administrador admin;
 	
 	public AddEscultura(Administrador admin, String ID, String Tecnica,String Autor,String Titulo,int Anio,String Lugar, String Estado, boolean Disponibilidad, 
-			String FechaLimite, double Valor, boolean Consignacion, boolean Devolucion, boolean Subasta, double ValorMinimoS, double ValorInicialS,
-			String Tipo)
+			String FechaLimite, double Valor, boolean Consignacion, boolean Devolucion, boolean Subasta, double ValorMinimoS, double ValorInicialS, String Tipo,
+			boolean vendida, double precioVenta, String fechaVenta,List<String> dueños)
 	{
 		this.admin = admin;
 		this.id=ID;
@@ -109,6 +108,10 @@ public class AddEscultura extends JFrame implements ActionListener
 		this.valorM=ValorMinimoS;
 		this.valorI=ValorInicialS;
 		this.tipo=Tipo;
+		this.vendida=vendida;
+		this.precio=precioVenta;
+		this.fecha=fechaVenta;
+		this.duenios=dueños;
 		
 		setSize(1030,850);
 		setTitle( "Galeria" );
@@ -124,10 +127,10 @@ public class AddEscultura extends JFrame implements ActionListener
 		
 		panelCentral = new JPanel( );
 		add(panelCentral,BorderLayout.CENTER);
-		panelCentral.setLayout( new GridLayout( 4, 2 ) );
+		panelCentral.setLayout( new GridLayout( 7, 2 ) );
 		
 //		Panel norte
-		lblTituloPantalla= new JLabel("Agregar una pintura");
+		lblTituloPantalla= new JLabel("Agregar una escultura");
 		panelNorte.add(lblTituloPantalla);
 		
 		lblInstruccion= new JLabel("Ingrese los valores que corresponden en cada espacio");
@@ -195,7 +198,7 @@ public class AddEscultura extends JFrame implements ActionListener
 			peso = Double.parseDouble(pesoSTR);
 			instalacionSTR = txtInstalacion.getText().trim();
 			instalacion = Boolean.parseBoolean(instalacionSTR);
-			electricidadSTR = txtInstalacion.getText().trim();
+			electricidadSTR = txtElectricidad.getText().trim();
 			electricidad = Boolean.parseBoolean(electricidadSTR);
 
 			

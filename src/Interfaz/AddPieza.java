@@ -245,29 +245,29 @@ public class AddPieza extends JFrame implements ActionListener
     {
 		if(e.getActionCommand( ).equals("siguiente"))
         {
-//	      id = txtId.getText().trim();
-//	      tecnica = txtTecnica.getText().trim();
-//	      autor = txtAutor.getText().trim();
-//	      titulo = txtTitulo.getText().trim();
-//	      anioSTR = txtAnio.getText().trim();
-//	      anio = Integer.parseInt(anioSTR);
-//	      lugar = txtLugar.getText().trim();
-//	      estado = txtEstado.getText().trim();
-//	      disponibilidadSTR = txtDisponibilidad.getText().trim();
-//	      disponibilidad = Boolean.parseBoolean(disponibilidadSTR);
-//	      fechaLim = txtFechaLim.getText().trim();
-//	      valorSTR = txtValor.getText().trim();
-//	      valor = Double.parseDouble(valorSTR);
-//	      consignacionSTR = txtConsignacion.getText().trim();
-//	      consignacion = Boolean.parseBoolean(consignacionSTR);
-//	      devolucionSTR = txtDevolucion.getText().trim();
-//	      devolucion = Boolean.parseBoolean(devolucionSTR);
-//	      subastaSTR = txtSubasta.getText().trim();
-//	      subasta = Boolean.parseBoolean(subastaSTR);
-//	      valorMSTR = txtValorM.getText().trim();
-//	      valorM = Double.parseDouble(valorMSTR);
-//	      valorISTR = txtValorI.getText().trim();
-//	      valorI = Double.parseDouble(valorISTR);
+	      id = txtId.getText().trim();
+	      tecnica = txtTecnica.getText().trim();
+	      autor = txtAutor.getText().trim();
+	      titulo = txtTitulo.getText().trim();
+	      anioSTR = txtAnio.getText().trim();
+	      anio = Integer.parseInt(anioSTR);
+	      lugar = txtLugar.getText().trim();
+	      estado = txtEstado.getText().trim();
+	      disponibilidadSTR = txtDisponibilidad.getText().trim();
+	      disponibilidad = Boolean.parseBoolean(disponibilidadSTR);
+	      fechaLim = txtFechaLim.getText().trim();
+	      valorSTR = txtValor.getText().trim();
+	      valor = Double.parseDouble(valorSTR);
+	      consignacionSTR = txtConsignacion.getText().trim();
+	      consignacion = Boolean.parseBoolean(consignacionSTR);
+	      devolucionSTR = txtDevolucion.getText().trim();
+	      devolucion = Boolean.parseBoolean(devolucionSTR);
+	      subastaSTR = txtSubasta.getText().trim();
+	      subasta = Boolean.parseBoolean(subastaSTR);
+	      valorMSTR = txtValorM.getText().trim();
+	      valorM = Double.parseDouble(valorMSTR);
+	      valorISTR = txtValorI.getText().trim();
+	      valorI = Double.parseDouble(valorISTR);
 	      
 	      String seleccion = (String) boxTipo.getSelectedItem();
 	      
@@ -276,49 +276,58 @@ public class AddPieza extends JFrame implements ActionListener
 	      if (seleccion.equals("Pintura"))
 	      {
 	    	  AddPintura addPintura = new AddPintura(admin, id, tecnica, autor, titulo, anio, lugar, estado, 
-	    				disponibilidad, fechaLim,valor, consignacion, devolucion, subasta, valorM, valorI,tipo);
+	    				disponibilidad, fechaLim,valor, consignacion, devolucion, subasta, valorM, valorI, tipo, 
+	    				vendida, precio, fecha, duenios);
 				
 				Point location = getLocation();
 				addPintura.setLocation(location);
 				setVisible(false);
 				addPintura.setVisible(true);
 	      }
-//	      else if (seleccion.equals("Esculruta"))
-//	      {
-//	    	  AddEscultura addEscultura = new AddEscultura(admin);
-//				
-//				Point location = getLocation();
-//				addEscultura.setLocation(location);
-//				setVisible(false);
-//				addEscultura.setVisible(true);
-//	      }
-//	      else if (seleccion.equals("Impresion"))
-//	      {
-//	    	  AddImpresion addImpresion = new AddImpresion(admin);
-//				
-//				Point location = getLocation();
-//				addImpresion.setLocation(location);
-//				setVisible(false);
-//				addImpresion.setVisible(true);
-//	      }
-//	      else if (seleccion.equals("Fotografia"))
-//	      {
-//	    	  AddFotografia addFotografia = new AddFotografia(admin);
-//				
-//				Point location = getLocation();
-//				addFotografia.setLocation(location);
-//				setVisible(false);
-//				addFotografia.setVisible(true);
-//	      }
-//	      else if (seleccion.equals("Video"))
-//	      {
-//	    	  AddVideo addVideo = new AddVideo(admin);
-//				
-//				Point location = getLocation();
-//				addVideo.setLocation(location);
-//				setVisible(false);
-//				addVideo.setVisible(true);
-//	      }
+	      else if (seleccion.equals("Esculruta"))
+	      {
+	    	  AddEscultura addEscultura = new AddEscultura(admin, id, tecnica, autor, titulo, anio, lugar, estado, 
+	    				disponibilidad, fechaLim,valor, consignacion, devolucion, subasta, valorM, valorI, tipo, 
+	    				vendida, precio, fecha, duenios);
+				
+				Point location = getLocation();
+				addEscultura.setLocation(location);
+				setVisible(false);
+				addEscultura.setVisible(true);
+	      }
+	      else if (seleccion.equals("Impresion"))
+	      {
+	    	  AddImpresion addImpresion = new AddImpresion(admin, id, tecnica, autor, titulo, anio, lugar, estado, 
+	    				disponibilidad, fechaLim,valor, consignacion, devolucion, subasta, valorM, valorI, tipo, 
+	    				vendida, precio, fecha, duenios);
+				
+				Point location = getLocation();
+				addImpresion.setLocation(location);
+				setVisible(false);
+				addImpresion.setVisible(true);
+	      }
+	      else if (seleccion.equals("Fotografia"))
+	      {
+	    	  AddFotografia addFotografia = new AddFotografia(admin, id, tecnica, autor, titulo, anio, lugar, estado, 
+	    				disponibilidad, fechaLim,valor, consignacion, devolucion, subasta, valorM, valorI, tipo, 
+	    				vendida, precio, fecha, duenios);
+				
+				Point location = getLocation();
+				addFotografia.setLocation(location);
+				setVisible(false);
+				addFotografia.setVisible(true);
+	      }
+	      else if (seleccion.equals("Video"))
+	      {
+	    	  AddVideo addVideo = new AddVideo(admin, id, tecnica, autor, titulo, anio, lugar, estado, 
+	    				disponibilidad, fechaLim,valor, consignacion, devolucion, subasta, valorM, valorI, tipo, 
+	    				vendida, precio, fecha, duenios);
+				
+				Point location = getLocation();
+				addVideo.setLocation(location);
+				setVisible(false);
+				addVideo.setVisible(true);
+	      }
         }
     }
 	
