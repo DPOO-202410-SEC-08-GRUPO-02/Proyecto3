@@ -116,6 +116,7 @@ public class AddPieza extends JFrame implements ActionListener
 		
 		panelNorte = new JPanel( );
 		add(panelNorte,BorderLayout.NORTH);
+		panelNorte.setLayout( new GridLayout( 2, 1 ) );
 	
 		panelSur = new JPanel( );
 		add(panelSur,BorderLayout.SOUTH);
