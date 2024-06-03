@@ -109,8 +109,26 @@ public class PrincipalComprador extends JFrame implements ActionListener
 			dispose();
 			panelLogin.setVisible(true);
         }
-		else if(e.getActionCommand( ).equals("Comprar pieza"))
+		else if(e.getActionCommand( ).equals("Comprar Pieza"))
         {
+		String idPieza= JOptionPane.showInputDialog("Ingrese el id de la pieza que desea comprar:");
+		
+		Pieza pieza = Galeria.getPiezaInventario(idPieza);
+		
+		if (pieza != null) 
+		{
+			Compra comprar= new Compra(comprador, idPieza);
+			
+			Point location = getLocation();
+			comprar.setLocation(location);
+			setVisible(false);
+			comprar.setVisible(true);
+		} 
+		
+		else 
+		{
+		    JOptionPane.showMessageDialog(null, "El artista no existe en la galería.");
+		}
 			
 			
         }
