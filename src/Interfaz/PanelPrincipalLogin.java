@@ -4,7 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
 
 import CargadorGaleria.CargadorGaleria;
 import CargadorGaleria.Galeria;
@@ -15,6 +18,8 @@ import Usuario.Operador;
 import Usuario.Usuario;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -64,44 +69,70 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
         panelSur = new JPanel( );
         add(panelSur,BorderLayout.SOUTH);
         
+        Color grisesito = new Color (230, 230, 230);
+        Color grisesito2 = new Color (204, 204, 204);
+        Color azulito = new Color (0, 103, 184);
+        MatteBorder bordeInferior = new MatteBorder(0, 0, 2, 0, Color.gray);
+
+        
 //        Panel norte
+        
         lbltituloGal= new JLabel("Bienvenido a la galeria");
+        lbltituloGal.setFont(new Font("Arial", Font.BOLD, 42));
         panelNorte.add(lbltituloGal);
+        panelNorte.setBorder(bordeInferior);
+        panelNorte.setBackground(grisesito);
         
 //        Panel sur
         
-        btnSalida = new JButton("SALIR" );
-        panelSur.add( btnSalida );
-        btnSalida.addActionListener( this );
-        btnSalida.setActionCommand( "salir" );
+
+        btnSalida = new JButton("SALIR");
+        btnSalida.setFont(new Font("Arial", Font.PLAIN, 25));
+        btnSalida.setBackground(grisesito2);
+        btnSalida.setForeground(Color.black);
+        panelSur.add(btnSalida);
+        btnSalida.addActionListener(this);
+        btnSalida.setActionCommand("salir");
+
+        btnLogin = new JButton("INGRESAR");
+        btnLogin.setFont(new Font("Arial", Font.PLAIN, 25));
+        btnLogin.setBackground(azulito);
+        btnLogin.setForeground(Color.white);
+        panelSur.add(btnLogin);
+        btnLogin.addActionListener(this);
+        btnLogin.setActionCommand("login");
+        
+        panelSur.setBackground(grisesito);
         
 //        Panel central
         
-        lbltituloLogin= new JLabel("Inicio de sesión");
+        lbltituloLogin= new JLabel("Iniciar sesión");
+        lbltituloLogin.setFont(new Font("Arial", Font.BOLD, 20));
+        lbltituloLogin.setHorizontalAlignment(SwingConstants.CENTER);
         panelCentral.add(lbltituloLogin);
         
-        subPanelCentral.setLayout( new GridLayout( 2, 1 ) );
-        lbllogin= new JLabel("Login:" );
+        subPanelCentral.setLayout(new GridLayout(3, 2, 10, 10));
+        lbllogin= new JLabel("Usuario:" );
+        lbllogin.setFont(new Font("Arial", Font.PLAIN, 22));
+        lbllogin.setHorizontalAlignment(SwingConstants.CENTER);
         subPanelCentral.add(lbllogin);
         
         txtlogin = new JTextField();
+        txtlogin.setFont(new Font("Calibri",Font.PLAIN, 17));
         subPanelCentral.add(txtlogin);
         
-        panelCentral.add(subPanelCentral);
-        
-        subPanelCentral.setLayout( new GridLayout( 2, 1 ) );
         lblcontrasenia= new JLabel("Contraseña:" );
+        lblcontrasenia.setFont(new Font("Arial", Font.PLAIN, 22));
+        lblcontrasenia.setHorizontalAlignment(SwingConstants.CENTER);
         subPanelCentral.add(lblcontrasenia);
         
-        txtcontrasenia = new JTextField();
+        txtcontrasenia = new JPasswordField();
         subPanelCentral.add(txtcontrasenia);
         
         panelCentral.add(subPanelCentral);
         
-        btnLogin = new JButton("ACEPTAR" );
-        panelCentral.add( btnLogin );
-        btnLogin.addActionListener( this );
-        btnLogin.setActionCommand( "login" );
+        panelCentral.setBackground(grisesito);
+        subPanelCentral.setBackground(grisesito);
         
     }
 	
@@ -163,13 +194,28 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 			        {
 			        	Operador operador = (Operador) usuario;
 			        	
+			        	PrincipalEmpleado principalEmpleado = new PrincipalEmpleado(operador);
+			        	
+			        	Point location = getLocation();
+			        	principalEmpleado.setLocation(location);
+			        	setVisible(false);
+			        	principalEmpleado.setVisible(true);
+			        			        	
+			        	
 //			        	menuOperador();
 			        }
 			        else if (tipo.equals("Cajero"))
 			        {
 			        	Cajero cajero = (Cajero) usuario;
 			        	
-//			        	menuCajero();
+			        	PrincipalEmpleado principalEmpleado = new PrincipalEmpleado(cajero);
+			        	
+			        	Point location = getLocation();
+			        	principalEmpleado.setLocation(location);
+			        	setVisible(false);
+			        	principalEmpleado.setVisible(true);
+			        	
+
 			        }
 			        else if (tipo.equals("Comprador"))
 			        {

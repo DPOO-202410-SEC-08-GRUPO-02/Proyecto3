@@ -1,7 +1,6 @@
 package Interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -12,9 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
+import Artista.Artista;
 import CargadorGaleria.Galeria;
+import Inventario.Inventario;
+import Inventario.Pieza;
+import Inventario.Pintura;
 import Usuario.Administrador;
 
 public class PrincipalAdmin extends JFrame implements ActionListener
@@ -33,6 +35,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 	private JButton btnInventario;
 	
 	private Administrador admin;
+	
 	
 	public PrincipalAdmin(Administrador admin)
 	{
@@ -62,7 +65,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         
 //        Panel sur
         
-        btnSalida = new JButton("SALIR" );
+        btnSalida = new JButton("Cerrar Sesion" );
         panelSur.add( btnSalida );
         btnSalida.addActionListener( this );
         btnSalida.setActionCommand( "salir" );
@@ -113,7 +116,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			
 			if (esta == false)
 			{
-				JOptionPane.showMessageDialog(null, "El usuario no existe, vuelva a intentarlo");
+				JOptionPane.showMessageDialog(null, "El usuario no existe, vuelve a intentarlo");
 			}
 			
 			else
@@ -129,21 +132,49 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         }
 		else if(e.getActionCommand( ).equals("histArtista"))
         {
-			HistArtista histArtista = new HistArtista();
+			String nomArtista = JOptionPane.showInputDialog("Ingrese el nombre del artista:");
 			
-			Point location = getLocation();
-			histArtista.setLocation(location);
-			setVisible(false);
-			histArtista.setVisible(true);
+			Artista artista = Galeria.getArtista(nomArtista);
+			
+			if (artista != null) 
+			{
+				HistArtista histArtista = new HistArtista(nomArtista);
+				
+				Point location = getLocation();
+				histArtista.setLocation(location);
+				setVisible(false);
+				histArtista.setVisible(true);
+			} 
+			
+			else 
+			{
+			    JOptionPane.showMessageDialog(null, "El artista no existe en la galería.");
+			}
         }
 		else if(e.getActionCommand( ).equals("histPieza"))
         {
-			HistPieza histPieza = new HistPieza();
 			
-			Point location = getLocation();
-			histPieza.setLocation(location);
-			setVisible(false);
-			histPieza.setVisible(true);
+			String Idpieza = JOptionPane.showInputDialog( "Ingrese el ID de la pieza" );
+			
+			Pieza pieza;
+			pieza = (Pieza) Inventario.getPiezaInventario(Idpieza);
+			
+			
+			if (pieza != null)
+			{	
+				HistPieza histPieza = new HistPieza(Idpieza);
+				
+				Point location = getLocation();
+				histPieza.setLocation(location);
+				setVisible(false);
+				histPieza.setVisible(true);	
+			}
+			
+			else
+			{
+				JOptionPane.showMessageDialog(null, "La pieza no existe, vuelve a intentarlo");
+			}			
+		
         }
 		else if(e.getActionCommand( ).equals("inventario"))
         {
