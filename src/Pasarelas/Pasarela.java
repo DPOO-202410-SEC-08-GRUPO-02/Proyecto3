@@ -78,12 +78,18 @@ import Usuario.Comprador;
 				int numeroCuentaPasRegistrado=(int) UsuarioEspecifico.get("numeroCuentaPas");
 				 
 				
-				if (numeroTarjeta==numeroTarjetaRegistrado && numeroCuentaPas==numeroCuentaPasRegistrado && estadoTarjeta=="Disponible") {
-					respuesta.put("bool", "true");
-					respuesta.put("nombrePasarela", pasarelaN );
-					return respuesta;
+				if (numeroTarjeta.equals(numeroTarjetaRegistrado)) 
+						if (numeroCuentaPas== numeroCuentaPasRegistrado) {
+							if (estadoTarjeta.equals("Disponible")) {
+								respuesta.put("bool", "true");
+								respuesta.put("nombrePasarela", pasarelaN );
+								return respuesta;
+								
+							}
+						}
+				 
 					
-				}
+				
 			}
 			respuesta.put("bool", "false");
 			respuesta.put("nombrePasarela", pasarela );

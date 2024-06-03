@@ -260,13 +260,13 @@ public class Cajero extends Empleado{
 	}
 
 	public void realizarPagoPasarela(Comprador comprador, Pieza pieza, double valor, Administrador admin, Cajero cajero, String nombrePasarela) {
-		if (nombrePasarela=="Paypal") {
+		if (nombrePasarela.equals("Paypal")) {
 			Paypal.ComprarPorPaypal(comprador,pieza,valor,admin,cajero);
 		}
-		if (nombrePasarela=="PayU") {
+		if (nombrePasarela.equals("PayU")) {
 			PayU.ComprarPorPayU(comprador,pieza,valor,admin,cajero);
 		}
-		if (nombrePasarela=="Stripe") {
+		if (nombrePasarela.equals("Stripe")) {
 			Stripe.ComprarPorStripe(comprador,pieza,valor,admin,cajero);
 		}
 	}

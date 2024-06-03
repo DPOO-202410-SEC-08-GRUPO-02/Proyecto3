@@ -128,4 +128,8 @@ public class Galeria {
 		String nombre = pasarela.getNombre();
 		pasarelaMap.put(nombre, pasarela);
 	}
+
+	public static Map<String, Pasarela> getPasarelaMap() {
+		return pasarelaMap;
+	}
 }

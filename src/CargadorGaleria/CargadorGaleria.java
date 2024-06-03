@@ -150,7 +150,7 @@ public class CargadorGaleria {
 			        int numeroCuentaPas = mapUsuarios.getInt("numeroCuentaPas");
 	                
 			        nuevaPasarela.addNuevoUsuarioPas(nombreU, pasarelas, dineroActual, login, numeroTarjeta, metodoPago, correo, limiteCompras, id, estadoTarjeta, contraseña, numeroCuentaPas);
-	                
+
 	            }
 	          Galeria.agregarPasarela(nuevaPasarela);
         }

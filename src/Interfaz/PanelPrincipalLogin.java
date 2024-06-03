@@ -159,6 +159,12 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog( null, "Error al guardar informacion de los usuarios" );
 				e1.printStackTrace();
 			}
+    		try {
+				CargadorGaleria.salvarPasarelas("./datos/Pasarelas.json");
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog( null, "Error al guardar informacion de los usuarios" );
+				e1.printStackTrace();
+			}
 			dispose();
         }
 		else if(e.getActionCommand( ).equals("login"))
@@ -260,6 +266,12 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 		}
     	try {
 			CargadorGaleria.cargarUsuario("./datos/Usuarios.json");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog( null, "Error al cargar informacion de los usuarios" );
+			e.printStackTrace();
+		}
+    	try {
+			CargadorGaleria.cargarPasarelas("./datos/Pasarelas.json");
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog( null, "Error al cargar informacion de los usuarios" );
 			e.printStackTrace();
