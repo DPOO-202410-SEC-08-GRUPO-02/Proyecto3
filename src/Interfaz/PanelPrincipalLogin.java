@@ -220,7 +220,12 @@ public class PanelPrincipalLogin extends JFrame implements ActionListener
 			        else if (tipo.equals("Comprador"))
 			        {
 			        	Comprador comprador = (Comprador) usuario;
-//			        	menuComprador(comprador);
+			        	PrincipalComprador principalComprador= new PrincipalComprador(comprador);
+			        	
+			        	Point location = getLocation();
+			   		 	principalComprador.setLocation(location);
+			        	setVisible(false);
+			   		 	principalComprador.setVisible(true);
 			        }
 			        
 			        else if (tipo.equals("Propietario"))
