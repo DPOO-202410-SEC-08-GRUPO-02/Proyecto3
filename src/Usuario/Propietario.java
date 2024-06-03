@@ -36,7 +36,7 @@ public class Propietario extends Cliente{
 	}
 
 	 public void consignarPieza(Pieza pieza, String fechaLim, Administrador admin) {
-		 /* Da una pieza a la Galeria con el atributo consignacion TRUE y una fecha limite*/
+		 /* Da una pieza a la Galeria con el atributo consignacion true y una fecha limite*/
 		 admin.ingresarPiezaConsignacion(pieza, fechaLim);
 		 
 	 }
