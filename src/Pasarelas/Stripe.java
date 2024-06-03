@@ -27,7 +27,7 @@ public class Stripe extends Pasarela{
 		double cobroUso= 0.55;
 		
 		
-		double interesDeUsoStripe= tarjetaCredito *cobroUso;
+		double interesDeUsoStripe= valor *cobroUso;
 		double valorCompra= valor + interesDeUsoStripe;
 		tarjetaCredito= tarjetaCredito - valorCompra;
 		dineroActual= dineroActual- valorCompra;
