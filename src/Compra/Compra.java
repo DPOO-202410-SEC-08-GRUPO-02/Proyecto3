@@ -2,7 +2,10 @@ package Compra;
 
 
 
+import java.util.Map;
+
 import Inventario.Pieza;
+import Pasarelas.Pasarela;
 import Subasta.Oferta;
 import Subasta.Subasta;
 import Usuario.Administrador;
@@ -34,7 +37,7 @@ public class Compra {
 		return comprador;
 	}
 
-	public static void pasarCaja(Comprador comprador, Pieza pieza, String tipoCompra, Administrador admin, Cajero cajero, String metodoPago) {
+	public static void pasarCaja(Comprador comprador, Pieza pieza, String tipoCompra, Administrador admin, Cajero cajero, String metodoPago, boolean pasarela) {
 		/*Se llama pasar a Caja para diferenciar que es proceso inicial de la compra, osea consultar todos 
 		 * los datos necesarios y mandar a verificarlos al cajero o al administarador y dependiendo del caso pasara a compra rechazada o confirmar compra
 		 */
@@ -56,9 +59,24 @@ public class Compra {
 		boolean compraVerificada = admin.verificarCompra(comprador, pieza, valor, cajero);
 		
 		
-		if(compraVerificada ==true) {
+		if(compraVerificada ==true && pasarela ==true) {
+			Map <String,String> respuesta = Pasarela.verificarcompra(comprador, pieza);
+
+			if (respuesta.get("bool")=="true") {
+				String nombrePasarela= respuesta.get("nombrePasarela");
+				cajero.realizarPagoPasarela(comprador, pieza, valor, admin, cajero,nombrePasarela);;
+			}
+			if (respuesta.get("bool")=="false") {
+
+				compraRechazada(comprador, pieza, admin);
+			}
+
+		}
+		else if(compraVerificada ==true && pasarela ==false) {
+			
 			cajero.realizarPago(comprador, pieza, valor, admin, cajero,metodoPago);;
-		}else{
+		}
+		else{
 			compraRechazada(comprador, pieza, admin);
 		}
 		

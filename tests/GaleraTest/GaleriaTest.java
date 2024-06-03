@@ -40,6 +40,7 @@ class GaleriaTest {
     	CargadorGaleria.cargarInventario("./datos/Inventario.json");
     	CargadorGaleria.cargarArtista("./datos/Artistas.json");
     	CargadorGaleria.cargarUsuario("./datos/Usuarios.json");
+    	CargadorGaleria.cargarPasarelas("./datos/Pasarelas.json");
     	
     	comprador = (Comprador) Galeria.getUsuario("German");
     	fotografia= (Fotografia) Galeria.getPiezaSubasta("d");
@@ -58,8 +59,8 @@ class GaleriaTest {
 		/* Esta prueba es para ver que todo haya cargado bien para las pruebas*/
 		/*Comprador*/
 		assertEquals("German", comprador.getNombre());
-		assertEquals( 52.2, comprador.getDineroActual());
-		assertEquals( 25, comprador.getLimiteCompras());
+		assertEquals( 102.2, comprador.getDineroActual());
+		assertEquals( 75, comprador.getLimiteCompras());
 		
 		/*Administrador*/
 		assertEquals("Maria", administrador.getNombre());
@@ -89,6 +90,7 @@ class GaleriaTest {
 		CargadorGaleria.salvarInventario("./datos/Inventario.json");
 		CargadorGaleria.salvarArtistas("./datos/Artistas.json");
 		CargadorGaleria.salvarUsuario("./datos/Usuarios.json");
+		CargadorGaleria.salvarPasarelas("./datos/Pasarelas.json");
 		
 	}
 	
@@ -101,11 +103,13 @@ class GaleriaTest {
 		Map<String,Pieza> historialPiezas= new HashMap<String,Pieza>();
 		Map<String,Pieza> infoCompras= new HashMap<String,Pieza>();
 		List<Pieza> piezasActuales= new ArrayList<Pieza>( );
+		List<String> pasarelas= new ArrayList<String>( );
+		pasarelas.add("Paypal");
 		Map<String,Double> metodoPago= new HashMap<String,Double>();
 		metodoPago.put("tarjetaCredito", 10.5);
 		metodoPago.put("efectivo", 30.2);
 		metodoPago.put("tarjetaCredito", 11.5);
-		Comprador compradorNoVerificado= new Comprador("Andres", "1234", "z", "Andres", "Andre@gmail.com", 789, "comprador", false, 52.2, 0.0, metodoPago, infoCompras ,historialPiezas,piezasActuales) ;
+		Comprador compradorNoVerificado= new Comprador("Andres", "1234", "z", "Andres", "Andre@gmail.com", 789, "comprador", false, 52.2, 0.0, metodoPago, infoCompras ,historialPiezas,piezasActuales,pasarelas, 456321789, "Disponible","1234-5678-8765-4321") ;
 		
 		/*Comprobamos que no tenga los atributos de un comprador verificado*/
 		assertEquals(false, compradorNoVerificado.getVerificado());
@@ -150,7 +154,7 @@ class GaleriaTest {
 		double efectivo= metodoPagoMap.get("efectivo");
 		double dineroActual= comprador.getDineroActual();
 		assertEquals(55.2, efectivo);
-		assertEquals(77.2, dineroActual);
+		assertEquals(127.2, dineroActual);
 	}
 	
 	@Test
@@ -158,14 +162,14 @@ class GaleriaTest {
 	
 	public void CompraNormal() {
 		/*Vamos a decir que el comprador quiere pagar su compra con efectivo*/
-		Compra.pasarCaja(comprador, video, "normal", administrador, cajero, "efectivo");
+		Compra.pasarCaja(comprador, video, "normal", administrador, cajero, "efectivo",false);
 		
 		/*Confirmamos que la operacion de resta de dinero este bien hecha*/
 		HashMap<String, Double> metodoPagoMap= (HashMap<String, Double>) comprador.getMetodoPago();
 		double dineroActual= comprador.getDineroActual();
 		double efectivo= metodoPagoMap.get("efectivo");
 		assertEquals(6.7, efectivo,0.1);
-		assertEquals(28.7, dineroActual,0.1);
+		assertEquals(78.7, dineroActual,0.1);
 		
 		/*Confirmamos que la pieza se halla editado*/
 		List<String> dueños=video.getDueños();
@@ -221,16 +225,14 @@ class GaleriaTest {
 		
 		/*Vamos a decir que el comprador quiere pagar su pieza de la subasta con tarjeta de credito*/
 		/*Tambien vamos a pasarle el atributo original de comprador y el atributo original de fotografia*/
-		Compra.pasarCaja(comprador, fotografia, "subasta", administrador, cajero, "tarjetaCredito");
+		Compra.pasarCaja(comprador, fotografia, "subasta", administrador, cajero, "tarjetaCredito",false);
 		
 		/*Confirmamos que la operacion de resta de dinero este bien hecha*/
 		HashMap<String, Double> metodoPagoMap= (HashMap<String, Double>) comprador.getMetodoPago();
 		double dineroActual= comprador.getDineroActual();
 		double tarjetaCredito= metodoPagoMap.get("tarjetaCredito");
-		double transferenciaElectronica= metodoPagoMap.get("transferenciaElectronica");
-		assertEquals(0, tarjetaCredito,0.1);
-		assertEquals(5.0, transferenciaElectronica,0.1);
-		assertEquals(35.2, dineroActual,0.1);
+		assertEquals(43.5, tarjetaCredito,0.1);
+		assertEquals(85.2, dineroActual,0.1);
 		/*El valor original de la fotografia era 15 pero como la oferta que hicimos fue 17, entonces toda la compra se hizo por 17 lo cual muestran estos assertequals*/
 		
 		/*Confirmamos que la pieza se halla editado*/
@@ -253,5 +255,4 @@ class GaleriaTest {
 		operador.setOfertas();
 		assertEquals(true,(operador.getOfertas().isEmpty()));
 	}
-
 }

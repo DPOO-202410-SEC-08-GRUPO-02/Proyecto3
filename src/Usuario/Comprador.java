@@ -15,11 +15,15 @@ public class Comprador extends Cliente{
 	private double limiteCompras;
 	private Map<String,Pieza> infoCompras= new HashMap<String,Pieza>();
 	private Map<String,Double> metodoPago= new HashMap<String,Double>();
+	private List<String> pasarelas= new ArrayList<String>();
+	private int numeroCuentaPas;
+	private String estadoTarjeta;
+	private String numeroTarjeta;
 	private Propietario Propietario;
 	
 	public Comprador (String Login, String Contraseña,String ID,String Nombre,String Correo,int Numero, String Tipo, 
 			boolean Verificado,double dineroActual, double LimiteCompras, Map<String,Double> MetodoPago,
-			Map<String,Pieza> InfoCompras, Map<String,Pieza> HistorialPiezas, List<Pieza> PiezasActuales) {
+			Map<String,Pieza> InfoCompras, Map<String,Pieza> HistorialPiezas, List<Pieza> PiezasActuales,List<String> pasarelas, int numeroCuentaPas, String estadoTarjeta, String numeroTarjeta) {
 		super(Login,Contraseña,ID,Nombre,Correo, Numero,Tipo,Verificado, HistorialPiezas, PiezasActuales);
 		this.login=Login;
 		this.contraseña=Contraseña;
@@ -35,6 +39,10 @@ public class Comprador extends Cliente{
 		this.infoCompras=InfoCompras;
 		this.historialPiezas = HistorialPiezas;
 		this.piezasActuales = PiezasActuales;
+		this.pasarelas=pasarelas;
+		this.numeroCuentaPas=numeroCuentaPas;
+		this.estadoTarjeta=estadoTarjeta;
+		this.numeroTarjeta=numeroTarjeta;
 	}
 
 	public double getDineroActual() {
@@ -43,6 +51,18 @@ public class Comprador extends Cliente{
 
 	public double getLimiteCompras() {
 		return limiteCompras;
+	}
+	
+	public int getNumeroCuentaPas() {
+		return numeroCuentaPas;
+	}
+	
+	public String getNumeroTarjeta() {
+		return numeroTarjeta;
+	}
+	
+	public String getEstadoTarjeta() {
+		return estadoTarjeta;
 	}
 	
 	public Map<String, Pieza> getInfoCompras() {
@@ -67,7 +87,7 @@ public class Comprador extends Cliente{
 	
 	public void comprarPieza(Pieza pieza,Comprador comprador, Administrador admin, Cajero cajero, String metodoPagoPreferido) {
 		/* El usuario podra elegir una pieza en el Catalogo para comprar*/
-		Compra.pasarCaja(comprador, pieza, "Compra normal", admin, cajero,metodoPagoPreferido);
+		Compra.pasarCaja(comprador, pieza, "Compra normal", admin, cajero,metodoPagoPreferido,false);
 	}
 	
 	public void editarLimite(double nuevoLimite) {
@@ -120,5 +140,8 @@ public class Comprador extends Cliente{
 	public void setVerificado(boolean nuevoValor)
 	{
 		this.verificado = nuevoValor;
+	}
+	public List<String> getPasarelas() {
+		return pasarelas;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import Artista.Artista;
 import Inventario.Pieza;
+import Pasarelas.Pasarela;
 import Usuario.Usuario;
 
 public class Galeria {
@@ -15,6 +16,7 @@ public class Galeria {
 	private static Map<String,Pieza> subastaMap= new HashMap<String,Pieza>();
 	private static Map<String,Usuario> usuariosMap= new HashMap<String,Usuario>();
 	private static Map<String,Artista> artistasMap= new HashMap<String,Artista>();
+	private static Map<String,Pasarela> pasarelaMap= new HashMap<String,Pasarela>();
 	
 	/*Subasta sera mas pequeña que Inventario porque solo estaran los elementos que tengan subasta en True*/
 	
@@ -46,6 +48,11 @@ public class Galeria {
 		Artista artista= artistasMap.get(nombre);
 		return artista;
 	}
+	public static Pasarela getPasarela(String nombre) {
+		/*Obtiene la informacion de una pieza en el inventario*/
+		Pasarela pasarela= pasarelaMap.get(nombre);
+		return pasarela;
+	}
 	
 	public static boolean existeUsuario(String login) {
 		boolean esta = usuariosMap.containsKey(login);
@@ -71,6 +78,9 @@ public class Galeria {
 	
 	public static Collection<Artista> getArtistaValores() {
 		return artistasMap.values();
+	}
+	public static Collection<Pasarela> getPasarelaValores() {
+		return pasarelaMap.values();
 	}
 	
 	public static Map<String, Pieza> getInventarioMap() {
@@ -108,8 +118,14 @@ public class Galeria {
 	}
 	
 	public static void agregarArtista(Artista artista) {
-		/*Agrega un usuario al hash map de Usuario*/
+		/*Agrega un usuario al hash map de Artista*/
 		String nombre = artista.getNombre();
 		artistasMap.put(nombre, artista);
+	}
+	
+	public static void agregarPasarela(Pasarela pasarela) {
+		/*Agrega un metodo de pasarela al hash map de Pasarelas*/
+		String nombre = pasarela.getNombre();
+		pasarelaMap.put(nombre, pasarela);
 	}
 }

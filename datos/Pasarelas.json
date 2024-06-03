@@ -1,0 +1,77 @@
+{"Pasarelas": [
+  {
+    "Usuarios": {"German": {
+      "metodoPago": {
+        "efectivo": 30.2,
+        "tarjetaCredito": 60.5,
+        "transferenciaElectronica": 11.5
+      },
+      "pasarelas": [
+        "Stripe",
+        "Paypal",
+        "PayU"
+      ],
+      "correo": "german23@gmail.com",
+      "limiteCompras": 75,
+      "dineroActual": 102.2,
+      "id": "a",
+      "login": "German",
+      "estadoTarjeta": "Disponible",
+      "nombre": "German",
+      "numeroTarjeta": "1234-5678-8765-4321",
+      "contraseña": "1234",
+      "numeroCuentaPas": 456321
+    }},
+    "nombre": "Paypal"
+  },
+  {
+    "Usuarios": {"German": {
+      "metodoPago": {
+        "efectivo": 30.2,
+        "tarjetaCredito": 60.5,
+        "transferenciaElectronica": 11.5
+      },
+      "pasarelas": [
+        "Stripe",
+        "Paypal",
+        "PayU"
+      ],
+      "correo": "german23@gmail.com",
+      "limiteCompras": 75,
+      "dineroActual": 102.2,
+      "id": "a",
+      "login": "German",
+      "estadoTarjeta": "Disponible",
+      "nombre": "German",
+      "numeroTarjeta": "1234-5678-8765-4321",
+      "contraseña": "1234",
+      "numeroCuentaPas": 456321
+    }},
+    "nombre": "Stripe"
+  },
+  {
+    "Usuarios": {"German": {
+      "metodoPago": {
+        "efectivo": 30.2,
+        "tarjetaCredito": 60.5,
+        "transferenciaElectronica": 11.5
+      },
+      "pasarelas": [
+        "Stripe",
+        "Paypal",
+        "PayU"
+      ],
+      "correo": "german23@gmail.com",
+      "limiteCompras": 75,
+      "dineroActual": 102.2,
+      "id": "a",
+      "login": "German",
+      "estadoTarjeta": "Disponible",
+      "nombre": "German",
+      "numeroTarjeta": "1234-5678-8765-4321",
+      "contraseña": "1234",
+      "numeroCuentaPas": 456321
+    }},
+    "nombre": "PayU"
+  }
+]}

@@ -20,6 +20,7 @@ import Inventario.Impresion;
 import Inventario.Pieza;
 import Inventario.Pintura;
 import Inventario.Video;
+import Pasarelas.Pasarela;
 import Subasta.Oferta;
 import Usuario.Administrador;
 import Usuario.Cajero;
@@ -83,6 +84,93 @@ public class CargadorGaleria {
         }
 		
 		jobject.put( "Artistas", jArtistas );
+		
+		PrintWriter pw = new PrintWriter( archivo );
+        jobject.write( pw, 2, 0 );
+        pw.close( );
+		
+	}
+	
+	
+	public static void cargarPasarelas(String archivo) throws IOException
+	{
+		String jsonCompleto = new String( Files.readAllBytes( new File( archivo ).toPath( ) ) );
+		JSONObject raiz = new JSONObject( jsonCompleto );
+		JSONArray jPasarelas = raiz.getJSONArray( "Pasarelas" );
+		
+		int numPasarelas = jPasarelas.length( );
+		
+		for( int i = 0; i < numPasarelas; i++ )
+        {
+			JSONObject pasarela = jPasarelas.getJSONObject(i);
+			
+			String nombre = pasarela.getString("nombre");
+			
+			Pasarela nuevaPasarela = new Pasarela(nombre);
+			
+			JSONObject UsuariosJson = (JSONObject) pasarela.get("Usuarios");
+	           for (Object key : UsuariosJson.keySet()) {
+	        	    String clave = (String) key;
+	                JSONObject mapUsuarios = (JSONObject) UsuariosJson.getJSONObject(clave);
+		            
+	                String nombreU = mapUsuarios.getString("nombre");
+	                
+	                JSONArray pasarelasArray = (JSONArray) mapUsuarios.getJSONArray("pasarelas");
+	                List<String> pasarelas = new ArrayList<>();
+		        	for (Object pasarela2 : pasarelasArray) {
+		                 pasarelas.add((String) pasarela2);
+		        	}
+		        	double dineroActual = 0.0;
+	                String login = mapUsuarios.getString("login");
+	                String numeroTarjeta = mapUsuarios.getString("numeroTarjeta");
+	                
+	                JSONObject metodoPagoJson = (JSONObject) mapUsuarios.get("metodoPago");
+			        Map<String, Double> metodoPago = new HashMap<>();
+			        
+			        BigDecimal tarjetaBigDecimal = (BigDecimal) metodoPagoJson.get("tarjetaCredito");
+			        double tarjeta = tarjetaBigDecimal.doubleValue();
+			        dineroActual += tarjeta;
+			        metodoPago.put("tarjetaCredito", tarjeta);
+			        
+			        BigDecimal transferenciaBigDecimal = (BigDecimal) metodoPagoJson.get("transferenciaElectronica");
+			        double transferencia = transferenciaBigDecimal.doubleValue();
+			        dineroActual += transferencia;
+			        metodoPago.put("transferenciaElectronica", transferencia);
+			        
+			        BigDecimal efectivoBigDecimal = (BigDecimal) metodoPagoJson.get("efectivo");
+			        double efectivo = efectivoBigDecimal.doubleValue();
+			        dineroActual += efectivo;
+			        metodoPago.put("efectivo", efectivo);
+			        
+			        String correo = mapUsuarios.getString("correo");
+			        double limiteCompras= mapUsuarios.getDouble("limiteCompras");
+			        String id= mapUsuarios.getString("id");
+			        String estadoTarjeta= mapUsuarios.getString("estadoTarjeta");
+			        String contraseña= mapUsuarios.getString("contraseña");
+			        int numeroCuentaPas = mapUsuarios.getInt("numeroCuentaPas");
+	                
+			        nuevaPasarela.addNuevoUsuarioPas(nombreU, pasarelas, dineroActual, login, numeroTarjeta, metodoPago, correo, limiteCompras, id, estadoTarjeta, contraseña, numeroCuentaPas);
+	                
+	            }
+	          Galeria.agregarPasarela(nuevaPasarela);
+        }
+	}
+	
+	public static void salvarPasarelas(String archivo) throws IOException
+	{	
+		JSONObject jobject = new JSONObject( );
+		JSONArray jPasarelas = new JSONArray( );
+		
+		for( Pasarela pasarela : Galeria.getPasarelaValores() )
+        {
+			JSONObject jPasarela = new JSONObject( );
+			jPasarela.put("nombre", pasarela.getNombre());
+			jPasarela.put("Usuarios", pasarela.getUsuarios());
+			
+			jPasarelas.put(jPasarela);
+        }
+		
+		jobject.put( "Pasarelas", jPasarelas );
 		
 		PrintWriter pw = new PrintWriter( archivo );
         jobject.write( pw, 2, 0 );
@@ -170,6 +258,10 @@ public class CargadorGaleria {
 				jUsuario.put("dineroActual", comprador.getDineroActual());
 				jUsuario.put("limiteCompras", comprador.getLimiteCompras());
 				jUsuario.put("metodoPago", comprador.getMetodoPago());
+				jUsuario.put("numeroCuentaPas", comprador.getNumeroCuentaPas());
+				jUsuario.put("estadoTarjeta", comprador.getEstadoTarjeta());
+				jUsuario.put("numeroTarjeta", comprador.getNumeroTarjeta());
+				
 				
 				Map<String, Pieza> mapInfoPiezas = comprador.getInfoCompras();
 				Map<String, Object> jsonMapInfo = new HashMap<>();
@@ -215,6 +307,9 @@ public class CargadorGaleria {
 		        }
 				
 				jUsuario.put("piezasActuales", jsonList);
+				
+				List<String> listaPasarelas = comprador.getPasarelas();
+				jUsuario.put("pasarelas", listaPasarelas);
 			}
 			
 			else if (tipo.equals("Propietario"))
@@ -319,6 +414,9 @@ public class CargadorGaleria {
 				boolean verificado = usuario.getBoolean("verificado");
 				double dineroActual = 0.0;
 				double limiteCompras = usuario.getDouble("limiteCompras");
+				int numeroCuentaPas = usuario.getInt("numeroCuentaPas");
+				String estadoTarjeta = usuario.getString("estadoTarjeta");
+				String numeroTarjeta = usuario.getString("numeroTarjeta");
 				JSONObject metodoPagoJson = (JSONObject) usuario.get("metodoPago");
 		        Map<String, Double> metodoPago = new HashMap<>();
 		        
@@ -362,9 +460,15 @@ public class CargadorGaleria {
 	                Pieza nuevaPieza = CargadorGaleria.agregarPieza(pieza);
 	            	piezasActuales.add(nuevaPieza);
 	            }
+	            
+	            JSONArray pasarelasArray = (JSONArray) usuario.getJSONArray("pasarelas");
+	            List<String> pasarelas = new ArrayList<>();
+	        	for (Object pasarela : pasarelasArray) {
+	                 pasarelas.add((String) pasarela);
+	        	}
 		        
 				nuevoUsuario = new Comprador(login, contraseña, id, nombre, correo, numero, tipo, verificado,
-						dineroActual,limiteCompras, metodoPago, infoCompras, historial, piezasActuales);
+						dineroActual,limiteCompras, metodoPago, infoCompras, historial, piezasActuales,pasarelas, numeroCuentaPas,estadoTarjeta,numeroTarjeta);
 			}
 			
 			else if (tipo.equals("Propietario"))

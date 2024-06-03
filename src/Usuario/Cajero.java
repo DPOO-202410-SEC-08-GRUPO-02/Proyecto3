@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Inventario.Pieza;
+import Pasarelas.PayU;
+import Pasarelas.Paypal;
+import Pasarelas.Stripe;
 
 public class Cajero extends Empleado{
 	
@@ -254,5 +257,17 @@ public class Cajero extends Empleado{
 			}
 		comprador.editarDineroActual(dineroActual, tarjetaCredito, transferenciaElectronica, efectivo, metodoPagoMap);
 		administrador.verificarDevolucion (comprador, pieza);
+	}
+
+	public void realizarPagoPasarela(Comprador comprador, Pieza pieza, double valor, Administrador admin, Cajero cajero, String nombrePasarela) {
+		if (nombrePasarela=="Paypal") {
+			Paypal.ComprarPorPaypal(comprador,pieza,valor,admin,cajero);
+		}
+		if (nombrePasarela=="PayU") {
+			PayU.ComprarPorPayU(comprador,pieza,valor,admin,cajero);
+		}
+		if (nombrePasarela=="Stripe") {
+			Stripe.ComprarPorStripe(comprador,pieza,valor,admin,cajero);
+		}
 	}
 }

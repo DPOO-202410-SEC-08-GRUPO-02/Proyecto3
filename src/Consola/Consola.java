@@ -44,6 +44,7 @@ public class Consola
     	CargadorGaleria.cargarInventario("./datos/Inventario.json");
     	CargadorGaleria.cargarArtista("./datos/Artistas.json");
     	CargadorGaleria.cargarUsuario("./datos/Usuarios.json");
+    	CargadorGaleria.cargarPasarelas("./datos/Pasarelas.json");
     	
     	inicioSesion();
     }
@@ -69,6 +70,7 @@ public class Consola
 	    		CargadorGaleria.salvarInventario("./datos/Inventario.json");
 	    		CargadorGaleria.salvarArtistas("./datos/Artistas.json");
 	    		CargadorGaleria.salvarUsuario("./datos/Usuarios.json");
+	    		CargadorGaleria.salvarPasarelas("./datos/Pasarelas.json");
 	    		
 	    		System.out.println("\nGracias por visitar nuestra galería. ¡Hasta pronto!");
 	    		continuar = false;
@@ -1677,7 +1679,7 @@ public class Consola
 		            	metodoPago = "transferenciaElectronica";
 		            }
 
-	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero,metodoPago);
+	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero,metodoPago,false);
 	                
 	                System.out.println("Compra realizada con éxito. Gracias por tu compra.");
                 } 
@@ -1874,7 +1876,7 @@ public class Consola
 		            	metodoPago = "transferenciaElectronica";
 		            }
 		            
-	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero,metodoPago);
+	                nuevaCompra.pasarCaja(comprador, pieza, "normal", admin, cajero,metodoPago,false);
 	                
 	                System.out.println("Compra realizada con éxito. Gracias por su compra.");
                 } 

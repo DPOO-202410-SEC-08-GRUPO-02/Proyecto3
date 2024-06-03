@@ -140,7 +140,12 @@
       "anio": 1941,
       "fechaVenta": "n/a"
     }},
-    "dineroActual": 52.2,
+    "pasarelas": [
+      "Stripe",
+      "Paypal",
+      "PayU"
+    ],
+    "dineroActual": 102.2,
     "login": "German",
     "piezasActuales": [{
       "estado": "Vendida",
@@ -172,14 +177,16 @@
       "anio": 1504
     }],
     "nombre": "German",
+    "numeroTarjeta": "1234-5678-8765-4321",
     "metodoPago": {
       "efectivo": 30.2,
-      "tarjetaCredito": 10.5,
+      "tarjetaCredito": 60.5,
       "transferenciaElectronica": 11.5
     },
     "correo": "german23@gmail.com",
-    "limiteCompras": 25,
+    "limiteCompras": 75,
     "id": "a",
+    "estadoTarjeta": "Disponible",
     "historialPiezas": {"18-11-23": {
       "estado": "Exhibida",
       "tipo": "Escultura",
@@ -209,7 +216,8 @@
       "precioVenta": 25,
       "anio": 1504
     }},
-    "contraseña": "1234"
+    "contraseña": "1234",
+    "numeroCuentaPas": 456321
   },
   {
     "tipo": "Administrador",
