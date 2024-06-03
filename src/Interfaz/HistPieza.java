@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.MatteBorder;
 
@@ -24,6 +25,8 @@ public class HistPieza extends JFrame implements ActionListener
 {
 
     private JTextArea textAreaHistorial;
+    private JScrollPane scrollPane;
+
     private Pieza pieza;
     
     private JPanel panelCentral;
@@ -60,6 +63,7 @@ public class HistPieza extends JFrame implements ActionListener
         textAreaHistorial.setFont(new Font("Calibri", Font.PLAIN, 24));
         textAreaHistorial.setBackground(grisesito);
         textAreaHistorial.setText(crearTextoHistorial(pieza));
+        scrollPane = new JScrollPane(textAreaHistorial);
         
         lblImagen = new JLabel();
         ImageIcon icono = new ImageIcon("./datos/imagenes/" + pieza.getID() + ".png");
@@ -68,7 +72,7 @@ public class HistPieza extends JFrame implements ActionListener
         panelCentral.add(lblImagen);
         add(panelCentral, BorderLayout.CENTER);
         
-        panelCentral.add(textAreaHistorial);
+        panelCentral.add(scrollPane);
         panelCentral.setBackground(grisesito);
 
 //		Panel Sur
