@@ -46,10 +46,6 @@ public class Propietario extends Cliente{
 		 return historialPiezas;
 	}
 
-	public Comprador getComprador() {
-		return comprador;
-	}
-	 
 	public List<String> getEstadoPiezas() {
 		return estadoPiezas;
 	}
