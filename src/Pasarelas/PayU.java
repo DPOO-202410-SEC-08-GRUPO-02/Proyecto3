@@ -29,6 +29,9 @@ public class PayU extends Pasarela {
 		
 		double interesDeUsoPayU= tarjetaCredito *cobroUso;
 		double valorCompra= valor + interesDeUsoPayU;
+		
+		pieza.setPrecioVenta(valorCompra);
+		
 		tarjetaCredito= tarjetaCredito - valorCompra;
 		dineroActual= dineroActual- valorCompra;
 		valor=0.001;

@@ -29,6 +29,9 @@ public class Paypal extends Pasarela{
 		
 		double interesDeUsoPaypal= tarjetaCredito *cobroUso;
 		double valorCompra= valor + interesDeUsoPaypal;
+		
+		pieza.setPrecioVenta(valorCompra);
+		
 		tarjetaCredito= tarjetaCredito - valorCompra;
 		dineroActual= dineroActual- valorCompra;
 		

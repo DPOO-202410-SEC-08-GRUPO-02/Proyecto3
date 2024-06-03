@@ -29,9 +29,11 @@ public class Stripe extends Pasarela{
 		
 		double interesDeUsoStripe= valor *cobroUso;
 		double valorCompra= valor + interesDeUsoStripe;
+		
+		pieza.setPrecioVenta(valorCompra);
+		
 		tarjetaCredito= tarjetaCredito - valorCompra;
 		dineroActual= dineroActual- valorCompra;
-		valor=0.001;
 		
 		
 		
