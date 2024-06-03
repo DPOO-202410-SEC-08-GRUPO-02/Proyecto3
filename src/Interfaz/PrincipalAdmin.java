@@ -33,6 +33,8 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 	private JButton btnHistArtista;
 	private JButton btnHistPieza;
 	private JButton btnInventario;
+	private JButton btnGraficoVentas;
+
 	
 	private Administrador admin;
 	
@@ -72,7 +74,7 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         
 //        Panel central
         
-        panelCentral.setLayout(new GridLayout ( 2, 2));
+        panelCentral.setLayout(new GridLayout ( 3, 2));
         
         btnInfoCliente = new JButton("<html>Obtener el historial, piezas actuales y el valor de la colección de un cliente" );
         panelCentral.add( btnInfoCliente );
@@ -93,6 +95,13 @@ public class PrincipalAdmin extends JFrame implements ActionListener
         panelCentral.add( btnHistPieza );
         btnHistPieza.addActionListener( this );
         btnHistPieza.setActionCommand( "histPieza" );
+        
+        btnGraficoVentas = new JButton("<html>Mirar la grafica de ventas" );
+        panelCentral.add( btnGraficoVentas );
+        btnGraficoVentas.addActionListener( this );
+        btnGraficoVentas.setActionCommand( "graficoVentas" );
+        
+        
         
 	}	
 	
@@ -184,6 +193,15 @@ public class PrincipalAdmin extends JFrame implements ActionListener
 			inventarioAdmin.setLocation(location);
 			setVisible(false);
 			inventarioAdmin.setVisible(true);
+        }
+		else if(e.getActionCommand( ).equals("graficoVentas"))
+        {
+			GraficoVentas graficoVentas = new GraficoVentas(admin);
+			
+			Point location = getLocation();
+			graficoVentas.setLocation(location);
+			setVisible(false);
+			graficoVentas.setVisible(true);
         }
     }
 }
