@@ -114,7 +114,7 @@ public class PrincipalEmpleado extends JFrame implements ActionListener
 			String Idpieza = JOptionPane.showInputDialog( "Ingrese el ID de la pieza" );
 			
 			Pieza pieza;
-			pieza = (Pintura) Inventario.getPiezaInventario(Idpieza);
+			pieza = (Pieza) Inventario.getPiezaInventario(Idpieza);
 			
 			
 			if (pieza != null)
