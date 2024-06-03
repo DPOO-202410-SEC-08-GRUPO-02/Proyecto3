@@ -45,6 +45,7 @@ public class Compra extends JFrame implements ActionListener
 
 	public Compra(Comprador comprador,String piezaID) 
     {
+		this.comprador=comprador;
     	pieza = (Pieza) Inventario.getPiezaInventario(piezaID);
         setTitle("Historial de la Pieza");
         setSize(800, 900);
